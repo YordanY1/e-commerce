@@ -405,3 +405,167 @@
         height: 400px; /* Smaller height for smaller screens */
     }
 }
+
+.filter-section h4 {
+    margin-bottom: 1rem;
+}
+
+.category-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin-bottom: 0.5rem;
+}
+
+.category-input {
+    margin-right: 0.5rem;
+}
+
+.category-input + label {
+    cursor: pointer;
+}
+
+.price-filter-section h4 {
+    margin-bottom: 1rem;
+}
+
+.price-range-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.price-range-list li {
+    margin-bottom: 0.5rem;
+}
+
+.price-range-input {
+    margin-right: 0.5rem;
+}
+
+.price-range-input + label {
+    cursor: pointer;
+}
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.category-filter-section, .price-filter-section {
+    flex: 1; /* Each section takes equal width */
+    margin: 0 10px; /* Spacing between sections */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section {
+        flex-basis: 100%; /* Each section takes full width on small screens */
+        margin: 10px 0; /* Spacing for small screens */
+    }
+}
+
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end; /* Align items vertically at the bottom */
+}
+
+.category-filter-section, .price-filter-section, .sorting-pagination-section {
+    margin: 0 10px; /* Reduced spacing */
+    flex-basis: auto; /* Adjusts width automatically */
+}
+
+.sorting-section, .pagination-section {
+    display: inline-block; /* Display inline for side-by-side layout */
+    margin-right: 1rem; /* Spacing between sorting and pagination */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section, .sorting-pagination-section {
+        flex-basis: 100%; /* Full width on small screens */
+        margin: 10px 0; /* Vertical spacing */
+    }
+
+    .sorting-section, .pagination-section {
+        display: block; /* Stack vertically on smaller screens */
+        margin-right: 0;
+    }
+}
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligns items vertically center */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.category-filter-section, .price-filter-section, .sorting-section, .pagination-section {
+    flex: 1; /* Each section takes equal width */
+    margin: 0 5px; /* Reduced spacing */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section, .sorting-section, .pagination-section {
+        flex-basis: 100%; /* Full width on small screens */
+        margin: 5px 0; /* Vertical spacing */
+    }
+}
+
+/* CSS for hiding the filter and sorting sections on mobile */
+@media (max-width: 768px) {
+    .filter-section > div:not(.mobile-filter-sort-buttons) {
+        display: none; /* Hide all sections except mobile buttons */
+    }
+
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        margin-top: 1rem;
+    }
+
+    .mobile-filter-button, .mobile-sort-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 10px; /* Space between buttons */
+    }
+}
+
+/* Hide the mobile buttons on larger screens */
+@media (min-width: 769px) {
+    .mobile-filter-sort-buttons {
+        display: none;
+    }
+}
+
+/* Mobile screen styles */
+@media (max-width: 768px) {
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        align-items: center;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .mobile-filter-button, .mobile-sort-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 10px; /* Space between buttons */
+    }
+}

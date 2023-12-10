@@ -9,54 +9,6 @@
     font-size: 0.75rem; /* Adjust the font size of the badge */
 }
 
-@media (max-width: 768px) {
-    .navbar-nav {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .navbar-nav .nav-item {
-        margin-right: 1rem; /* Adds spacing between menu items */
-    }
-
-    .navbar-nav .nav-item:last-child {
-        margin-right: 0; /* Removes margin from the last item */
-    }
-}
-
-
-/* Custom Styles for Mobile Navbar */
-@media (max-width: 992px) {
-    .navbar-collapse {
-        position: fixed;
-        top: 0;
-        left: 0; /* Position the sidebar on the screen */
-        transform: translateX(-100%); /* Initially hidden off-screen */
-        width: 80%; /* Width of the sidebar */
-        height: 100%;
-        background-color: #fff;
-        transition: transform 0.3s ease;
-        z-index: 1050;
-    }
-
-    .navbar-toggler.collapsed + .navbar-collapse {
-        transform: translateX(-100%); /* Hide when collapsed */
-    }
-
-    .navbar-toggler:not(.collapsed) + .navbar-collapse {
-        transform: translateX(0); /* Show when toggled */
-    }
-
-    .navbar-nav {
-        display: block; /* Ensure items are displayed as a list */
-    }
-
-    .navbar-nav .nav-item {
-        padding: 0.5rem 1rem; /* Adjust padding for list items */
-    }
-}
-
-
 /* Class to blur the rest of the page */
 .page-content.modal-open {
     filter: blur(5px);
@@ -65,7 +17,7 @@
 
 .full-bg-image {
     height: 100vh;
-    background-image: url('/images/img_bg_1.jpg');
+    /* background-image: url('/images/img_bg_2.jpg'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

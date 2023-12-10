@@ -4,7 +4,7 @@
 
 @section('content')
 
-        <div class="full-bg-image">
+        <div class="full-bg-image" style="background-image: url('/images/img_bg_1.jpg');">
             <div class="container">
                 <div class="welcome-text">
                     <h1>Welcome to Our Shop</h1>
@@ -12,6 +12,7 @@
                 </div>
             </div>
         </div>
+
 
         <div id="fh5co-services" class="fh5co-bg-section">
             <div class="container">

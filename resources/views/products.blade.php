@@ -18,7 +18,7 @@
             </div>
 
             {{-- Products Grid --}}
-            {{-- <div class="row">
+            <div class="row">
                 @foreach($products as $product)
                     <div class="col-md-4 text-center animate-box">
                         <div class="product">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 @endforeach
-            </div> --}}
+            </div>
         </div>
     </div>
 

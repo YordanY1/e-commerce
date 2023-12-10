@@ -1,0 +1,455 @@
+.navbar .fa-shopping-bag {
+    font-size: 1.25rem; /* Adjust the size of the icon */
+}
+
+.navbar .badge {
+    position: relative;
+    top: -10px;
+    right: -10px;
+    font-size: 0.75rem; /* Adjust the font size of the badge */
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 1rem; /* Adds spacing between menu items */
+    }
+
+    .navbar-nav .nav-item:last-child {
+        margin-right: 0; /* Removes margin from the last item */
+    }
+}
+
+
+/* Custom Styles for Mobile Navbar */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: 0; /* Position the sidebar on the screen */
+        transform: translateX(-100%); /* Initially hidden off-screen */
+        width: 80%; /* Width of the sidebar */
+        height: 100%;
+        background-color: #fff;
+        transition: transform 0.3s ease;
+        z-index: 1050;
+    }
+
+    .navbar-toggler.collapsed + .navbar-collapse {
+        transform: translateX(-100%); /* Hide when collapsed */
+    }
+
+    .navbar-toggler:not(.collapsed) + .navbar-collapse {
+        transform: translateX(0); /* Show when toggled */
+    }
+
+    .navbar-nav {
+        display: block; /* Ensure items are displayed as a list */
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0.5rem 1rem; /* Adjust padding for list items */
+    }
+}
+
+
+/* Class to blur the rest of the page */
+.page-content.modal-open {
+    filter: blur(5px);
+}
+
+
+.full-bg-image {
+    height: 100vh;
+    background-image: url('/images/img_bg_1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center; /* Aligns the content vertically center */
+    justify-content: center; /* Aligns the content horizontally center */
+}
+
+.welcome-text {
+    text-align: center;
+    color: rgb(25 13 13 / 54%); /* Adjust color based on your background image */
+    max-width: 600px; /* Adjust the width as needed */
+}
+
+.welcome-text h1 {
+    font-size: 3rem; /* Large text for the heading */
+    margin-bottom: 1rem;
+}
+
+.welcome-text p {
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    line-height: 1.5;
+}
+
+
+.fh5co-bg-section {
+    background: #f8f9fa; /* Light background color */
+    padding: 2rem 0; /* Top and bottom padding */
+}
+
+.service-item .icon {
+    font-size: 3rem; /* Icon size */
+    color: #0275d8; /* Icon color */
+    margin-bottom: 1rem; /* Space below the icon */
+    display: inline-block;
+    width: 80px; /* Circle size */
+    height: 80px; /* Circle size */
+    line-height: 80px; /* Vertically center the icon */
+    border-radius: 50%; /* Make it circular */
+    background: #f8f9fa; /* Light background color for the circle */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.fh5co-bg-section {
+    padding: 4rem 0; /* More padding for the section */
+}
+
+.service-item h3 {
+    margin-top: 1rem; /* Adjust spacing */
+    margin-bottom: 1rem;
+}
+
+.service-item p {
+    color: #666; /* Subtle text color */
+    margin-bottom: 1.5rem; /* More space above the button */
+}
+
+.btn-custom {
+    border-color: #0275d8;
+    color: #0275d8;
+}
+
+.btn-custom.btn-outline:hover {
+    background-color: #0275d8;
+    color: white;
+}
+
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    .service-item {
+        margin-bottom: 2rem; /* Adds space below each item */
+        padding: 0 1rem; /* Adds padding on the sides */
+    }
+
+    .service-item .icon {
+        width: 60px; /* Smaller circle size */
+        height: 60px; /* Smaller circle size */
+        line-height: 60px; /* Adjust line height to vertically center the icon */
+        font-size: 2rem; /* Smaller icon size to fit the circle */
+    }
+}
+
+
+/* General padding for the product section */
+#fh5co-product {
+    padding: 4rem 0;
+}
+
+/* Header styling */
+.fh5co-heading {
+    text-align: center;
+}
+
+.fh5co-heading span {
+    color: #0275d8;
+    font-weight: 600;
+    display: block;
+}
+
+.fh5co-heading h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.fh5co-heading p {
+    margin-bottom: 3rem;
+    color: #666;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Product grid styling */
+.product-grid {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+
+/* Inner overlay for product grid */
+/* Desktop Styles */
+/* Desktop Styles */
+.product-grid .inner {
+    display: none; /* Icons hidden by default */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Lighter overlay - adjust the alpha value (0.3) as needed */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner {
+        background: rgba(0, 0, 0, 0); /* Transparent overlay on mobile */
+    }
+}
+
+
+.product-grid:hover .inner {
+    display: flex; /* Icons shown on hover */
+}
+
+
+/* Icon Styles */
+.product-grid .inner .icon {
+    color: #fff;
+    margin: 0 5px;
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner .icon {
+        font-size: 1.5rem; /* Increase the font size for larger icons */
+        /* Additional styling as needed */
+    }
+}
+
+
+/* Adjusting the hover effect */
+.product-grid:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner {
+        display: flex; /* Always show icons on mobile */
+    }
+}
+
+
+/* Product description styling */
+/* Description text styling */
+.desc {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    margin-top: -2rem;
+    transition: all 0.3s ease;
+}
+
+.desc h3, .desc .price {
+    color: #333; /* Black color for the text */
+    font-size: 0.9rem; /* Smaller font size */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+
+.desc h3 a {
+    color: inherit; /* Inherits color from h3 */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.product-grid:hover .desc h3,
+.product-grid:hover .desc .price {
+    color: gold; /* Change color to gold on hover */
+}
+
+
+
+/* Change text color on hover over the product grid */
+.product-grid:hover .desc h3,
+.product-grid:hover .desc .price {
+    color: gold; /* Change color to gold on hover */
+}
+
+/* Custom button styling */
+.btn-custom.btn-outline {
+    border-color: #0275d8;
+    color: #0275d8;
+}
+
+.btn-custom.btn-outline:hover {
+    background-color: #0275d8;
+    color: white;
+}
+
+/* Responsive centering for the header */
+#fh5co-footer {
+    background-color: #efefef;
+    color: #333;
+    padding: 2rem 0;
+}
+
+.fh5co-footer-links, .fh5co-social-icons {
+    list-style: none;
+    padding: 0;
+}
+
+.fh5co-footer-links li, .fh5co-social-icons li {
+    display: inline; /* Display items in line */
+    margin-right: 15px;
+}
+
+.fh5co-footer-links a, .fh5co-social-icons a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.fh5co-footer-links a:hover, .fh5co-social-icons a:hover {
+    color: #0275d8;
+}
+
+.fh5co-social-icons li a {
+    font-size: 1.2rem; /* Adjust the size of the icons */
+}
+
+@media (max-width: 768px) {
+    .fh5co-footer-links, .fh5co-social-icons {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .fh5co-footer-links li, .fh5co-social-icons li {
+        display: block; /* Stack items vertically on small screens */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+ /* ABOUT */
+
+ #fh5co-about {
+    background-color: #f8f8f8; /* Light background for the about section */
+    padding: 2rem 0; /* Top and bottom padding */
+}
+
+.about-content {
+    margin-bottom: 2rem; /* Spacing between content sections */
+}
+
+#fh5co-about .desc {
+    margin-bottom: 1rem; /* Spacing between paragraphs */
+}
+
+#fh5co-about h3 {
+    color: #333; /* Dark color for headings */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+#fh5co-about p {
+    line-height: 1.6; /* Line height for paragraph text */
+    color: #666; /* Lighter text color for readability */
+}
+
+#fh5co-about .img-responsive {
+    max-width: 100%; /* Ensure image is responsive */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 1rem; /* Space below the image */
+}
+
+@media (max-width: 768px) {
+    .about-content .desc, .about-content .img-responsive {
+        text-align: center; /* Center content on small screens */
+    }
+}
+
+
+
+#fh5co-contact {
+    background-color: #f8f8f8;
+    padding: 2rem 0;
+}
+
+.fh5co-contact-info h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.fh5co-contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.fh5co-contact-info li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.fh5co-contact-info i {
+    margin-right: 10px;
+    color: #0275d8;
+}
+
+.fh5co-contact-info a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Optional: ensures links use the current text color */
+}
+
+.fh5co-contact-info a:hover,
+.fh5co-contact-info a:focus {
+    text-decoration: underline; /* Optional: add underline on hover for better user experience */
+}
+
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .col-md-5, .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .col-md-push-1 {
+        position: relative;
+        left: 0;
+    }
+}
+/* Add responsiveness and other specific styles as needed */
+.google-maps-custom {
+    width: 100%; /* Ensures the container is full width */
+    height: 600px; /* Set a height for the map container */
+}
+
+/* Responsive styling, if needed */
+@media (max-width: 768px) {
+    .google-maps-custom {
+        height: 400px; /* Smaller height for smaller screens */
+    }
+}

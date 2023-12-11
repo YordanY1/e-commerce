@@ -1,0 +1,43 @@
+.dot-stepper {
+    list-style: none;
+    padding: 0;
+}
+
+.dot-stepper li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot-stepper li.active {
+    background-color: #0056b3; /* Active dot color */
+}
+
+
+.carousel-item img {
+    max-height: 600px; /* Adjust the max-height as needed */
+    width: auto;
+    margin: 0 auto; /* This centers the image if it's smaller than the container */
+}
+
+@media (max-width: 768px) { /* Adjust the max-width as needed for your design */
+    .carousel-item img {
+        max-height: 400px; /* Adjust the max-height as needed */
+        width: auto;
+        margin: 0 auto; /* This centers the image if it's smaller than the container */
+    }
+}
+
+/* Existing styles for .dot-stepper and .dot-stepper li... */
+
+@media (max-width: 768px) { /* Adjust the max-width as needed for your design */
+    .dot-stepper li {
+        width: 15px; /* Increase the size of the dots */
+        height: 15px; /* Increase the size of the dots */
+        margin: 0 10px;
+    }
+}

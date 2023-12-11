@@ -21,7 +21,7 @@
 
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">{{ $product->name }}</a></h3>
+                                <h3><a href="{{ url('/product') }}">{{ $product->name }}</a></h3>
                                 <span class="price">${{ $product->price }}</span>
                             </div>
                         </div>
@@ -110,9 +110,21 @@
         </div>
 
         <div class="mobile-filter-sort-buttons">
-            <button class="mobile-filter-button">Филтрирай</button>
-            <button class="mobile-sort-button">Подреди</button>
+            <button class="mobile-filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">Филтрирай</button>
+            <button class="mobile-sort-button" data-bs-toggle="modal" data-bs-target="#sortModal">Подреди</button>
         </div>
+
+        {{-- Filter Modal with its content --}}
+        <x-filter-modal>
+        {{-- Include category-filter-section and price-filter-section here --}}
+        </x-filter-modal>
+
+        {{-- Sort Modal with its content --}}
+        <x-sort-modal>
+        {{-- Include sorting-pagination-section here --}}
+        </x-sort-modal>
+
+
     </div>
 
     {{-- Products Grid --}}
@@ -135,13 +147,13 @@
                         <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Wooden Chair</a></h3>
+                            <h3><a href="{{ url('/product') }}">Wooden Chair</a></h3>
                             <span class="price">$150</span>
                         </div>
                     </div>
@@ -151,13 +163,13 @@
                         <div class="product-grid" style="background-image:url('/images/product-2.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Smartphone</a></h3>
+                            <h3><a href="{{ url('/product') }}">Smartphone</a></h3>
                             <span class="price">$500</span>
                         </div>
                     </div>
@@ -167,13 +179,13 @@
                         <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Leather Jacket</a></h3>
+                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
                             <span class="price">$250</span>
                         </div>
                     </div>
@@ -183,13 +195,13 @@
                         <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Leather Jacket</a></h3>
+                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
                             <span class="price">$250</span>
                         </div>
                     </div>
@@ -199,13 +211,13 @@
                           <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Leather Jacket</a></h3>
+                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
                             <span class="price">$250</span>
                         </div>
                     </div>
@@ -215,13 +227,13 @@
                           <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">Leather Jacket</a></h3>
+                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
                             <span class="price">$250</span>
                         </div>
                     </div>

@@ -147,7 +147,7 @@
                         <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -163,7 +163,7 @@
                         <div class="product-grid" style="background-image:url('/images/product-2.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -179,7 +179,7 @@
                         <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -195,7 +195,7 @@
                         <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -211,7 +211,7 @@
                           <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -227,7 +227,7 @@
                           <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
                             <div class="inner">
                                 <p>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
                                     <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
@@ -238,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- More products... --}}
+                <x-products.cart-modal/>
             </div>
         </div>
     </div>

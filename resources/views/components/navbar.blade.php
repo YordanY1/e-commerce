@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="cart.html">
                     <i class="fas fa-shopping-bag"></i>
-                    <span class="badge bg-primary">0</span>
+                    <span class="badge bg-primary" id="cart-badge">0</span>
                 </a>
             </li>
         </ul>

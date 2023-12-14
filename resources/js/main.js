@@ -10,3 +10,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+//Carosel
+
+window.updateActiveDot = function updateActiveDot(activeIndex) {
+    const dots = document.querySelectorAll('#carouselStepper .dot-stepper li');
+    dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+window.moveCarousel = function moveCarousel(step) {
+    $('#productCarousel').carousel(step);
+    updateActiveDot(step);
+}
+
+

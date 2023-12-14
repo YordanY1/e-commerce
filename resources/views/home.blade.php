@@ -70,14 +70,14 @@
                             <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                                 <div class="inner">
                                     <p>
-                                        <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                     </p>
                                 </div>
 
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
                                 <span class="price">$350</span>
                             </div>
                         </div>
@@ -86,47 +86,30 @@
                         <div class="product">
                             <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                                 <div class="inner">
-                                    <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                  <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </div>
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
                                 <span class="price">$350</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                        <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-4 text-center animate-box">
                         <div class="product">
                             <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                                 <div class="inner">
                                     <p>
-                                        <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                     </p>
                                 </div>
 
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
                                 <span class="price">$350</span>
                             </div>
                         </div>
@@ -136,14 +119,14 @@
                             <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                                 <div class="inner">
                                     <p>
-                                        <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                     </p>
                                 </div>
 
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
                                 <span class="price">$350</span>
                             </div>
                         </div>
@@ -153,19 +136,36 @@
                             <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
                                 <div class="inner">
                                     <p>
-                                        <a href="single.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="single.html" class="icon"><i class="fas fa-eye"></i></a>
+                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
                                     </p>
                                 </div>
 
                             </div>
                             <div class="desc">
-                                <h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
                                 <span class="price">$350</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Add more products as needed -->
+                    <div class="col-md-4 text-center animate-box">
+                        <div class="product">
+                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
+                                <div class="inner">
+                                    <p>
+                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
+                                    </p>
+                                </div>
+
+                            </div>
+                            <div class="desc">
+                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
+                                <span class="price">$350</span>
+                            </div>
+                        </div>
+                    </div>
+                    <x-products.cart-modal/>
                 </div>
             </div>
         </div>

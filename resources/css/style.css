@@ -569,3 +569,56 @@
         margin: 0 10px; /* Space between buttons */
     }
 }
+
+
+@media (max-width: 768px) {
+    .filter-section {
+        display: none; /* Hide original sections on mobile */
+    }
+
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* Space between buttons */
+    }
+}
+
+/* For larger screens, hide the mobile buttons */
+@media (min-width: 769px) {
+    .mobile-filter-sort-buttons {
+        display: none;
+    }
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .category-input, .price-range-input, .big-checkbox {
+        /* Adjust size for mobile */
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .category-list label, .price-range-list label {
+        /* Increase font size and padding for better touch targets */
+        font-size: 1rem;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+}
+
+/* General style for Big Checkboxes */
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+/* Style to remove list bullets */
+ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0px;
+}
+
+

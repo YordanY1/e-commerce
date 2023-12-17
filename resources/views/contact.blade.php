@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.contacts.layout')
 
 @section('title', 'Contacts')
 

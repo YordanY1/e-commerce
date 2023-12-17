@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Categories')</title>
+    <title>@yield('title', 'About')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -16,28 +16,29 @@
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/css/app.css'])
 
+    <title>About</title>
 </head>
 <body>
-    <!-- Navbar Component -->
-    <x-navbar />
+      <!-- Navbar Component -->
+      <x-navbar />
 
-    <!-- Main Content Area -->
-    <div class="page-content">
-        @yield('content')
-    </div>
+      <!-- Main Content Area -->
+      <div class="page-content">
+          @yield('content')
+      </div>
 
-    <!-- Footer Component -->
-    <x-footer />
+      <!-- Footer Component -->
+      <x-footer />
 
-    <!-- Vite JS for Laravel Mix -->
-    @vite(['resources/js/app.js', 'resources/js/main.js'])
+      <!-- Vite JS for Laravel Mix -->
+      @vite(['resources/js/app.js', 'resources/js/main.js'])
 
-    <!-- External JS Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+      <!-- External JS Libraries -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-    <!-- Stack for additional scripts -->
-    @stack('scripts')
+      <!-- Stack for additional scripts -->
+      @stack('scripts')
 </body>
 </html>

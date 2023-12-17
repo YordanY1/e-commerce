@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/googleMaps/maps.js',
                 'resources/js/main.js',
                 'resources/js/products/productsIntoBasket.js',
+                'resources/js/admin/app.js',
             ],
             refresh: true,
         }),

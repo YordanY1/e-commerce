@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+use App\Http\Controllers\Api\ManufacturerApiController;
+
+Route::get('/manufacturers', [ManufacturerApiController::class, 'index']);
+Route::get('/manufacturers/{id}', [ManufacturerApiController::class, 'show']);
+Route::post('/manufacturers', [ManufacturerApiController::class, 'store']);
+Route::put('/manufacturers/{id}', [ManufacturerApiController::class, 'update']);
+Route::delete('/manufacturers/{id}', [ManufacturerApiController::class, 'destroy']);

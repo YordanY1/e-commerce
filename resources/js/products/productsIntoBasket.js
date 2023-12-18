@@ -50,4 +50,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-console.log(document.getElementById('cartModal'));

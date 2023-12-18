@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/main.js',
                 'resources/js/products/productsIntoBasket.js',
                 'resources/js/admin/app.js',
+                'resources/js/admin/manufacturers/app.js',
             ],
             refresh: true,
         }),

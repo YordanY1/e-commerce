@@ -2,25 +2,28 @@
 
 namespace App\View\Components;
 
-use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Renderable;
+use App\Models\Manufacturer;
+use App\Models\Category;
 
 class CreateProductsAdminModal extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $manufacturers;
+
+    public function __construct($manufacturers = null, $categories = null)
     {
-        //
+        $this->manufacturers = $manufacturers ?? Manufacturer::all();
+        $this->categories = $categories ?? Category::all();
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
+    public function render(): Renderable
     {
-        return view('components.create-products-admin-modal');
+        return view('components.create-products-admin-modal', [
+            'manufacturers' => $this->manufacturers,
+            'categories' => $this->categories
+        ]);
     }
+
 }

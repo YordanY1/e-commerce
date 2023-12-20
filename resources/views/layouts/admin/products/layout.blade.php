@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Panel</title>
+    <title>Products</title>
 
       <!-- Fonts -->
       <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,7 +21,7 @@
     @yield('content')
 
     <!-- Vite JS for Laravel Mix -->
-    @vite(['resources/js/admin/manufacturers/app.js'])
+    @vite(['resources/js/admin/products/app.js'])
 
      <!-- External JS Libraries -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

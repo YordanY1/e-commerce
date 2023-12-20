@@ -14,6 +14,6 @@ class Manufacturer extends Model
     // Релация към Product (many-to-many)
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

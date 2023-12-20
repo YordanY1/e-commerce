@@ -1,6 +1,6 @@
 <!-- Modal for Adding New Product -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <!-- Add Product Form -->
-                <form id="addProductForm" action="{{ route('admin.products.store') }}" method="POST">
+                <form id="addProductForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Product Name -->
                     <div class="mb-3">
@@ -23,24 +23,29 @@
                     </div>
 
                     <!-- Manufacturer Select -->
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="manufacturerSelect" class="form-label">Manufacturer</label>
                         <select class="form-select" id="manufacturerSelect" name="manufacturer_id">
                             @foreach ($manufacturers as $manufacturer)
                                 <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
                             @endforeach
                         </select>
-                    </div> --}}
+                    </div>
 
                     <!-- Categories Select -->
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="categoriesSelect" class="form-label">Categories</label>
                         <select class="form-select" id="categoriesSelect" name="categories[]" multiple>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
-                    </div> --}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Product Image</label>
+                        <input type="file" class="form-control" id="productImage" name="image" accept="image/*">
+                    </div>
 
                     <!-- Additional Product Attributes -->
                     <div class="mb-3">
@@ -77,3 +82,10 @@
         </div>
     </div>
 </div>
+
+<style>
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
+</style>

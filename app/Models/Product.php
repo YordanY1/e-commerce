@@ -24,14 +24,20 @@ class Product extends Model
     }
 
     // Релация към Price
-    public function prices()
+    public function price()
     {
         return $this->hasOne(Price::class);
     }
 
-    // Релация към Categories (many-to-many)
-    public function categories()
+    public function images()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->hasMany(Image::class);
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
+
+
 }

@@ -97,7 +97,6 @@
     <div id="fh5co-product">
         <div class="container">
             <div class="row animate-box">
-                {{-- Section Header --}}
                 <div class="col-md-8 mx-auto text-center fh5co-heading">
                     <span>Our Exclusive Products</span>
                     <h2>Unique Selections</h2>
@@ -105,105 +104,26 @@
                 </div>
             </div>
 
-            {{-- Products Grid --}}
             <div class="row">
-                {{-- Hardcoded Products for Demonstration --}}
-                <div class="col-md-4 text-center animate-box" data-category="furniture">
+                @foreach ($products as $product)
+                <div class="col-md-4 text-center animate-box">
                     <div class="product">
-                        <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
+                        <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
                             <div class="inner">
                                 <p>
                                     <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ url('/product', $product->id) }}" class="icon"><i class="fas fa-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Wooden Chair</a></h3>
-                            <span class="price">$150</span>
+                            <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
+                            <span class="price">${{ optional($product->price)->price ?? 'N/A' }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-center animate-box" data-category="electronics">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url('/images/product-2.jpg');">
-                            <div class="inner">
-                                <p>
-                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Smartphone</a></h3>
-                            <span class="price">$500</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box" data-category="clothing">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
-                            <div class="inner">
-                                <p>
-                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
-                            <span class="price">$250</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box" data-category="clothing">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
-                            <div class="inner">
-                                <p>
-                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
-                            <span class="price">$250</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box" data-category="clothing">
-                    <div class="product">
-                          <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
-                            <div class="inner">
-                                <p>
-                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
-                            <span class="price">$250</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center animate-box" data-category="clothing">
-                    <div class="product">
-                          <div class="product-grid" style="background-image:url('/images/product-3.jpg');">
-                            <div class="inner">
-                                <p>
-                                   <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product') }}">Leather Jacket</a></h3>
-                            <span class="price">$250</span>
-                        </div>
-                    </div>
-                </div>
+            @endforeach
+
                 <x-products.cart-modal/>
             </div>
         </div>

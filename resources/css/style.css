@@ -9,6 +9,32 @@
     font-size: 0.75rem; /* Adjust the font size of the badge */
 }
 
+.navbar-custom-color .nav-link, .navbar-custom-color .navbar-brand {
+    color: #106EE8 !important;
+}
+
+/* To change the color of the dropdown items as well */
+.navbar-custom-color .dropdown-menu .dropdown-item {
+    color: #106EE8 !important;
+}
+
+/* Optional: Change the color on hover for better user experience */
+.navbar-custom-color .nav-link:hover, .navbar-custom-color .navbar-brand:hover,
+.navbar-custom-color .dropdown-menu .dropdown-item:hover {
+    color: #0a58ca !important; /* A slightly darker shade for hover effect */
+}
+
+
+.footer-custom-color .nav-link, .footer-custom-color .navbar-brand {
+    color: #106EE8 !important;
+}
+
+/* Optional: Change the color on hover for better user experience */
+.footer-custom-color .nav-link:hover, .footer-custom-color .navbar-brand:hover {
+    color: #0a58ca !important; /* A slightly darker shade for hover effect */
+}
+
+
 /* Class to blur the rest of the page */
 .page-content.modal-open {
     filter: blur(5px);

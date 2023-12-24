@@ -7,8 +7,8 @@
         <div class="full-bg-image" style="background-image: url('/images/img_bg_1.jpg');">
             <div class="container">
                 <div class="welcome-text">
-                    <h1>Welcome to Our Shop</h1>
-                    <p>Discover a world of unique and beautiful items</p>
+                    <h2>Добре дошли в нашия магазин!</h2>
+                    <p>Разгледайте нашите разнообразни продукти</p>
                 </div>
             </div>
         </div>
@@ -22,9 +22,8 @@
                         <div class="icon">
                             <i class="fas fa-credit-card"></i>
                         </div>
-                        <h3>Credit Card</h3>
-                        <p>Far far away, behind the word mountains...</p>
-                        <a href="#" class="btn btn-custom btn-outline">Learn More</a>
+                        <h3>Кредитни карти</h3>
+                        <p>Предлагаме плащане с кредитни карти.</p>
                     </div>
 
                     <!-- Service Item 2 -->
@@ -32,9 +31,8 @@
                         <div class="icon">
                             <i class="fas fa-wallet"></i>
                         </div>
-                        <h3>Save Money</h3>
-                        <p>Far far away, behind the word mountains...</p>
-                        <a href="#" class="btn btn-custom btn-outline">Learn More</a>
+                        <h3>Изгодни цени</h3>
+                        <p>Предлагаме доста изгодни и добри цени</p>
                     </div>
 
                     <!-- Service Item 3 -->
@@ -42,9 +40,8 @@
                         <div class="icon">
                             <i class="fas fa-truck"></i>
                         </div>
-                        <h3>Free Delivery</h3>
-                        <p>Far far away, behind the word mountains...</p>
-                        <a href="#" class="btn btn-custom btn-outline">Learn More</a>
+                        <h3>Бърза доставка</h3>
+                        <p>Изпращаме доставки до всички краища на България</p>
                     </div>
                 </div>
             </div>
@@ -56,117 +53,36 @@
                 <!-- Section Header -->
                 <div class="row animate-box">
                     <div class="col-md-8 mx-auto text-center fh5co-heading">
-                        <span>Cool Stuff</span>
-                        <h2>Products</h2>
-                        <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+                        <span>Част от нашите</span>
+                        <h2>Продукти</h2>
                     </div>
                 </div>
 
-                <!-- Products Grid -->
                 <div class="row">
-                    <!-- Product 1 -->
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                        <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
+                    @foreach ($products as $product)
+                        <div class="col-md-4 text-center animate-box">
+                            <div class="product">
+                                @foreach ($product->images as $image)
+                                    <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
+                                @endforeach
+                                    <div class="inner">
+                                        <p>
+                                            <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
+                                            <a href="{{ url('/product', $product->id) }}" class="icon"><i class="fas fa-eye"></i></a>
+                                        </p>
+                                    </div>
                                 </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                  <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
+                                <div class="desc">
+                                    <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
+                                    <span class="price">${{ $product->price->price ?? 'N/A' }}</span>
                                 </div>
                             </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center animate-box">
-                        <div class="product">
-                            <div class="product-grid" style="background-image:url('/images/product-1.jpg');">
-                                <div class="inner">
-                                    <p>
-                                      <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="{{ url('/product') }}" class="icon"><i class="fas fa-eye"></i></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="desc">
-                                <h3><a href="{{ url('/product') }}">Hauteville Concrete Rocking Chair</a></h3>
-                                <span class="price">$350</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                     <x-products.cart-modal/>
                 </div>
+
+
             </div>
         </div>
 @endsection

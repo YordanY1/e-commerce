@@ -35,7 +35,8 @@ Route::get('/contact', [ContactController::class, 'index']);
 
 Route::get('/products', [ProductsController::class, 'index']);
 
-Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product/{id}', [ProductController::class, 'show']);
+
 
 Route::get('/card', [CartController::class, 'index']);
 

@@ -7,16 +7,28 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                <a class="nav-link" href="{{ url('/') }}">Начало</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Категории
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!-- Add an option for all categories -->
+                    <li><a class="dropdown-item" href="{{ url('/products') }}">Всички категории</a></li>
+
+                    <!-- List all individual categories -->
+                    @foreach ($categories as $category)
+                        <li><a class="dropdown-item" href="{{ url('/products?category=' . $category->id) }}">{{ $category->name }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/about') }}">За нас</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/products') }}">Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/about') }}">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/contact') }}">Contacts</a>
+                <a class="nav-link" href="{{ url('/contact') }}">Контакти</a>
             </li>
         </ul>
         <ul class="navbar-nav">

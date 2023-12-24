@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductsController extends Controller
 {
     public function index(Request $request)
     {
+        $categories = Category::all(); // Fetch all categories
+
         $categoryId = $request->query('category');
 
         if ($categoryId) {
@@ -18,7 +21,15 @@ class ProductsController extends Controller
         } else {
             $products = Product::with(['images', 'price'])->get();
         }
-        // Return the products view with the products data
-        return view('products.products', compact('products'));
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('products.partials.product_list', compact('products'))->render()
+            ]);
+        }
+
+        // Return the full view for non-AJAX requests
+        return view('products.products', compact('products', 'categories'));
+
     }
 }

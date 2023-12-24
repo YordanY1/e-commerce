@@ -30,8 +30,38 @@ document.addEventListener('DOMContentLoaded', () => {
 //     updateActiveDot(step);
 // }
 
+
+//Carosel
 function moveCarousel(index) {
     $('#productCarousel').carousel(index);
 }
 
 
+
+//For the categories
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryInputs = document.querySelectorAll('.category-input');
+
+    categoryInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            const selectedCategoryId = Array.from(categoryInputs)
+                .find(input => input.checked)?.dataset.category || 'all';
+
+            fetchProductsByCategory(selectedCategoryId);
+        });
+    });
+
+    function fetchProductsByCategory(categoryId) {
+        const url = new URL(window.location.href);
+        if (categoryId !== 'all') {
+            url.searchParams.set('category', categoryId);
+        }
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('fh5co-product').innerHTML = data.html;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});

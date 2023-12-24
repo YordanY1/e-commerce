@@ -14,19 +14,12 @@
                             <input type="checkbox" id="category-all" class="category-input" data-category="all">
                             <label for="category-all">All</label>
                         </li>
-                        <li>
-                            <input type="checkbox" id="category-furniture" class="category-input" data-category="furniture">
-                            <label for="category-furniture">Furniture</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="category-electronics" class="category-input" data-category="electronics">
-                            <label for="category-electronics">Electronics</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="category-clothing" class="category-input" data-category="clothing">
-                            <label for="category-clothing">Clothing</label>
-                        </li>
-                        <!-- Add more categories as needed -->
+                        @foreach ($categories as $category)
+                            <li>
+                                <input type="checkbox" id="category-{{ $category->id }}" class="category-input" data-category="{{ $category->id }}">
+                                <label for="category-{{ $category->id }}">{{ $category->name }}</label>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 

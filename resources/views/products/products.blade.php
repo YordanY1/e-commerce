@@ -8,27 +8,21 @@
         <div class="filter-section d-flex flex-wrap justify-content-between">
             <!-- Category Filters -->
             <div class="category-filter-section">
-                <h4>Filter by Category:</h4>
+                <h4>Филтър по категории:</h4>
                 <ul class="category-list">
                     <li>
                         <input type="checkbox" id="category-all" class="category-input" data-category="all">
-                        <label for="category-all">All</label>
+                        <label for="category-all">Всички</label>
                     </li>
-                    <li>
-                        <input type="checkbox" id="category-furniture" class="category-input" data-category="furniture">
-                        <label for="category-furniture">Furniture</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="category-electronics" class="category-input" data-category="electronics">
-                        <label for="category-electronics">Electronics</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="category-clothing" class="category-input" data-category="clothing">
-                        <label for="category-clothing">Clothing</label>
-                    </li>
-                    <!-- Add more categories as needed -->
+                    @foreach ($categories as $category)
+                        <li>
+                            <input type="checkbox" id="category-{{ $category->id }}" class="category-input" data-category="{{ $category->id }}">
+                            <label for="category-{{ $category->id }}">{{ $category->name }}</label>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
+
 
             <!-- Price Filters -->
             <div class="price-filter-section">
@@ -89,43 +83,15 @@
         <x-sort-modal>
         {{-- Include sorting-pagination-section here --}}
         </x-sort-modal>
-
-
     </div>
 
-    {{-- Products Grid --}}
     <div id="fh5co-product">
         <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 mx-auto text-center fh5co-heading">
-                    <span>Our Exclusive Products</span>
-                    <h2>Unique Selections</h2>
-                    <p>Explore our range of products, each with its own unique design and style.</p>
-                </div>
-            </div>
 
-            <div class="row">
-                @foreach ($products as $product)
-                <div class="col-md-4 text-center animate-box">
-                    <div class="product">
-                        <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
-                            <div class="inner">
-                                <p>
-                                    <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                    <a href="{{ url('/product', $product->id) }}" class="icon"><i class="fas fa-eye"></i></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
-                            <span class="price">${{ optional($product->price)->price ?? 'N/A' }}</span>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-
-                <x-products.cart-modal/>
-            </div>
+            @include('products.partials.product_list', ['products' => $products])
         </div>
+        <x-products.cart-modal/>
     </div>
+
+
 @endsection

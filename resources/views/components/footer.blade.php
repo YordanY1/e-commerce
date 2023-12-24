@@ -1,19 +1,27 @@
-<footer id="fh5co-footer" role="contentinfo">
+<footer id="fh5co-footer" class="bg-light footer-custom-color">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h3>Shop.</h3>
+            <!-- Logo Column (full width on mobile, centered on mobile, with vertical margins on mobile) -->
+            <div class="col-12 col-sm-2 d-flex align-items-center justify-content-center justify-content-sm-start mb-3 mb-sm-0">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('svg/jeronimo-logo-color.svg') }}" style="width: 100px;" alt="Logo">
+                </a>
             </div>
-            <div class="col-md-4">
-                <ul class="fh5co-footer-links">
-                    <li><a href="{{ url('/about') }}">За нас</a></li>
-                    <li><a href="{{ url('/contact') }}">Контакти</a></li>
-                    <li><a href="#">Общи Условия</a></li>
+
+            <!-- Navigation Links (full width on mobile, with vertical margins on mobile) -->
+            <div class="col-12 col-sm-8 d-flex justify-content-center mb-3 mb-sm-0">
+                <ul class="nav flex-column flex-sm-row">
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">За нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Контакти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Общи Условия</a></li>
                 </ul>
             </div>
-            <div class="col-md-4 text-md-right">
-                <ul class="fh5co-social-icons">
-                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+
+            <!-- Social Icons (full width on mobile, centered on mobile, with vertical margins on mobile) -->
+            <div class="col-12 col-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+                <ul class="nav flex-column flex-sm-row">
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <!-- Additional social icons can be added here -->
                 </ul>
             </div>
         </div>

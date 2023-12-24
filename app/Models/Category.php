@@ -13,8 +13,10 @@ class Category extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        // Replace 'category' with the correct table name if it's different
+        return $this->belongsToMany(Product::class, 'category');
     }
+
 
     public function parent()
     {

@@ -6,6 +6,14 @@
         </p>
     </div>
 </div>
+
+@if($products->isEmpty())
+    <div class="row">
+        <div class="col text-center">
+            <p>Няма намерени продукти в този ценови диапазон.</p>
+        </div>
+    </div>
+@else
     <div class="row">
         @foreach ($products as $product)
             <div class="col-md-4 text-center animate-box">
@@ -26,4 +34,4 @@
             </div>
         @endforeach
     </div>
-</div>
+@endif

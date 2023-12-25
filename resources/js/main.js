@@ -41,20 +41,38 @@ function moveCarousel(index) {
 //For the categories
 document.addEventListener('DOMContentLoaded', () => {
     const categoryInputs = document.querySelectorAll('.category-input');
+    const priceRangeInputs = document.querySelectorAll('.price-range-input');
 
     categoryInputs.forEach(input => {
-        input.addEventListener('change', () => {
-            const selectedCategoryId = Array.from(categoryInputs)
-                .find(input => input.checked)?.dataset.category || 'all';
-
-            fetchProductsByCategory(selectedCategoryId);
-        });
+        input.addEventListener('change', fetchProducts);
     });
 
-    function fetchProductsByCategory(categoryId) {
+    priceRangeInputs.forEach(input => {
+        input.addEventListener('change', fetchProducts);
+    });
+
+    function fetchProducts() {
+        const selectedCategoryId = Array.from(categoryInputs)
+            .find(input => input.checked)?.dataset.category || 'all';
+        const selectedPriceRangeId = Array.from(priceRangeInputs)
+            .find(input => input.checked)?.id || 'all';
+
+        fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId);
+    }
+
+    function fetchProductsByFilters(categoryId, priceRangeId) {
         const url = new URL(window.location.href);
+
         if (categoryId !== 'all') {
             url.searchParams.set('category', categoryId);
+        } else {
+            url.searchParams.delete('category');
+        }
+
+        if (priceRangeId !== 'all') {
+            url.searchParams.set('priceRange', priceRangeId);
+        } else {
+            url.searchParams.delete('priceRange');
         }
 
         fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })

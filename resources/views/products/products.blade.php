@@ -26,7 +26,7 @@
 
             <!-- Price Filters -->
             <div class="price-filter-section">
-                <h4>Filter by Price:</h4>
+                <h4>Филтриране по цена</h4>
                 <ul class="price-range-list">
                     <li>
                         <input type="radio" id="price-range-1" name="price-range" class="price-range-input">
@@ -44,7 +44,6 @@
                         <input type="radio" id="price-range-4" name="price-range" class="price-range-input">
                         <label for="price-range-4">$200+</label>
                     </li>
-                    <!-- Add more price ranges as needed -->
                 </ul>
             </div>
 
@@ -92,6 +91,36 @@
         </div>
         <x-products.cart-modal/>
     </div>
-
-
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const filterInputs = document.querySelectorAll('.category-input, .price-range-input');
+
+    filterInputs.forEach(input => {
+        input.addEventListener('change', fetchFilteredProducts);
+    });
+
+    function fetchFilteredProducts() {
+        const selectedCategoryId = Array.from(document.querySelectorAll('.category-input:checked'))
+            .map(input => input.dataset.category);
+        const selectedPriceRangeId = document.querySelector('.price-range-input:checked')?.id;
+
+        const url = new URL(window.location.href);
+        if (selectedCategoryId.length > 0) {
+            url.searchParams.set('category', selectedCategoryId);
+        }
+        if (selectedPriceRangeId) {
+            url.searchParams.set('priceRange', selectedPriceRangeId);
+        }
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('product-list').innerHTML = data.html;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+
+    </script>

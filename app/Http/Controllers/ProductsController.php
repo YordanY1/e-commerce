@@ -47,7 +47,32 @@ class ProductsController extends Controller
                 break;
         }
 
-        $products = $query->get();
+        // Sorting logic
+        $sorting = $request->query('sorting');
+        if ($sorting) {
+            switch ($sorting) {
+                case 'popular':
+                    // Implement logic for popular sorting
+                    // Example: $query->orderBy('popularity', 'desc');
+                    break;
+                case 'expensive':
+                    // Sort by price in descending order (more expensive first)
+                    $query->whereHas('price', function($q) {
+                        $q->orderBy('price', 'desc');
+                    });
+                    break;
+                case 'low-price':
+                    // Sort by price in ascending order (less expensive first)
+                    $query->whereHas('price', function($q) {
+                        $q->orderBy('price', 'asc');
+                    });
+                    break;
+            }
+        }
+
+        // Pagination logic
+        $pagination = $request->query('pagination') ?: 10; // Default pagination
+        $products = $query->paginate($pagination);
 
         // Check if the request is an AJAX call
         if ($request->ajax()) {

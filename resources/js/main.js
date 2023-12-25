@@ -37,12 +37,17 @@ function moveCarousel(index) {
 }
 
 
-
-//For the categories
+//Sorting
 document.addEventListener('DOMContentLoaded', () => {
+    // Select elements
     const categoryInputs = document.querySelectorAll('.category-input');
     const priceRangeInputs = document.querySelectorAll('.price-range-input');
 
+    // These will only be set if elements with the corresponding IDs exist
+    const sortingSelect = document.getElementById('sorting');
+    const paginationSelect = document.getElementById('pagination');
+
+    // Event listeners for category and price range filters
     categoryInputs.forEach(input => {
         input.addEventListener('change', fetchProducts);
     });
@@ -51,18 +56,30 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('change', fetchProducts);
     });
 
+    // Event listeners for sorting and pagination, if those elements exist
+    if (sortingSelect) {
+        sortingSelect.addEventListener('change', fetchProducts);
+    }
+
+    if (paginationSelect) {
+        paginationSelect.addEventListener('change', fetchProducts);
+    }
+
     function fetchProducts() {
         const selectedCategoryId = Array.from(categoryInputs)
             .find(input => input.checked)?.dataset.category || 'all';
         const selectedPriceRangeId = Array.from(priceRangeInputs)
             .find(input => input.checked)?.id || 'all';
+        const selectedSorting = sortingSelect ? sortingSelect.value : 'default';
+        const selectedPagination = paginationSelect ? paginationSelect.value : 'default';
 
-        fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId);
+        fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId, selectedSorting, selectedPagination);
     }
 
-    function fetchProductsByFilters(categoryId, priceRangeId) {
+    function fetchProductsByFilters(categoryId, priceRangeId, sorting, pagination) {
         const url = new URL(window.location.href);
 
+        // Set or remove query parameters based on filters
         if (categoryId !== 'all') {
             url.searchParams.set('category', categoryId);
         } else {
@@ -75,6 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
             url.searchParams.delete('priceRange');
         }
 
+        // Add parameters only if they exist
+        if (sorting !== 'default') {
+            url.searchParams.set('sorting', sorting);
+        } else {
+            url.searchParams.delete('sorting');
+        }
+
+        if (pagination !== 'default') {
+            url.searchParams.set('pagination', pagination);
+        } else {
+            url.searchParams.delete('pagination');
+        }
+
+        // Fetch and update the product list
         fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
             .then(response => response.json())
             .then(data => {

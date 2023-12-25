@@ -92,35 +92,3 @@
         <x-products.cart-modal/>
     </div>
 @endsection
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const filterInputs = document.querySelectorAll('.category-input, .price-range-input');
-
-    filterInputs.forEach(input => {
-        input.addEventListener('change', fetchFilteredProducts);
-    });
-
-    function fetchFilteredProducts() {
-        const selectedCategoryId = Array.from(document.querySelectorAll('.category-input:checked'))
-            .map(input => input.dataset.category);
-        const selectedPriceRangeId = document.querySelector('.price-range-input:checked')?.id;
-
-        const url = new URL(window.location.href);
-        if (selectedCategoryId.length > 0) {
-            url.searchParams.set('category', selectedCategoryId);
-        }
-        if (selectedPriceRangeId) {
-            url.searchParams.set('priceRange', selectedPriceRangeId);
-        }
-
-        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('product-list').innerHTML = data.html;
-            })
-            .catch(error => console.error('Error:', error));
-    }
-});
-
-    </script>

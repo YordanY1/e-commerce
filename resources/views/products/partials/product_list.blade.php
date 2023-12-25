@@ -1,4 +1,4 @@
-<div class="row animate-box">
+<div class="row" data-aos="fade-up" data-aos-duration="1000">
     <div class="col-md-8 mx-auto text-center fh5co-heading">
         <span>Запалване на иновациите в газовите технологии</span>
         <h2>Иновативни и изключителни газови продукти</h2>
@@ -6,6 +6,7 @@
         </p>
     </div>
 </div>
+
 
 @if($products->isEmpty())
     <div class="row">
@@ -16,7 +17,7 @@
 @else
     <div class="row">
         @foreach ($products as $product)
-            <div class="col-md-4 text-center animate-box">
+            <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="product">
                     <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
                         <div class="inner">

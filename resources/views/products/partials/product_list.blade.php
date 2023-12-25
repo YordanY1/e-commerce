@@ -21,8 +21,12 @@
                     <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
                         <div class="inner">
                             <p>
-                                <a href="#" class="icon add-to-cart"><i class="fas fa-shopping-cart"></i></a>
-                                <a href="{{ url('/product', $product->id) }}" class="icon"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="icon add-to-cart btn btn-primary square-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                                <a href="{{ url('/product', $product->id) }}" class="icon btn btn-primary square-icon">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </p>
                         </div>
                     </div>

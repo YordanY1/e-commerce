@@ -6,9 +6,9 @@
 
         <div class="full-bg-image" style="background-image: url('/images/img_bg_1.jpg');">
             <div class="container">
-                <div class="welcome-text">
+                <div class="welcome-text" data-aos="fade-in" data-aos-duration="1000">
                     <h2>Добре дошли в нашия магазин!</h2>
-                    <p>Разгледайте нашите разнообразни продукти</p>
+                    <h6>Разгледайте нашите разнообразни продукти</h6>
                 </div>
             </div>
         </div>
@@ -18,7 +18,10 @@
             <div class="container">
                 <div class="row">
                     <!-- Service Item 1 -->
-                    <div class="col-lg-4 col-md-6 text-center service-item">
+                    <div class="col-lg-4 col-md-6 text-center service-item"
+                         data-aos="fade-up"
+                         data-aos-duration="1000"
+                         data-aos-delay="500">
                         <div class="icon">
                             <i class="fas fa-credit-card"></i>
                         </div>
@@ -27,7 +30,10 @@
                     </div>
 
                     <!-- Service Item 2 -->
-                    <div class="col-lg-4 col-md-6 text-center service-item">
+                    <div class="col-lg-4 col-md-6 text-center service-item"
+                         data-aos="fade-up"
+                         data-aos-duration="1000"
+                         data-aos-delay="1000">
                         <div class="icon">
                             <i class="fas fa-wallet"></i>
                         </div>
@@ -36,7 +42,10 @@
                     </div>
 
                     <!-- Service Item 3 -->
-                    <div class="col-lg-4 col-md-6 text-center service-item">
+                    <div class="col-lg-4 col-md-6 text-center service-item"
+                         data-aos="fade-up"
+                         data-aos-duration="1000"
+                         data-aos-delay="1500">
                         <div class="icon">
                             <i class="fas fa-truck"></i>
                         </div>
@@ -60,11 +69,11 @@
 
                 <div class="row">
                     @foreach ($products as $product)
-                        <div class="col-md-4 text-center animate-box">
+                        <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
                             <div class="product">
                                 @foreach ($product->images as $image)
                                     <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
-                                @endforeach
+                                    @endforeach
                                     <div class="inner">
                                         <p>
                                             <a href="#" class="icon add-to-cart btn btn-primary square-icon">
@@ -85,8 +94,6 @@
                     @endforeach
                     <x-products.cart-modal/>
                 </div>
-
-
             </div>
         </div>
 @endsection

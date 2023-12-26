@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ManufacturerApiController;
 use App\Http\Controllers\Api\ProductsApiController;
 use App\Http\Controllers\Api\CategoriesApiController;
+use App\Http\Controllers\MailController;
 
 
 /*
@@ -44,3 +45,7 @@ Route::get('/categories/{id}', [CategoriesApiController::class, 'show']);
 Route::post('/categories', [CategoriesApiController::class, 'store']);
 Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
 Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
+
+
+//Emails
+Route::post('/send-email', [MailController::class, 'sendEmail']);

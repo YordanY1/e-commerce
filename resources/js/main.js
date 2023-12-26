@@ -114,3 +114,27 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error:', error));
     }
 });
+
+
+//Emails
+window.sendEmail = function sendEmail(event) {
+    event.preventDefault();
+
+    var formData = new FormData(document.getElementById('contactForm'));
+
+    fetch('/api/send-email', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        // Clear the form
+        document.getElementById('contactForm').reset();
+
+        // Show the success modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}

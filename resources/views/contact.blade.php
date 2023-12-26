@@ -20,16 +20,22 @@
                 </div>
                 <div class="col-md-6" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">
                     <h3>Свържете се с нас</h3>
-                    <form action="#">
+                    <form id="contactForm">
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" id="fullname" class="form-control" placeholder="Вашето име">
+                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Вашето име">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" id="email" class="form-control" placeholder="Вашият e-mail">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Вашият e-mail">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Тема">
                             </div>
                         </div>
 
@@ -38,14 +44,35 @@
                                 <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Съобщение"></textarea>
                             </div>
                         </div>
+
+
                         <div class="form-group">
-                            <input type="submit" value="Изпрати" class="btn btn-primary">
+                            <input type="submit" value="Изпрати" class="btn btn-primary" onclick="sendEmail(event)">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Запитването е изпратено успешно!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Благодарим Ви, че се свързахте с нас. Ще Ви отговорим възможно най-скоро!
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Затвори</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
 
     <div class="container" data-aos="zoom-in" data-aos-duration="1000">
         <div class="row">

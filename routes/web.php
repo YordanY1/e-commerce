@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 use App\Http\Controllers\Admin\PanelController;
 use App\Http\Controllers\Auth\LoginController;
@@ -27,20 +28,28 @@ use App\Http\Controllers\Admin\UsersController;
 |
 */
 
+//Home
 Route::get('/', [HomeController::class, 'index']);
 
+//About
 Route::get('/about', [AboutController::class, 'index']);
 
+//Contacts
 Route::get('/contact', [ContactController::class, 'index']);
 
+//Products
 Route::get('/products', [ProductsController::class, 'index']);
 
+//Products by ID
 Route::get('/product/{id}', [ProductController::class, 'show']);
 
-
+//Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+//Checkout
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
+//Login Register
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -48,6 +57,7 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
 
+//Admin panel
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
 

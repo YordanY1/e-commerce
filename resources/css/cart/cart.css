@@ -22,3 +22,19 @@
 .quantity {
     padding: 0 10px;
 }
+
+.remove-btn {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #bd2130; /* Darker shade for hover */
+}
+

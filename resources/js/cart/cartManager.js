@@ -1,16 +1,12 @@
+import { parsePrice } from '../utils/utils';
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Load cart from local storage or initialize an empty cart
     window.cart = JSON.parse(localStorage.getItem('cart')) || {
         items: [],
         totalItems: 0
     };
-
-    // Function to parse price string to number
-    function parsePrice(priceStr) {
-        // Remove currency symbol and any commas
-        const numericalPart = priceStr.replace(/[^\d.-]/g, '');
-        return parseFloat(numericalPart);
-    }
 
     // Update cart badge
     window.updateCartBadge = function() {
@@ -22,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update cart badge on page load
     window.updateCartBadge();
 
+       // Function to remove an item from the cart
+    window.removeItemFromCart = function(index) {
+        window.cart.items.splice(index, 1);
+        updateCart();
+    };
+
     // Render cart items
     window.renderCartItems = function() {
         const cartItemsContainer = document.getElementById('cart-items');
@@ -31,19 +33,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemElement = document.createElement('div');
             itemElement.className = 'cart-item d-flex justify-content-between align-items-center mb-3';
             itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: auto;">
+                <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
                 <span>${item.name}</span>
                 <div class="quantity-controls">
                     <button class="quantity-btn decrease" onclick="decreaseQuantity(${index})">-</button>
                     <span class="quantity">${item.quantity}</span>
                     <button class="quantity-btn increase" onclick="increaseQuantity(${index})">+</button>
+                    <button class="remove-btn" onclick="removeItemFromCart(${index})">Изтрий</button>
                 </div>
                 <span>${priceNumber.toFixed(2)} лв.</span>
             `;
-            cartItemsContainer.appendChild(itemElement);
+
+            // Insert item at the beginning of the container
+            if (cartItemsContainer.children.length > 0) {
+                cartItemsContainer.insertBefore(itemElement, cartItemsContainer.children[0]);
+            } else {
+                cartItemsContainer.appendChild(itemElement);
+            }
         });
         updateCartSummary();
     };
+
 
     // Function to increase quantity
     window.increaseQuantity = function(index) {

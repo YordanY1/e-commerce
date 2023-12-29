@@ -1,0 +1,72 @@
+.order-summary {
+    background-color: #f8f9fa; /* Light grey background */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.order-summary h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#order-items {
+    margin-bottom: 15px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef; /* Light border for each item */
+    padding: 10px 0;
+}
+
+.order-item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
+.order-item span {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.edit-cart {
+    text-align: right;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Space between each order item */
+}
+
+.order-item-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px; /* Space between image and text */
+}
+
+.order-item-name, .order-item-price {
+    margin-right: 10px; /* Space between name and price */
+}
+
+.total-price {
+    font-size: 1.2em;
+    margin-top: 20px;
+}

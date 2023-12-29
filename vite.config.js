@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/js/admin/manufacturers/app.js',
                 'resources/js/admin/categories/app.js',
                 'resources/js/admin/products/app.js',
-                'resources/js/cart/cartManager.js'
+                'resources/js/cart/cartManager.js',
+                'resources/js/checkout/checkout.js'
             ],
             refresh: true,
         }),

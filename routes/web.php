@@ -38,7 +38,8 @@ Route::get('/products', [ProductsController::class, 'index']);
 Route::get('/product/{id}', [ProductController::class, 'show']);
 
 
-Route::get('/card', [CartController::class, 'index']);
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);

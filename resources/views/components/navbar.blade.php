@@ -37,7 +37,7 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="cart.html">
+                <a class="nav-link" href="{{ route('cart.index') }}">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="badge bg-primary" id="cart-badge">0</span>
                 </a>

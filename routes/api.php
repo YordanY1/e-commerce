@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ManufacturerApiController;
 use App\Http\Controllers\Api\ProductsApiController;
 use App\Http\Controllers\Api\CategoriesApiController;
+use App\Http\Controllers\Api\ShoppingCartApiController;
 use App\Http\Controllers\MailController;
 
 
@@ -38,7 +39,6 @@ Route::post('/products', [ProductsApiController::class, 'store']);
 Route::put('/products/{id}', [ProductsApiController::class, 'update']);
 Route::delete('/products/{id}', [ProductsApiController::class, 'destroy']);
 
-
 // Category API Routes
 Route::get('/categories', [CategoriesApiController::class, 'index']);
 Route::get('/categories/{id}', [CategoriesApiController::class, 'show']);
@@ -46,6 +46,11 @@ Route::post('/categories', [CategoriesApiController::class, 'store']);
 Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
 Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
 
-
 //Emails
 Route::post('/send-email', [MailController::class, 'sendEmail']);
+
+//Shopping Cart API Routes
+Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);
+Route::post('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addToCart']);
+Route::post('/shopping-cart/remove-from-cart/{product}', [ShoppingCartApiController::class, 'removeFromCart']);
+Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emptyCart']);

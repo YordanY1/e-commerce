@@ -1,3 +1,8 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
 .navbar .fa-shopping-bag {
     font-size: 1.25rem; /* Adjust the size of the icon */
 }
@@ -22,6 +27,8 @@
 .navbar-custom-color .nav-link:hover, .navbar-custom-color .navbar-brand:hover,
 .navbar-custom-color .dropdown-menu .dropdown-item:hover {
     color: #0a58ca !important; /* A slightly darker shade for hover effect */
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important; /* Apply the light style */
 }
 
 

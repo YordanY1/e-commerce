@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom-color">
-
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('svg/jeronimo-logo-color.svg') }}" style="width: 100px" alt="Logo">
@@ -45,4 +44,4 @@
         </ul>
       </div>
     </div>
-  </nav>
+</nav>

@@ -17,7 +17,7 @@ window.renderOrderSummary = function() {
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
                 <span>${item.name}</span>
-                <span>Price: ${priceNumber.toFixed(2)} лв.</span>
+                <span>Цена: ${priceNumber.toFixed(2)} лв.</span>
             `;
             orderItemsContainer.appendChild(itemElement);
         });
@@ -28,3 +28,25 @@ window.renderOrderSummary = function() {
 
 // Call this function on page load or when the cart is updated
 window.renderOrderSummary();
+
+
+//Checkout Buttons
+
+window.toggleBillingAddress = function toggleBillingAddress(show) {
+    const billingAddressDiv = document.getElementById('differentBillingAddress');
+    billingAddressDiv.style.display = show ? 'block' : 'none';
+}
+
+//Payments
+    document.addEventListener('DOMContentLoaded', function () {
+    const paymentButtons = document.querySelectorAll('.payment-option-btn');
+    const paymentInput = document.getElementById('selectedPaymentMethod');
+
+        paymentButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                paymentButtons.forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                paymentInput.value = this.getAttribute('data-value');
+            });
+        });
+    });

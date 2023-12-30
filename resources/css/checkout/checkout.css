@@ -70,3 +70,40 @@
     font-size: 1.2em;
     margin-top: 20px;
 }
+
+.payment-option-btn.selected {
+    background-color: #0056b3; /* Darker shade to indicate selection */
+    color: white;
+}
+
+.payment-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.payment-option-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-option-btn i {
+    margin-right: 8px;
+}
+
+.payment-option-btn.selected {
+    background-color: #0056b3; /* Darker shade to indicate selection */
+    color: white;
+}
+.checkout-button-spacing {
+    margin-top: 20px; /* Adjust the space as needed */
+}

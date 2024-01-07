@@ -1,0 +1,3 @@
+<div>
+    Payment failed!
+</div>

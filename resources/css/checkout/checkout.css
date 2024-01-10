@@ -128,3 +128,31 @@
     padding: 0.75rem 0;
     border-bottom: 1px solid #dee2e6;
 }
+
+.StripeElement {
+    background-color: white;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    transition: box-shadow 150ms ease;
+}
+
+.expiry-cvc-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.expiry-element, .cvc-element {
+    flex: 1;
+    margin-right: 10px; /* Adjust spacing between elements */
+}
+
+.cvc-element {
+    margin-right: 0; /* No margin on the right side of the CVC element */
+}
+
+#card-cvc-element {
+    margin-right: 0; /* No margin on the right side of the CVC element */
+}

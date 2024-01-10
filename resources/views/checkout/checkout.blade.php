@@ -4,17 +4,6 @@
 <div class="container">
     <h1>Завършване на поръчката</h1>
 
-    <!-- Order Summary -->
-    <div class="order-summary">
-        <h2>Детайли на поръчката</h2>
-        <div id="order-items">
-            {{-- Dynamically inserted order items will go here --}}
-        </div>
-        <div class="edit-cart">
-            <a href="{{ url('/cart') }}" class="btn btn-link">Редактирай поръчката</a>
-        </div>
-    </div>
-
     <!-- Accordion for Checkout Options -->
     <form action="{{ url('/submit-checkout') }}" method="post" class="checkout-form">
         @csrf <!-- CSRF token for security -->
@@ -32,79 +21,103 @@
                     <div class="accordion-body">
                         <!-- Customer Information Form -->
                         <h3>Информация за клиента</h3>
-                        <div class="form-group">
-                            <label for="customerName">Име:</label>
-                            <input type="text" id="customerName" name="customer_name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="customerEmail">Email:</label>
-                            <input type="email" id="customerEmail" name="customer_email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="customerPhone">Телефонен номер:</label>
-                            <input type="text" id="customerPhone" name="customer_phone" class="form-control">
+
+                   <!-- Customer Details Form -->
+                        <div class="row">
+                            <!-- First Name Input -->
+                            <div class="col-md-6 form-group">
+                                <input type="text" id="customerFirstName" name="customer_first_name" class="form-control" placeholder="Име" required>
+                            </div>
+
+                            <!-- Last Name Input -->
+                            <div class="col-md-6 form-group">
+                                <input type="text" id="customerLastName" name="customer_last_name" class="form-control" placeholder="Фамилия" required>
+                            </div>
                         </div>
 
-                        <h3>Адрес за доставка</h3>
-                        <div class="form-group">
-                            <label for="streetAddress">Улица:</label>
-                            <input type="text" id="streetAddress" name="street_address" class="form-control" required>
+                        <div class="row">
+                            <!-- Email Input -->
+                            <div class="col-md-12 form-group">
+                                <input type="email" id="customerEmail" name="customer_email" class="form-control" placeholder="Имейл" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="city">Град:</label>
-                            <input type="text" id="city" name="city" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">Област:</label>
-                            <input type="text" id="state" name="state" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="postalCode">Пощенски код:</label>
-                            <input type="text" id="postalCode" name="postal_code" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Държава:</label>
-                            <input type="text" id="country" name="country" class="form-control" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Delivery Options (Еконт/Спиди) -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Избери офис (Еконт/Спиди)
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#checkoutAccordion">
-                    <div class="accordion-body">
-                        <div class="form-group">
-                            <label><input type="radio" name="shipping_option" value="ekont_office" required> Лично взимане от офис на Еконт</label>
+                        <div class="row">
+                            <!-- Phone Number Input -->
+                            <div class="col-md-12 form-group">
+                                <input type="text" id="customerPhone" name="customer_phone" class="form-control"  placeholder="Телефонен номер" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label><input type="radio" name="shipping_option" value="ekont_address"> Доставка до Адрес (Еконт)</label>
-                        </div>
-                        <div class="form-group">
-                            <label><input type="radio" name="shipping_option" value="speedy_office"> Лично взимане от офис на Спиди</label>
-                        </div>
-                        <div class="form-group">
-                            <label><input type="radio" name="shipping_option" value="speedy_address"> Доставка до Адрес (Спиди)</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pickup from Store -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Лично взимане от магазина
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#checkoutAccordion">
-                    <div class="accordion-body">
-                        <label><input type="radio" name="shipping_option" value="store_pickup"> Лично взимане от магазина</label>
+                        <!-- Delivery Options -->
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h4 class="my-2">АДРЕС ЗА ДОСТАВКА</h4>
+                                <p class="text-muted">(до офис на Спиди / Еконт или до Адрес)</p>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Метод на доставка</h5>
+
+                                <form id="deliveryForm">
+                                    <div class="mb-3 d-flex justify-content-between align-items-center border-bottom">
+                                        <div>
+                                            <input type="radio" class="form-check-input" id="speedyOffice" name="deliveryMethod" value="speedyOffice">
+                                            <label for="speedyOffice" class="form-check-label">до офис Спиди</label>
+                                        </div>
+                                        <span class="fw-bold">4.99лв.</span>
+                                    </div>
+                                    <div class="mb-3 d-flex justify-content-between align-items-center border-bottom">
+                                        <div>
+                                            <input type="radio" class="form-check-input" id="ekontOffice" name="deliveryMethod" value="ekontOffice">
+                                            <label for="ekontOffice" class="form-check-label">до офис Еконт</label>
+                                        </div>
+                                        <span class="fw-bold">6.29лв.</span>
+                                    </div>
+                                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <input type="radio" class="form-check-input" id="addressDelivery" name="deliveryMethod" value="addressDelivery">
+                                            <label for="addressDelivery" class="form-check-label">до Адрес</label>
+                                        </div>
+                                        <span class="fw-bold">7.49лв.</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="deliveryOptions" class="form-label">Delivery Options</label>
+                                        <select class="form-select" id="deliveryOptions">
+                                            <!-- Options will be dynamically added here -->
+                                        </select>
+                                    </div>
+
+                                    <div id="addressFields" style="display: none;">
+                                        <!-- Row 1: City and Region -->
+                                        <div class="row mb-3">
+                                            <!-- City -->
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control" id="city" placeholder="Град/Село" required>
+                                            </div>
+
+                                            <!-- Region -->
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control" id="region" placeholder="Област" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Row 2: District and Address -->
+                                        <div class="row mb-3">
+                                            <!-- District -->
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control" id="district" placeholder="Квартал">
+                                            </div>
+
+                                            <!-- Address -->
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control" id="address" placeholder="Адрес на доставка" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -158,6 +171,18 @@
                     </div>
                 </div>
             </div>
+
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>ВАШАТА ПОРЪЧКА </h2>
+                    <div id="order-items">
+                        {{-- Dynamically inserted order items will go here --}}
+                    </div>
+                    <div class="edit-cart">
+                        <a href="{{ url('/cart') }}" class="btn btn-link">Редактирай поръчката</a>
+                    </div>
+                </div>
 
             <!-- Payment Information -->
             <div class="accordion-item">

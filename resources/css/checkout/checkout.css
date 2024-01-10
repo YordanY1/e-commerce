@@ -1,9 +1,34 @@
+ .order-item img {
+    width: 100px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.order-item .row + .row {
+    border-top: 1px solid #ccc; /* Separator between items */
+    padding-top: 10px; /* Spacing after separator */
+}
+
+.row {
+    align-items: center; /* Vertically center align items */
+}
+
+.row .col {
+    padding: 5px; /* Padding for columns */
+}
+
+.row .col.text-end {
+    text-align: right; /* Align the price to the right */
+}
+
+
 .order-summary {
-    background-color: #f8f9fa; /* Light grey background */
+    background-color: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
 }
+
+
 
 .order-summary h2 {
     color: #333;
@@ -14,31 +39,15 @@
     margin-bottom: 15px;
 }
 
-.order-item {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #e9ecef; /* Light border for each item */
-    padding: 10px 0;
-}
 
-.order-item img {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-    border-radius: 4px;
-}
 
-.order-item span {
-    font-size: 16px;
-    margin-right: 10px;
-}
 
 .edit-cart {
     text-align: right;
 }
 
 .btn-primary {
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -47,24 +56,10 @@
 }
 
 .btn-primary:hover {
-    background-color: #0056b3; /* Darker shade for hover */
+    background-color: #0056b3;
 }
 
-.order-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px; /* Space between each order item */
-}
 
-.order-item-image {
-    width: 100px;
-    height: 100px;
-    margin-right: 15px; /* Space between image and text */
-}
-
-.order-item-name, .order-item-price {
-    margin-right: 10px; /* Space between name and price */
-}
 
 .total-price {
     font-size: 1.2em;
@@ -72,7 +67,7 @@
 }
 
 .payment-option-btn.selected {
-    background-color: #0056b3; /* Darker shade to indicate selection */
+    background-color: #0056b3;
     color: white;
 }
 
@@ -101,9 +96,35 @@
 }
 
 .payment-option-btn.selected {
-    background-color: #0056b3; /* Darker shade to indicate selection */
+    background-color: #0056b3;
     color: white;
 }
 .checkout-button-spacing {
-    margin-top: 20px; /* Adjust the space as needed */
+    margin-top: 20px;
+}
+
+
+.card-header h4 {
+    font-weight: bold;
+}
+
+.card-header p {
+    margin-bottom: 0;
+}
+
+.card-title {
+    padding-bottom: 0.5rem;
+}
+
+.form-check-input {
+    margin-right: 1rem;
+}
+
+.form-check-label {
+    flex-grow: 1;
+}
+
+.border-bottom {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #dee2e6;
 }

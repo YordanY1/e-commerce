@@ -137,3 +137,70 @@ window.setupDeliveryMethodChange = function() {
 document.addEventListener('DOMContentLoaded', function() {
     window.setupDeliveryMethodChange();
 });
+
+
+//Payments radio buttons
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var paymentOnDeliveryCheckbox = document.getElementById('paymentOnDelivery');
+    var cardPaymentCheckbox = document.getElementById('cardPayment');
+    var paymentOnDeliveryInfo = document.getElementById('paymentOnDeliveryInfo');
+    var cardPaymentForm = document.getElementById('cardPaymentForm');
+
+    paymentOnDeliveryCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            paymentOnDeliveryInfo.style.display = 'block';
+            cardPaymentCheckbox.checked = false;
+            cardPaymentForm.style.display = 'none';
+        } else {
+            paymentOnDeliveryInfo.style.display = 'none';
+        }
+    });
+
+    cardPaymentCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            cardPaymentForm.style.display = 'block';
+            paymentOnDeliveryCheckbox.checked = false;
+            paymentOnDeliveryInfo.style.display = 'none';
+        } else {
+            cardPaymentForm.style.display = 'none';
+        }
+    });
+});
+
+
+//Stripe elements
+
+// Create a Stripe client.
+var stripe = Stripe('pk_test_your_publishable_key_here');
+
+// Create an instance of Elements.
+var elements = stripe.elements();
+
+// Define custom style for the Elements
+var style = {
+    base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: 'Helvetica Neue',
+        fontSize: '15px',
+
+        '::placeholder': {
+            color: '#CFD7E0',
+        },
+    },
+};
+
+// Create individual Elements
+var cardNumber = elements.create('cardNumber', { style: style });
+cardNumber.mount('#card-number-element');
+
+var cardExpiry = elements.create('cardExpiry', { style: style });
+cardExpiry.mount('#card-expiry-element');
+
+var cardCvc = elements.create('cardCvc', { style: style });
+cardCvc.mount('#card-cvc-element');
+

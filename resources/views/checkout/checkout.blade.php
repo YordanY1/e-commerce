@@ -185,31 +185,51 @@
                 </div>
 
             <!-- Payment Information -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFive">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        Информация за плащане
-                    </button>
-                </h2>
-                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#checkoutAccordion">
-                    <div class="accordion-body">
-                        <div class="payment-options">
-                            <button type="button" class="btn payment-option-btn" data-value="mastercard">
-                                <i class="fab fa-cc-mastercard"></i> MasterCard
-                            </button>
-                            <button type="button" class="btn payment-option-btn" data-value="visa">
-                                <i class="fab fa-cc-visa"></i> Visa
-                            </button>
-                            <button type="button" class="btn payment-option-btn" data-value="cash_on_delivery">
-                                <i class="fas fa-money-bill-wave"></i> Наложен платеж
-                            </button>
-
-                            <input type="hidden" name="payment_method" id="selectedPaymentMethod" value="">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4 class="my-2">Информация за плащане</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Payment on Delivery Option -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="paymentOnDelivery" name="paymentMethod" value="cash_on_delivery">
+                        <label class="form-check-label" for="paymentOnDelivery">Плащане на куриер с Наложен Платеж</label>
+                        <div id="paymentOnDeliveryInfo" style="display: none;">
+                            <p class="text-muted">Дължимата сума се заплаща при получаване на поръчката.</p>
                         </div>
+                    </div>
 
+                    <!-- Payment with Card Option -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="cardPayment" name="paymentMethod" value="card">
+                        <label class="form-check-label" for="cardPayment">Плащане с карта</label>
+                        <div id="cardPaymentForm" style="display: none;">
+                            <form id="stripePaymentForm" method="POST" action="/path-to-your-server-endpoint">
+                                <!-- Card Number Element with Label -->
+                                <div class="mb-3">
+                                    <label for="card-number-element">Card Number *</label>
+                                    <div id="card-number-element" class="form-control StripeElement StripeElement--empty"></div>
+                                </div>
+
+                                <!-- Expiry Date and CVC Elements on the same row -->
+                                <div class="expiry-cvc-row">
+                                    <div class="mb-3 expiry-element">
+                                        <label for="card-expiry-element">Expiry Date *</label>
+                                        <div id="card-expiry-element" class="form-control StripeElement StripeElement--empty"></div>
+                                    </div>
+                                    <div class="mb-3 cvc-element">
+                                        <label for="card-cvc-element">Card Code (CVC) *</label>
+                                        <div id="card-cvc-element" class="form-control StripeElement StripeElement--empty"></div>
+                                    </div>
+                                </div>
+
+                                <div id="card-errors" role="alert"></div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
              <!-- Order Review Section -->
                 {{-- <div class="order-review">
                     <h2>Преглед на поръчката</h2>
@@ -244,6 +264,7 @@
                 </div> --}}
                       <!-- Space between Terms Agreement and Checkout Button -->
                       <div class="checkout-button-spacing"></div>
+
                    <!-- Privacy Policy and Terms of Service Agreement -->
                 <div class="terms-agreement">
                     <div class="form-check">

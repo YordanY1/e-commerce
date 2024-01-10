@@ -17,6 +17,12 @@ use App\Http\Controllers\Admin\ProductsController as AdminProductsController;
 use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Payment\PaymentBankController;
+use App\Http\Controllers\Payment\PaymentDataController;
+use App\Http\Controllers\Payment\PaymentFailedController;
+use App\Http\Controllers\Payment\PaymentStripeController;
+use App\Http\Controllers\Payment\PaymentSuccessController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +54,11 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 //Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::get('payment/checkout', [PaymentDataController::class, 'index']);
+Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
+Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
+Route::get('payment/success', [PaymentSuccessController::class, 'index']);
+Route::get('payment/failed', [PaymentFailedController::class, 'index']);
 
 //Login Register
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

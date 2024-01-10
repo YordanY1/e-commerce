@@ -1,0 +1,3 @@
+<div>
+    Stripe Payment!
+</div>

@@ -133,15 +133,11 @@ window.setupDeliveryMethodChange = function() {
     });
 };
 
-
 document.addEventListener('DOMContentLoaded', function() {
     window.setupDeliveryMethodChange();
 });
 
-
 //Payments radio buttons
-
-
 document.addEventListener('DOMContentLoaded', function() {
     var paymentOnDeliveryCheckbox = document.getElementById('paymentOnDelivery');
     var cardPaymentCheckbox = document.getElementById('cardPayment');

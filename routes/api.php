@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\ProductsApiController;
 use App\Http\Controllers\Api\CategoriesApiController;
 use App\Http\Controllers\Api\ShoppingCartApiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\Api\ShipmentController;
+
 
 
 /*
@@ -54,3 +56,9 @@ Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);
 Route::post('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addToCart']);
 Route::post('/shopping-cart/remove-from-cart/{product}', [ShoppingCartApiController::class, 'removeFromCart']);
 Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emptyCart']);
+
+
+//Shipping
+Route::post('/shipment/create', [ShipmentController::class, 'createShipment']);
+Route::get('/econt/offices', [ShipmentController::class, 'fetchOffices']);
+

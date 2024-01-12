@@ -60,5 +60,6 @@ Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emp
 
 //Shipping
 Route::post('/shipment/create', [ShipmentController::class, 'createShipment']);
-Route::get('/econt/offices', [ShipmentController::class, 'fetchOffices']);
+Route::get('/fetchOffices', [ShipmentController::class, 'getOffices']);
+
 

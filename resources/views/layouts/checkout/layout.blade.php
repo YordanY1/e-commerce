@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Checkout')</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -14,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/css/app.css'])
 
@@ -39,6 +43,7 @@
         <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
         <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2/dist/js/select2.min.js"></script>
 
         <!-- Stack for additional scripts -->
            <!-- Initialize AOS -->

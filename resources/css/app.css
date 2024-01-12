@@ -3,3 +3,6 @@
 @import './products.css';
 @import './cart/cart.css';
 @import './checkout/checkout.css';
+
+@import '../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+@import '../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css';

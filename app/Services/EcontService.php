@@ -24,26 +24,34 @@ class EcontService
 
     public function createShipment($shipmentData)
     {
+        $xml = $this->formatShipmentDataToXML($shipmentData);
         try {
             $response = $this->client->request('POST', $this->apiUrl, [
                 'auth' => [$this->username, $this->password],
                 'headers' => ['Content-Type' => 'multipart/form-data'],
-                'body' => $this->formatShipmentDataToXML($shipmentData)
+                'body' => $xml
             ]);
-
             return simplexml_load_string($response->getBody()->getContents());
         } catch (GuzzleException $e) {
-            // Handle the exception (log it, notify, etc.)
             throw $e;
         }
     }
 
     private function formatShipmentDataToXML($data)
     {
-        $xml = new \SimpleXMLElement('<Shipment/>');
+        $xml = new \SimpleXMLElement('<ShipmentRequest/>');
+        $recipient = $xml->addChild('recipient');
+        $recipient->addChild('name', $data['recipient_name']);
+        $shipment = $xml->addChild('shipment');
+        $shipment->addChild('delivery_method', $data['delivery_method']);
 
-        foreach ($data as $key => $value) {
-            $xml->addChild($key, $value);
+        if ($data['delivery_method'] === 'addressDelivery') {
+            $address = $shipment->addChild('address');
+            $address->addChild('city', $data['city']);
+            $address->addChild('region', $data['region']);
+            $address->addChild('street', $data['address']);
+        } elseif ($data['delivery_method'] === 'ekontOffice') {
+            $shipment->addChild('office_id', $data['selected_office_id']);
         }
 
         return $xml->asXML();
@@ -51,33 +59,23 @@ class EcontService
 
     public function getOffices()
     {
-        $xmlRequest = $this->buildOfficesRequestXML();
-
+        $request = $this->buildOfficesRequestJSON();
         try {
-            // Update the endpoint URL
             $endpoint = '/Nomenclatures/NomenclaturesService.getOffices.json';
             $url = $this->apiUrl . $endpoint;
-
             $response = $this->client->request('POST', $url, [
                 'auth' => [$this->username, $this->password],
                 'headers' => ['Content-Type' => 'application/json'],
-                'json' => $xmlRequest
+                'json' => $request
             ]);
-
-            // Debug: Print the raw response body
-            echo $response->getBody();
-
             return json_decode($response->getBody()->getContents(), true);
         } catch (GuzzleException $e) {
             throw $e;
         }
     }
 
-
-
-    private function buildOfficesRequestXML()
+    private function buildOfficesRequestJSON()
     {
-
         return [
             'client' => [
                 'username' => $this->username,
@@ -86,16 +84,4 @@ class EcontService
             'request_type' => 'offices',
         ];
     }
-
-    public function fetchOffices()
-{
-    try {
-        $offices = $this->econtService->getOffices();
-        return response()->json(['success' => true, 'data' => $offices]);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
-    }
-}
-
-
 }

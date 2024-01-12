@@ -54,13 +54,17 @@ class EcontService
         $xmlRequest = $this->buildOfficesRequestXML();
 
         try {
-            $response = $this->client->request('POST', $this->apiUrl . '/Nomenclatures/NomenclaturesService.getOffices.json', [
+            // Update the endpoint URL
+            $endpoint = '/Nomenclatures/NomenclaturesService.getOffices.json';
+            $url = $this->apiUrl . $endpoint;
+
+            $response = $this->client->request('POST', $url, [
                 'auth' => [$this->username, $this->password],
                 'headers' => ['Content-Type' => 'application/json'],
                 'json' => $xmlRequest
             ]);
 
-            // Add this line to print the raw response body
+            // Debug: Print the raw response body
             echo $response->getBody();
 
             return json_decode($response->getBody()->getContents(), true);
@@ -68,6 +72,7 @@ class EcontService
             throw $e;
         }
     }
+
 
 
     private function buildOfficesRequestXML()

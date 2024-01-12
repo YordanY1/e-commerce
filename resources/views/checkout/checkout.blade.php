@@ -82,10 +82,10 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="deliveryOptions" class="form-label">Delivery Options</label>
                                         <select class="form-select" id="deliveryOptions">
                                             <!-- Options will be dynamically added here -->
                                         </select>
+                                        <input type="hidden" id="selectedOfficeId" name="selected_office_id">
                                     </div>
 
                                     <div id="addressFields" style="display: none;">

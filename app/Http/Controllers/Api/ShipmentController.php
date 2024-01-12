@@ -17,28 +17,23 @@ class ShipmentController extends Controller
 
     public function createShipment(Request $request)
     {
-        // Validate and process $request data here...
         $validatedData = $request->validate([
             'recipient_name' => 'required|string',
             'delivery_method' => 'required|string',
+            'selected_office_id' => 'required_if:delivery_method,ekontOffice',
             'city' => 'required_if:delivery_method,addressDelivery|string',
             'region' => 'required_if:delivery_method,addressDelivery|string',
             'address' => 'required_if:delivery_method,addressDelivery|string',
         ]);
 
         try {
-            // Here, format the validated data as needed for the EcontService
             $response = $this->econtService->createShipment($validatedData);
-
-            // Handle the response...
             return response()->json([
                 'success' => true,
                 'message' => 'Shipment created successfully',
                 'data' => $response
             ]);
-
         } catch (\Exception $e) {
-            // Handle exceptions
             return response()->json([
                 'success' => false,
                 'message' => 'Error creating shipment: ' . $e->getMessage()

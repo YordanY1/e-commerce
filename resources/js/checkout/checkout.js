@@ -80,12 +80,9 @@ window.renderOrderSummary = function() {
     }
 };
 
-// Call this function on page load or when the cart is updated
-window.renderOrderSummary();
 
 
 //Checkout Buttons
-
 window.toggleBillingAddress = function toggleBillingAddress(show) {
     const billingAddressDiv = document.getElementById('differentBillingAddress');
     billingAddressDiv.style.display = show ? 'block' : 'none';
@@ -107,35 +104,79 @@ window.toggleBillingAddress = function toggleBillingAddress(show) {
 
 
 
-//Delivery options
+// Delivery options event listener setup
 window.setupDeliveryMethodChange = function() {
-    var deliveryMethods = document.querySelectorAll('input[type=radio][name=deliveryMethod]');
+    const deliveryMethods = document.querySelectorAll('input[type=radio][name=deliveryMethod]');
+    const deliveryOptionsSelect = document.getElementById('deliveryOptions');
+    const addressFieldsDiv = document.getElementById('addressFields');
+    const defaultPlaceholderOption = new Option('Изберете доставка', '');
 
     deliveryMethods.forEach(function(method) {
         method.addEventListener('change', function() {
-            var selectedMethod = this.value;
-            var deliveryOptions = document.getElementById('deliveryOptions');
-            var addressFields = document.getElementById('addressFields');
+            const selectedMethod = this.value;
+
+            // Reset and set placeholder option
+            deliveryOptionsSelect.innerHTML = '';
+            deliveryOptionsSelect.appendChild(defaultPlaceholderOption);
+            deliveryOptionsSelect.value = '';
 
             if (selectedMethod === 'speedyOffice') {
-                deliveryOptions.style.display = 'block';
-                addressFields.style.display = 'none';
-                deliveryOptions.setAttribute('placeholder', 'Изберете офис на Спиди');
+                deliveryOptionsSelect.style.display = 'block';
+                addressFieldsDiv.style.display = 'none';
+                // TODO: Fetch and append Speedy offices here
+                // fetchSpeedyOffices(); // You will define this function
             } else if (selectedMethod === 'ekontOffice') {
-                deliveryOptions.style.display = 'block';
-                addressFields.style.display = 'none';
-                deliveryOptions.setAttribute('placeholder', 'Изберете офис на Еконт');
+                deliveryOptionsSelect.style.display = 'block';
+                addressFieldsDiv.style.display = 'none';
+                fetchEcontOffices();
             } else if (selectedMethod === 'addressDelivery') {
-                deliveryOptions.style.display = 'none';
-                addressFields.style.display = 'block';
+                deliveryOptionsSelect.style.display = 'none';
+                addressFieldsDiv.style.display = 'block';
             }
         });
     });
 };
 
+// Econt offices fetch function
+function fetchEcontOffices() {
+    fetch('/api/fetchOffices')
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('deliveryOptions');
+            select.innerHTML = '';
+            select.appendChild(new Option('Изберете офис на Еконт', ''));
+            data.offices.forEach(office => {
+                if (office.address.city.country.code2 === 'BG') {
+                    let option = new Option(`${office.name} ${office.address.fullAddress}`, office.id);
+                    select.appendChild(option);
+                }
+            });
+            $(select).select2({
+                theme: "bootstrap-5"
+              });
+
+            select.onchange = function() {
+                document.getElementById('selectedOfficeId').value = this.value;
+            };
+        })
+        .catch(error => console.error('Problem fetching Econt offices:', error));
+}
+
+$(document).ready(function() {
+    $('#deliveryOptions').select2({
+        placeholder: "Доставка",
+        theme: "bootstrap-5",
+        dropdownParent: $('#deliveryOptions').parent()
+    });
+});
+
+
+// Event listener setup call
 document.addEventListener('DOMContentLoaded', function() {
     window.setupDeliveryMethodChange();
 });
+
+
 
 //Payments radio buttons
 document.addEventListener('DOMContentLoaded', function() {

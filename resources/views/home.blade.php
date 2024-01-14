@@ -4,7 +4,7 @@
 
 @section('content')
 
-        <div class="full-bg-image" style="background-image: url('/images/img_bg_1.jpg');">
+        <div class="full-bg-image" style="background-image: url('/images/gas_carousel_home.jpg');">
             <div class="container">
                 <div class="welcome-text" data-aos="fade-in" data-aos-duration="1000">
                     <h2>Добре дошли в нашия магазин!</h2>

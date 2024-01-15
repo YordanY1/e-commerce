@@ -1,0 +1,76 @@
+#fh5co-contact {
+    background-color: #f8f8f8;
+    padding: 2rem 0;
+}
+
+.fh5co-contact-info h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.fh5co-contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.fh5co-contact-info li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.fh5co-contact-info i {
+    margin-right: 10px;
+    color: #0275d8;
+}
+
+.fh5co-contact-info a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Optional: ensures links use the current text color */
+}
+
+.fh5co-contact-info a:hover,
+.fh5co-contact-info a:focus {
+    text-decoration: underline; /* Optional: add underline on hover for better user experience */
+}
+
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .col-md-5, .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .col-md-push-1 {
+        position: relative;
+        left: 0;
+    }
+}
+/* Add responsiveness and other specific styles as needed */
+.google-maps-custom {
+    width: 100%; /* Ensures the container is full width */
+    height: 600px; /* Set a height for the map container */
+}
+
+/* Responsive styling, if needed */
+@media (max-width: 768px) {
+    .google-maps-custom {
+        height: 400px; /* Smaller height for smaller screens */
+    }
+}

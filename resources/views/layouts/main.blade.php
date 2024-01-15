@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant&display=swap" rel="stylesheet">
 
     <!-- Vite CSS for Laravel Mix -->
-    @vite(['resources/css/app.css'])
+    @vite(['resources/scss/frontend/app.scss'])
 
 </head>
 <body class="antialiased">

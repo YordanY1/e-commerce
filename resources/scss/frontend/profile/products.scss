@@ -1,0 +1,491 @@
+
+/* General padding for the product section */
+#fh5co-product {
+    padding: 4rem 0;
+}
+
+/* Header styling */
+.fh5co-heading {
+    text-align: center;
+}
+
+.fh5co-heading span {
+    color: #0275d8;
+    font-weight: 600;
+    display: block;
+}
+
+.fh5co-heading h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.fh5co-heading p {
+    margin-bottom: 3rem;
+    color: #666;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Product grid styling */
+.product-grid {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+
+/* Inner overlay for product grid */
+/* Desktop Styles */
+/* Desktop Styles */
+.product-grid .inner {
+    display: none; /* Icons hidden by default */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Lighter overlay - adjust the alpha value (0.3) as needed */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner {
+        background: rgba(0, 0, 0, 0); /* Transparent overlay on mobile */
+    }
+}
+
+
+.product-grid:hover .inner {
+    display: flex; /* Icons shown on hover */
+}
+
+
+/* Icon Styles */
+.product-grid .inner .icon {
+    color: #fff;
+    margin: 0 5px;
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner .icon {
+        font-size: 1.5rem; /* Increase the font size for larger icons */
+        /* Additional styling as needed */
+    }
+}
+
+
+/* Adjusting the hover effect */
+.product-grid:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .product-grid .inner {
+        display: flex; /* Always show icons on mobile */
+    }
+}
+
+
+/* Product description styling */
+/* Description text styling */
+.desc {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    margin-top: -2rem;
+    transition: all 0.3s ease;
+}
+
+.desc h3, .desc .price {
+    color: #333; /* Black color for the text */
+    font-size: 0.9rem; /* Smaller font size */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+
+.desc h3 a {
+    color: inherit; /* Inherits color from h3 */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.product-grid:hover .desc h3,
+.product-grid:hover .desc .price {
+    color: gold; /* Change color to gold on hover */
+}
+
+
+
+/* Change text color on hover over the product grid */
+.product-grid:hover .desc h3,
+.product-grid:hover .desc .price {
+    color: gold; /* Change color to gold on hover */
+}
+
+/* Custom button styling */
+.btn-custom.btn-outline {
+    border-color: #0275d8;
+    color: #0275d8;
+}
+
+.btn-custom.btn-outline:hover {
+    background-color: #0275d8;
+    color: white;
+}
+
+
+.dot-stepper {
+    list-style: none;
+    padding: 0;
+}
+
+.dot-stepper li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot-stepper li.active {
+    background-color: #0056b3;
+}
+
+
+.carousel-item img {
+    max-height: 600px;
+    width: auto;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        max-height: 400px;
+        width: auto;
+        margin: 0 auto;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .dot-stepper li {
+        width: 15px;
+        height: 15px;
+        margin: 0 10px;
+    }
+}
+
+
+.tabs {
+    padding: 0;
+    background: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-link {
+    border: none;
+    background: transparent;
+    font-size: 1.1em;
+    color: #6c757d;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #495057;
+}
+
+.nav-link.active {
+    color: #495057;
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-radius: 5px 5px 0 0;
+    background: white;
+    box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.05);
+}
+
+.tab-content {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+}
+
+
+
+/* Responsive centering for the header */
+#fh5co-footer {
+    background-color: #efefef;
+    color: #333;
+    padding: 2rem 0;
+}
+
+.fh5co-footer-links, .fh5co-social-icons {
+    list-style: none;
+    padding: 0;
+}
+
+.fh5co-footer-links li, .fh5co-social-icons li {
+    display: inline; /* Display items in line */
+    margin-right: 15px;
+}
+
+.fh5co-footer-links a, .fh5co-social-icons a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.fh5co-footer-links a:hover, .fh5co-social-icons a:hover {
+    color: #0275d8;
+}
+
+.fh5co-social-icons li a {
+    font-size: 1.2rem; /* Adjust the size of the icons */
+}
+
+@media (max-width: 768px) {
+    .fh5co-footer-links, .fh5co-social-icons {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .fh5co-footer-links li, .fh5co-social-icons li {
+        display: block; /* Stack items vertically on small screens */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+
+
+.filter-section h4 {
+    margin-bottom: 1rem;
+}
+
+.category-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin-bottom: 0.5rem;
+}
+
+.category-input {
+    margin-right: 0.5rem;
+}
+
+.category-input + label {
+    cursor: pointer;
+}
+
+.price-filter-section h4 {
+    margin-bottom: 1rem;
+}
+
+.price-range-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.price-range-list li {
+    margin-bottom: 0.5rem;
+}
+
+.price-range-input {
+    margin-right: 0.5rem;
+}
+
+.price-range-input + label {
+    cursor: pointer;
+}
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.category-filter-section, .price-filter-section {
+    flex: 1; /* Each section takes equal width */
+    margin: 0 10px; /* Spacing between sections */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section {
+        flex-basis: 100%; /* Each section takes full width on small screens */
+        margin: 10px 0; /* Spacing for small screens */
+    }
+}
+
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end; /* Align items vertically at the bottom */
+}
+
+.category-filter-section, .price-filter-section, .sorting-pagination-section {
+    margin: 0 10px; /* Reduced spacing */
+    flex-basis: auto; /* Adjusts width automatically */
+}
+
+.sorting-section, .pagination-section {
+    display: inline-block; /* Display inline for side-by-side layout */
+    margin-right: 1rem; /* Spacing between sorting and pagination */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section, .sorting-pagination-section {
+        flex-basis: 100%; /* Full width on small screens */
+        margin: 10px 0; /* Vertical spacing */
+    }
+
+    .sorting-section, .pagination-section {
+        display: block; /* Stack vertically on smaller screens */
+        margin-right: 0;
+    }
+}
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligns items vertically center */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.category-filter-section, .price-filter-section, .sorting-section, .pagination-section {
+    flex: 1; /* Each section takes equal width */
+    margin: 0 5px; /* Reduced spacing */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .category-filter-section, .price-filter-section, .sorting-section, .pagination-section {
+        flex-basis: 100%; /* Full width on small screens */
+        margin: 5px 0; /* Vertical spacing */
+    }
+}
+
+/* CSS for hiding the filter and sorting sections on mobile */
+@media (max-width: 768px) {
+    .filter-section > div:not(.mobile-filter-sort-buttons) {
+        display: none; /* Hide all sections except mobile buttons */
+    }
+
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        margin-top: 1rem;
+    }
+
+    .mobile-filter-button, .mobile-sort-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 10px; /* Space between buttons */
+    }
+}
+
+/* Hide the mobile buttons on larger screens */
+@media (min-width: 769px) {
+    .mobile-filter-sort-buttons {
+        display: none;
+    }
+}
+
+/* Mobile screen styles */
+@media (max-width: 768px) {
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        align-items: center;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .mobile-filter-button, .mobile-sort-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 10px; /* Space between buttons */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .filter-section {
+        display: none; /* Hide original sections on mobile */
+    }
+
+    .mobile-filter-sort-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* Space between buttons */
+    }
+}
+
+/* For larger screens, hide the mobile buttons */
+@media (min-width: 769px) {
+    .mobile-filter-sort-buttons {
+        display: none;
+    }
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .category-input, .price-range-input, .big-checkbox {
+        /* Adjust size for mobile */
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .category-list label, .price-range-list label {
+        /* Increase font size and padding for better touch targets */
+        font-size: 1rem;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+}
+
+/* General style for Big Checkboxes */
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+/* Style to remove list bullets */
+ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0px;
+}
+

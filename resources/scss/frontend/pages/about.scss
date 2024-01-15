@@ -1,0 +1,38 @@
+/* ABOUT */
+
+#fh5co-about {
+    background-color: #f8f8f8; /* Light background for the about section */
+    padding: 2rem 0; /* Top and bottom padding */
+}
+
+.about-content {
+    margin-bottom: 2rem; /* Spacing between content sections */
+}
+
+#fh5co-about .desc {
+    margin-bottom: 1rem; /* Spacing between paragraphs */
+}
+
+#fh5co-about h3 {
+    color: #333; /* Dark color for headings */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+#fh5co-about p {
+    line-height: 1.6; /* Line height for paragraph text */
+    color: #666; /* Lighter text color for readability */
+}
+
+#fh5co-about .img-responsive {
+    max-width: 100%; /* Ensure image is responsive */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 1rem; /* Space below the image */
+}
+
+@media (max-width: 768px) {
+    .about-content .desc, .about-content .img-responsive {
+        text-align: center; /* Center content on small screens */
+    }
+}
+
+

@@ -1,0 +1,12 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import './variables';
+@import './styles.scss';
+@import './checkout/cart.scss';
+@import './checkout/payments.scss';
+@import './profile/products.scss';
+@import './pages/about.scss';
+@import './pages/contacts.scss';
+
+
+@import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+@import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';

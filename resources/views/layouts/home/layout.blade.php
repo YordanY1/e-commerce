@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Vite CSS for Laravel Mix -->
-    @vite(['resources/css/app.css'])
+    @vite(['resources/scss/frontend/app.scss'])
 
 </head>
 <body class="antialiased">

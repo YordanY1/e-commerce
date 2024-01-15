@@ -1,0 +1,100 @@
+$font-primary: 'Open Sans', sans-serif;
+
+body {
+    font-family: $font-primary;
+}
+
+
+.page-content.modal-open {
+    filter: blur(5px);
+}
+
+//BG Image
+.full-bg-image {
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//Section Text
+.welcome-text {
+    text-align: center;
+    color: rgb(25 13 13 / 54%);
+    max-width: 600px;
+}
+
+.welcome-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-text p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.fh5co-bg-section {
+    background: #f8f9fa;
+    padding: 2rem 0;
+}
+
+//Service
+.service-item .icon {
+    font-size: 3rem;
+    color: #0275d8;
+    margin-bottom: 1rem;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fh5co-bg-section {
+    padding: 4rem 0; /* More padding for the section */
+}
+
+.service-item h3 {
+    margin-top: 1rem; /* Adjust spacing */
+    margin-bottom: 1rem;
+}
+
+.service-item p {
+    color: #666; /* Subtle text color */
+    margin-bottom: 1.5rem; /* More space above the button */
+}
+
+//Custom Button
+.btn-custom {
+    border-color: #0275d8;
+    color: #0275d8;
+}
+
+.btn-custom.btn-outline:hover {
+    background-color: #0275d8;
+    color: white;
+}
+
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    .service-item {
+        margin-bottom: 2rem; /* Adds space below each item */
+        padding: 0 1rem; /* Adds padding on the sides */
+    }
+
+    .service-item .icon {
+        width: 60px; /* Smaller circle size */
+        height: 60px; /* Smaller circle size */
+        line-height: 60px; /* Adjust line height to vertically center the icon */
+        font-size: 2rem; /* Smaller icon size to fit the circle */
+    }
+}
+
+

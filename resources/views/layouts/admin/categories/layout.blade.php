@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
     <!-- Vite CSS for Laravel Mix -->
-    @vite(['resources/css/app.css'])
+    @vite(['resources/scss/frontend/app.scss'])
 
 </head>
 <body>

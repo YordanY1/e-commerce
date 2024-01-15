@@ -19,7 +19,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Vite CSS for Laravel Mix -->
-    @vite(['resources/css/app.css'])
+
+    @vite(['resources/scss/frontend/app.scss'])
 
 <body>
         <!-- Navbar Component -->

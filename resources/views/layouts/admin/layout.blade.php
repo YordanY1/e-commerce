@@ -7,11 +7,6 @@
 
     <title>Admin Panel</title>
 
-      <!-- Fonts -->
-      <link rel="preconnect" href="https://fonts.bunny.net">
-      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
         <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/admin/app.scss'])
 </head>
@@ -21,13 +16,7 @@
     @yield('content')
 
     <!-- Vite JS for Laravel Mix -->
-    @vite(['resources/js/app.js', 'resources/js/admin/app.js'])
-
-     <!-- External JS Libraries -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    @vite(['resources/js/admin/app.js'])
 
      <!-- Stack for additional scripts -->
      @stack('scripts')

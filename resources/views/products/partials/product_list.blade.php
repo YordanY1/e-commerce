@@ -22,8 +22,8 @@
                     <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
                         <div class="inner">
                             <p>
-                                <a href="#" class="icon add-to-cart btn btn-primary square-icon" 
-                                onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}"
+                                <a href="#" class="icon add-to-cart btn btn-primary square-icon"
+                                onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>
                                 <a href="{{ url('/product', $product->id) }}" class="icon btn btn-primary square-icon">

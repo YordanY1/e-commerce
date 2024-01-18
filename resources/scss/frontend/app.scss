@@ -1,4 +1,14 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import Slick Carousel styles
+@import "../../../node_modules/slick-carousel/slick/slick.scss";
+@import "../../../node_modules/slick-carousel/slick/slick-theme.scss";
+
+
+// Import Font Awesome
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 @import './variables';
 @import './styles.scss';
 @import './checkout/cart.scss';

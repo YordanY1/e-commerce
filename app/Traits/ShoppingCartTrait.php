@@ -1,4 +1,3 @@
-//write shopping cart trait that calculates the total price of the cart based on session storage cart
 <?php
 
 namespace App\Traits;
@@ -10,87 +9,118 @@ use Illuminate\Http\Request;
 
 trait ShoppingCartTrait
 {
-    public function addToCart(Product $product, Request $request)
+    public function addToCart($product_data, Request $request)
     {
+        //TODO Product object find by id
+        //Array
         $cart = $request->session()->get('cart');
+
         if (empty($cart)) {
-            $cart = [];
-        }
-        if (array_key_exists($product->id, $cart)) {
-            $cart[$product->id]['quantity']++;
-        } else {
-            $cart[$product->id] = [
-                'quantity' => 1,
-                'product_id' => $product->id,
-                'product_name' => $product->name,
-                'product_price' => $product->price,
-                'product_image' => $product->image,
+            $cart = [
+                'products' => [],
+                'total' => 0.00,
             ];
         }
+
+        if (array_key_exists($product_data['id'], $cart['products'])) {
+            $cart['products'][$product_data['id']]['quantity']++;
+        } else {
+            $cart['products'][$product_data['id']] = [
+                'id' => $product_data['id'],
+                'quantity' => 1,
+                'name' => $product_data['name'],
+                'price' => $product_data['price'],
+                'price_currency' => $product_data['price_currency'], // 'BGN
+                'image' => $product_data['image'],
+            ];
+        }
+
         $request->session()->put('cart', $cart);
+
         return true;
     }
 
-    public function removeFromCart(Product $product, Request $request)
+    public function removeFromCart($product_data, Request $request)
     {
-        $cart = $request->session()->get('cart');
-        if (empty($cart)) {
-            $cart = [];
+        $cart_products = $request->session()->get('cart.products');
+
+        if (empty($cart_products)) {
+            $cart_products = [];
         }
-        if (array_key_exists($product->id, $cart)) {
-            unset($cart[$product->id]);
+
+        if (array_key_exists($product_data['id'], $cart_products)) {
+            unset($cart_products[$product_data['id']]);
         }
-        $request->session()->put('cart', $cart);
+
+        $request->session()->put('cart.products', $cart_products);
+
         return true;
     }
 
     public function emptyCart(Request $request)
     {
         $request->session()->forget('cart');
+
         return true;
     }
 
     public function getCart(Request $request)
     {
         $cart = $request->session()->get('cart');
-        $total = 0;
-        $data = [];
+
+        $total = 0.00;
+
+        $data = [
+            'products' => [],
+            'total' => $total,
+        ];
+
         if (empty($cart)) {
-            $cart = [];
+            $cart = $data;
         }
-        foreach ($cart as $item) {
-            $total += $item['product_price'] * $item['quantity'];
-            $data[] = [
-                'product_id' => $item['product_id'],
-                'product_name' => $item['product_name'],
-                'product_price' => $item['product_price'],
-                'product_image' => $item['product_image'],
+
+        foreach ($cart as $key => $item) {
+            $total += $item['price'] * $item['quantity'];
+            $data['products'][$key] = [
+                'id' => $item['id'],
                 'quantity' => $item['quantity'],
+                'name' => $item['name'],
+                'price' => $item['price'],
+                'price_currency' => $item['price_currency'],
+                'image' => $item['image'],
             ];
         }
+
         $data['total'] = $total;
+
         return $data;
     }
 
     public function getCartCount(Request $request)
     {
-        $cart = $request->session()->get('cart');
-        if (empty($cart)) {
-            $cart = [];
+        $cart_products = $request->session()->get('cart.products');
+
+        if (empty($cart_products)) {
+            $cart_products = [];
         }
-        return count($cart);
+
+        return count($cart_products);
     }
 
     public function getCartTotal(Request $request)
     {
-        $cart = $request->session()->get('cart');
+        $cart_products = $request->session()->get('cart.products');
+
         $total = 0;
-        if (empty($cart)) {
-            $cart = [];
+        
+        if (empty($cart_products)) {
+            $cart_products = [];
         }
-        foreach ($cart as $item) {
-            $total += $item['product_price'] * $item['quantity'];
+        
+        foreach ($cart_products as $key => $item) {
+            $total += $item['price'] * $item['quantity'];
         }
+
         return $total;
     }
 }

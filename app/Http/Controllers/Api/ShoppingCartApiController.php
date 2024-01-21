@@ -21,8 +21,11 @@ class ShoppingCartApiController extends Controller
     {
         //TODO
         //DB Storage
+        $data = [];
+
         try {
-            $data = $this->getCart($request);
+            // $data = $this->getCart($request);
+            $data = $request->session()->get('cart');
         } catch (Exception $e) {
             Log::error('Shopping Cart Index Error: '. $e->getMessage());
         }
@@ -30,10 +33,29 @@ class ShoppingCartApiController extends Controller
         return $data;
     }
 
-    public function addToCart(Product $product, Request $request)
+    public function addProductToCart(Product $product, Request $request)
     {
         try {
-            $this->addToCart($product, $request);
+            // $product_data = [
+            //     'id' => $product->id,
+            //     'quantity' => 1,
+            //     'name' => $product->name,
+            //     'price' => $product->price->price,
+            //     'price_currency' => 'BGN', //$product->price->currency->code,
+            //     'image' => $product->image,
+            // ];
+            //TEST
+            $product_data = [
+                'id' => 1,
+                'quantity' => 1,
+                'name' => 'Test Product',
+                'price' => '125.00',
+                'price_currency' => 'BGN',
+                'image' => 'test.png',
+            ];
+
+            $this->addToCart($product_data, $request);
+
         } catch (Exception $e) {
             Log::error('Shopping Cart Add Error: '. $e->getMessage());
         }
@@ -41,7 +63,7 @@ class ShoppingCartApiController extends Controller
         return true;
     }
 
-    public function removeFromCart(Product $product, Request $request)
+    public function removeProductFromCart(Product $product, Request $request)
     {
         try {
             $this->removeFromCart($product, $request);
@@ -52,7 +74,7 @@ class ShoppingCartApiController extends Controller
         return true;
     }
 
-    public function emptyCart(Request $request)
+    public function emptyUserCart(Request $request)
     {
         try {
             $this->emptyCart($request);

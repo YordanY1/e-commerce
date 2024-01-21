@@ -1,8 +1,10 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import Slick Carousel styles
-@import "../../../node_modules/slick-carousel/slick/slick.scss";
-@import "../../../node_modules/slick-carousel/slick/slick-theme.scss";
+// @import "../../../node_modules/slick-carousel/slick/slick.scss";
+// @import "../../../node_modules/slick-carousel/slick/slick-theme.scss";
+@import "slick-carousel/slick/slick.scss";
+@import "slick-carousel/slick/slick-theme.scss";
 
 
 // Import Font Awesome
@@ -18,5 +20,7 @@
 @import './pages/contacts.scss';
 
 
-@import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
-@import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+// @import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+// @import '../../../node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+@import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';
+@import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css';

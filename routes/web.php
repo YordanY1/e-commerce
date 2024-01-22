@@ -69,11 +69,11 @@ Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 //Admin panel
-Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
+// Route::prefix('admin')->middleware('auth')->group(function () {
+//     Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
 
-    Route::resource('products', AdminProductsController::class)->names('admin.products');
-    Route::resource('manufacturers', ManufacturersController::class)->names('admin.manufacturers');
-    Route::resource('categories', CategoriesController::class)->names('admin.categories');
-    Route::resource('users', UsersController::class)->names('admin.users');
-});
+//     Route::resource('products', AdminProductsController::class)->names('admin.products');
+//     Route::resource('manufacturers', ManufacturersController::class)->names('admin.manufacturers');
+//     Route::resource('categories', CategoriesController::class)->names('admin.categories');
+//     Route::resource('users', UsersController::class)->names('admin.users');
+// });

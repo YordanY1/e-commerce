@@ -1,6 +1,6 @@
 @extends('layouts.home.layout')
 
-@section('title', 'Home')
+@section('title', 'Начало')
 
 @section('content')
 
@@ -26,7 +26,7 @@
                             <i class="fas fa-credit-card"></i>
                         </div>
                         <h3>Кредитни карти</h3>
-                        <p>Предлагаме плащане с кредитни карти.</p>
+                        <p>Предлагаме плащане с кредитни карти</p>
                     </div>
 
                     <!-- Service Item 2 -->
@@ -68,29 +68,33 @@
                 </div>
 
                 <div class="row">
+                    @php $counter = 0; @endphp
                     @foreach ($products as $product)
-                        <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
-                            <div class="product">
-                                @foreach ($product->images as $image)
-                                    <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
-                                    @endforeach
-                                    <div class="inner">
-                                        <p>
-                                            <a href="#" class="icon add-to-cart btn btn-primary square-icon">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </a>
-                                            <a href="{{ url('/product', $product->id) }}" class="icon btn btn-primary square-icon">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </p>
+                        @if ($counter < 6)
+                            <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
+                                <div class="product">
+                                    @foreach ($product->images as $image)
+                                        <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
+                                        @endforeach
+                                        <div class="inner">
+                                            <p>
+                                                <a href="#" class="icon add-to-cart btn btn-primary square-icon">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </a>
+                                                <a href="{{ url('/product', $product->id) }}" class="icon btn btn-primary square-icon">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="desc">
+                                        <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
+                                        <span class="price">${{ $product->price->price ?? 'N/A' }}</span>
                                     </div>
                                 </div>
-                                <div class="desc">
-                                    <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
-                                    <span class="price">${{ $product->price->price ?? 'N/A' }}</span>
-                                </div>
                             </div>
-                        </div>
+                            @php $counter++; @endphp
+                        @endif
                     @endforeach
                     <x-products.cart-modal/>
                 </div>

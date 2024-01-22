@@ -31,28 +31,35 @@ document.addEventListener('DOMContentLoaded', () => {
         window.cart.items.forEach((item, index) => {
             const priceNumber = parsePrice(item.price);
             const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item d-flex justify-content-between align-items-center mb-3';
+            itemElement.className = 'card mb-3 cart-item';
             itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
-                <span>${item.name}</span>
-                <div class="quantity-controls">
-                    <button class="quantity-btn decrease" onclick="decreaseQuantity(${index})">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn increase" onclick="increaseQuantity(${index})">+</button>
-                    <button class="remove-btn" onclick="removeItemFromCart(${index})">Изтрий</button>
+                <div class="row g-0">
+                    <div class="col-md-3 d-flex align-items-center justify-content-center">
+                        <img src="${item.image}" alt="${item.name}" class="img-fluid rounded-start">
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-center">
+                        <div>
+                            <h5 class="card-title">${item.name}</h5>
+                            <div class="quantity-controls">
+                                <button class="btn btn-outline-primary me-2" onclick="decreaseQuantity(${index})">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="btn btn-outline-primary ms-2" onclick="increaseQuantity(${index})">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex flex-column justify-content-between">
+                        <div class="card-body text-end">
+                            <p class="card-text price">${priceNumber.toFixed(2)} лв.</p>
+                            <button class="btn btn-danger btn-sm" onclick="removeItemFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
                 </div>
-                <span>${priceNumber.toFixed(2)} лв.</span>
             `;
-
-            // Insert item at the beginning of the container
-            if (cartItemsContainer.children.length > 0) {
-                cartItemsContainer.insertBefore(itemElement, cartItemsContainer.children[0]);
-            } else {
-                cartItemsContainer.appendChild(itemElement);
-            }
+            cartItemsContainer.appendChild(itemElement);
         });
         updateCartSummary();
     };
+
 
 
     // Function to increase quantity

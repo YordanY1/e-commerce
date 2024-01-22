@@ -1,6 +1,6 @@
 @extends('layouts.about.layout')
 
-@section('title', 'About')
+@section('title', 'За нас')
 
 @section('content')
 
@@ -10,14 +10,13 @@
                 <div class="row">
                     <div class="col-md-6" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
                         <div class="desc">
-                            <h3>Company History</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quo est quis mollitia ratione magni assumenda repellat atque modi temporibus tempore ex. Dolore facilis ex sunt ea praesentium expedita numquam?</p>
-                            <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci rem dolorem nesciunt perferendis quae amet deserunt eum labore quidem minima.</p>
+                            <p>Добре дошли в "Джеронимо" – вашето надеждно място за висококачествени газови продукти. В основата на нашия бизнес е ангажиментът да внесем топлина, уют и удобство във всяко домакинство.</p>
+                            <p>Нашият асортимент от газови продукти е проектиран, за да отговори на всички нужди на семейството, съчетавайки ефективност и безопасност.</p>
                         </div>
                         <div class="desc">
-                            <h3>Mission &amp; Vission</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quo est quis mollitia ratione magni assumenda repellat atque modi temporibus tempore ex. Dolore facilis ex sunt ea praesentium expedita numquam?</p>
-                            <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci rem dolorem nesciunt perferendis quae amet deserunt eum labore quidem minima.</p>
+                            <p>В "Джеронимо" предлагаме широка гама от газови продукти, които са идеални за всеки дом. От уреди за отопление до газови печки, всеки продукт е избран с мисъл за максимална безопасност, надеждност и енергийна ефективност. Ние разбираме колко важно е да имате уреди, на които можете да разчитате.</p>
+                            <p>Нашите продукти са специално създадени, за да подобрят живота на семействата. Предлагаме решения, които осигуряват постоянна топлина и уют в студените месеци и удобство през цялата година. С "Джеронимо" вашето семейство ще се радва на топлината и комфорта, които заслужава.</p>
+                            <p>Избирайки "Джеронимо", вие се доверявате на магазин, който цени качеството и клиентското удовлетворение. Ние сме посветили време и усилия, за да гарантираме, че нашите продукти са най-добрите на пазара. Нашата отдаденост на безопасността и иновациите ни прави предпочитан избор за много семейства.</p>
                         </div>
                     </div>
                     <div class="col-md-6" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">

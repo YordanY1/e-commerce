@@ -1,6 +1,6 @@
 @extends('layouts.products.layout')
 
-@section('title', 'Products')
+@section('title', 'Продукти')
 
 @section('content')
     {{-- Category Filters --}}

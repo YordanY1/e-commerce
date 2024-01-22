@@ -1,3 +1,36 @@
+.cart-item {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+    border-radius: 0.25rem; /* slight rounding of corners */
+}
+
+.cart-item img {
+    width: 100%; /* Reduce the width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Keep the aspect ratio of the image */
+    margin: 0 auto; /* Center the image in its container */
+}
+
+.cart-item .card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cart-item .card-title {
+    margin-bottom: 0.5rem; /* Slightly reduce space below the title */
+    font-size: 1.1rem; /* Slightly larger title */
+    font-weight: bold; /* Emphasize the product name */
+}
+
+.cart-item .quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0; /* Add some vertical space for the controls */
+}
+
+
 .quantity-controls {
     display: flex;
     align-items: center;
@@ -15,26 +48,47 @@
     transition: background-color 0.3s ease;
 }
 
-.quantity-btn:hover {
-    background-color: #0056b3; /* Darker shade for hover */
+.cart-item .price {
+    font-size: 1.2em;
+    font-weight: bold; /* Emphasize the price */
+    color: #333; /* Darker color for better readability */
 }
 
-.quantity {
-    padding: 0 10px;
+.cart-item .card-footer {
+    padding: 0.5rem 1.25rem; /* Adjust as needed */
+    background: none;
+    border-top: none;
 }
 
-.remove-btn {
-    background-color: #dc3545; /* Bootstrap danger color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    margin-left: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+.cart-item .btn-danger {
+    padding: 0.25rem 0.5rem; /* Smaller padding */
+    font-size: 0.875rem; /* Smaller font size */
+    margin-top: 10px; /* Space above the delete button */
 }
 
-.remove-btn:hover {
-    background-color: #bd2130; /* Darker shade for hover */
-}
+/* Responsive adjustments for better layout on smaller screens */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+    }
 
+    .cart-item .col-md-4, .cart-item .col-md-5, .cart-item .col-md-3 {
+        width: 100%;
+    }
+
+    .cart-item .card-footer {
+        padding: 0.5rem; /* Adjust padding for smaller screens */
+    }
+
+    .cart-item .price, .cart-item .card-footer {
+        text-align: start;
+    }
+    .cart-item .card-body {
+        align-items: center; /* Center-align for smaller screens */
+    }
+
+    .cart-item img {
+        width: 40%; /* Smaller width on mobile devices */
+    }
+}

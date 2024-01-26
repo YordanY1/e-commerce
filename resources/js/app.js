@@ -1,8 +1,3 @@
-import $ from 'jquery';
-window.$ = window.jQuery = $;
-import 'select2';
-
-
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 

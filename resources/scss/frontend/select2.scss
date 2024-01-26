@@ -1,0 +1,12 @@
+.select2-container.select2-container--bootstrap-5.select2-container--open {
+    background-color: #F0F0F0 !important;
+}
+
+.select2-search.select2-search--dropdown {
+    background-color: #F0F0F0 !important;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}

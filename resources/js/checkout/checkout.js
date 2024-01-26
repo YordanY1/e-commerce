@@ -102,31 +102,22 @@ window.toggleBillingAddress = function toggleBillingAddress(show) {
         });
     });
 
-
-
-// Delivery options event listener setup
 window.setupDeliveryMethodChange = function() {
     const deliveryMethods = document.querySelectorAll('input[type=radio][name=deliveryMethod]');
     const deliveryOptionsSelect = document.getElementById('deliveryOptions');
     const addressFieldsDiv = document.getElementById('addressFields');
-    const defaultPlaceholderOption = new Option('Изберете доставка', '');
 
     deliveryMethods.forEach(function(method) {
         method.addEventListener('change', function() {
             const selectedMethod = this.value;
 
-            // Reset and set placeholder option
-            deliveryOptionsSelect.innerHTML = '';
-            deliveryOptionsSelect.appendChild(defaultPlaceholderOption);
-            deliveryOptionsSelect.value = '';
-
             if (selectedMethod === 'speedyOffice') {
-                deliveryOptionsSelect.style.display = 'block';
+
                 addressFieldsDiv.style.display = 'none';
                 // TODO: Fetch and append Speedy offices here
                 // fetchSpeedyOffices(); // You will define this function
             } else if (selectedMethod === 'ekontOffice') {
-                deliveryOptionsSelect.style.display = 'block';
+
                 addressFieldsDiv.style.display = 'none';
                 fetchEcontOffices();
             } else if (selectedMethod === 'addressDelivery') {
@@ -143,18 +134,31 @@ function fetchEcontOffices() {
         .then(response => response.json())
         .then(data => {
             const select = document.getElementById('deliveryOptions');
-            select.innerHTML = '';
-            select.appendChild(new Option('Изберете офис на Еконт', ''));
-            data.offices.forEach(office => {
-                if (office.address.city.country.code2 === 'BG') {
-                    let option = new Option(`${office.name} ${office.address.fullAddress}`, office.id);
-                    select.appendChild(option);
-                }
-            });
-            $(select).select2({
-                theme: "bootstrap-5"
-              });
 
+            // Destroy any existing Select2 instance
+            if ($.fn.select2 && $(select).data('select2')) {
+                $(select).select2('destroy');
+            }
+
+            // Clear the select options
+            select.innerHTML = '';
+
+            // Populate the select options with the fetched data
+            data.offices.filter(office => office.address.city.country.code2 === 'BG')
+                .forEach(office => {
+                    const option = document.createElement('option');
+                    option.value = office.id;
+                    option.text = `${office.name} ${office.address.fullAddress}`;
+                    select.appendChild(option);
+                });
+
+            // Initialize Select2 with Bootstrap 5 theme and placeholder
+            $(select).select2({
+                theme: "bootstrap-5",
+                placeholder: 'Изберете доставка'
+            });
+
+            // Re-apply the change event listener
             select.onchange = function() {
                 document.getElementById('selectedOfficeId').value = this.value;
             };
@@ -162,20 +166,10 @@ function fetchEcontOffices() {
         .catch(error => console.error('Problem fetching Econt offices:', error));
 }
 
-$(document).ready(function() {
-    $('#deliveryOptions').select2({
-        placeholder: "Доставка",
-        theme: "bootstrap-5",
-        dropdownParent: $('#deliveryOptions').parent()
+    // Event listener setup call
+    document.addEventListener('DOMContentLoaded', function() {
+        window.setupDeliveryMethodChange();
     });
-});
-
-
-// Event listener setup call
-document.addEventListener('DOMContentLoaded', function() {
-    window.setupDeliveryMethodChange();
-});
-
 
 
 //Payments radio buttons

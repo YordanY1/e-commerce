@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <select class="form-select" id="deliveryOptions">
+                                        <select class="d-none" id="deliveryOptions">
                                             <!-- Options will be dynamically added here -->
                                         </select>
                                         <input type="hidden" id="selectedOfficeId" name="selected_office_id">

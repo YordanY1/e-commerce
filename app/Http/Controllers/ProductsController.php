@@ -12,7 +12,18 @@ class ProductsController extends Controller
     {
         $categories = Category::all();
 
-        $query = Product::query()->with(['images', 'price']);
+        // Subquery for the lowest price for each product
+        $priceSubQuery = \DB::table('prices')
+            ->selectRaw('MIN(price) as min_price, product_id')
+            ->groupBy('product_id');
+
+        // Base query for products
+        $query = Product::query()
+            ->select('products.*', 'price_subquery.min_price')
+            ->joinSub($priceSubQuery, 'price_subquery', function ($join) {
+                $join->on('products.id', '=', 'price_subquery.product_id');
+            })
+            ->with(['images']); // Eager load images
 
         // Category filter logic
         $categoryId = $request->query('category');
@@ -26,24 +37,16 @@ class ProductsController extends Controller
         $priceRange = $request->query('priceRange');
         switch ($priceRange) {
             case 'price-range-1':
-                $query->whereHas('price', function($q) {
-                    $q->where('price', '<=', 50);
-                });
+                $query->where('price_subquery.min_price', '<=', 50);
                 break;
             case 'price-range-2':
-                $query->whereHas('price', function($q) {
-                    $q->whereBetween('price', [50, 100]);
-                });
+                $query->whereBetween('price_subquery.min_price', [50, 100]);
                 break;
             case 'price-range-3':
-                $query->whereHas('price', function($q) {
-                    $q->whereBetween('price', [100, 200]);
-                });
+                $query->whereBetween('price_subquery.min_price', [100, 200]);
                 break;
             case 'price-range-4':
-                $query->whereHas('price', function($q) {
-                    $q->where('price', '>', 200);
-                });
+                $query->where('price_subquery.min_price', '>', 200);
                 break;
         }
 
@@ -52,20 +55,13 @@ class ProductsController extends Controller
         if ($sorting) {
             switch ($sorting) {
                 case 'popular':
-                    // Implement logic for popular sorting
-                    // Example: $query->orderBy('popularity', 'desc');
+                    $query->orderBy('popularity', 'desc');
                     break;
                 case 'expensive':
-                    // Sort by price in descending order (more expensive first)
-                    $query->whereHas('price', function($q) {
-                        $q->orderBy('price', 'desc');
-                    });
+                    $query->orderBy('price_subquery.min_price', 'desc');
                     break;
                 case 'low-price':
-                    // Sort by price in ascending order (less expensive first)
-                    $query->whereHas('price', function($q) {
-                        $q->orderBy('price', 'asc');
-                    });
+                    $query->orderBy('price_subquery.min_price', 'asc');
                     break;
             }
         }

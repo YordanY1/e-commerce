@@ -55,7 +55,8 @@ class ProductsController extends Controller
         if ($sorting) {
             switch ($sorting) {
                 case 'popular':
-                    $query->orderBy('popularity', 'desc');
+                    // Replace 'popularity' with an existing column in your 'products' table
+                    $query->orderBy('created_at', 'desc');
                     break;
                 case 'expensive':
                     $query->orderBy('price_subquery.min_price', 'desc');
@@ -65,6 +66,7 @@ class ProductsController extends Controller
                     break;
             }
         }
+
 
         // Pagination logic
         $pagination = $request->query('pagination') ?: 10; // Default pagination

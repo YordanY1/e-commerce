@@ -81,10 +81,6 @@
                                                 <span class="price text-primary">Цена: ${{ $product->price->price }}</span>
                                                 <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
 
-                                                <p class="text-muted">
-                                                    {{ $product->attributes->description ?? 'No description available' }}
-                                                </p>
-
                                                 <div class="row g-4">
                                                     <div class="col-md-6">
                                                         <div class="h-100 p-4 border-start border-4 border-primary">
@@ -110,18 +106,13 @@
                                 <div class="col-lg-10">
                                     <div class="tab-content active" data-tab-content="2">
                                         <div class="bg-light p-4 shadow-sm rounded">
-                                            <h3 class="fw-bold text-primary">Product Specification</h3>
+                                            <h3 class="fw-bold text-primary">Спецификации на продукта</h3>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius</li>
-                                                <li class="list-group-item">adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi</li>
-                                                <li class="list-group-item">Veritatis tenetur odio delectus quibusdam officiis est.</li>
-                                                <li class="list-group-item">Magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</li>
-                                            </ul>
-                                            <ul class="list-group list-group-flush mt-3">
-                                                <li class="list-group-item">Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius</li>
-                                                <li class="list-group-item">adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi</li>
-                                                <li class="list-group-item">Veritatis tenetur odio delectus quibusdam officiis est.</li>
-                                                <li class="list-group-item">Magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</li>
+                                                <li class="list-group-item">
+                                                    <p class="text-muted">
+                                                    {{ $product->attributes->description ?? 'No description available' }}
+                                                    </p>
+                                            </li>
                                             </ul>
                                         </div>
                                     </div>

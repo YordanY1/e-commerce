@@ -78,9 +78,8 @@
                                     <div class="col-lg-10">
                                         <div class="tab-content active" data-tab-content="1">
                                             <div class="bg-light p-4 shadow-sm rounded">
-                                                <span class="price text-primary">Цена: ${{ $product->price->price }}</span>
-                                                <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
-
+                                                    <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
+                                                    <span class="price text-primary">Цена: ${{ $product->price->price }}</span>
                                                 <div class="row g-4">
                                                     <div class="col-md-6">
                                                         <div class="h-100 p-4 border-start border-4 border-primary">

@@ -42,7 +42,6 @@
                             <input type="checkbox" id="pagination-30" name="pagination-option" value="30" class="big-checkbox">
                             <label for="pagination-30">30</label>
                         </li>
-                        <!-- More options as needed -->
                     </ul>
                 </div>
             </div>

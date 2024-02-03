@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\Price;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Validator;
 use DB;
 
@@ -38,7 +39,9 @@ class ProductsApiController extends Controller
         }
 
         $product = DB::transaction(function () use ($request) {
-            $product = Product::create($request->only(['name', 'code', 'manufacturer_id']));
+            $productData = $request->only(['name', 'code', 'manufacturer_id']);
+            $productData['slug'] = Str::slug($request->name);
+            $product = Product::create($productData);
 
             // Handle product attributes including categories
             $attributes = new ProductAttribute([

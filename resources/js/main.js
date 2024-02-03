@@ -12,13 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-//Carosel
-function moveCarousel(index) {
-    $('#productCarousel').carousel(index);
-}
-
-
 document.addEventListener('DOMContentLoaded', () => {
     // Select elements from the main page
     const categoryInputs = document.querySelectorAll('.category-input');

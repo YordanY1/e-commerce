@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="col-md-3 d-flex flex-column justify-content-between">
                         <div class="card-body text-end">
                             <p class="card-text price">${priceNumber.toFixed(2)} лв.</p>
-                            <button class="btn btn-danger btn-sm" onclick="removeItemFromCart(${index})">Remove</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeItemFromCart(${index})">Премахни</button>
                         </div>
                     </div>
                 </div>

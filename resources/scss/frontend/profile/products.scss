@@ -113,24 +113,15 @@
     transition: color 0.3s ease; /* Smooth transition for color change */
 }
 
-
 .desc h3 a {
     color: inherit; /* Inherits color from h3 */
     text-decoration: none; /* Removes underline from links */
+
+    &:hover {
+        color: inherit; /* Inherits color from h3 on hover */
+    }
 }
 
-.product-grid:hover .desc h3,
-.product-grid:hover .desc .price {
-    color: gold; /* Change color to gold on hover */
-}
-
-
-
-/* Change text color on hover over the product grid */
-.product-grid:hover .desc h3,
-.product-grid:hover .desc .price {
-    color: gold; /* Change color to gold on hover */
-}
 
 /* Custom button styling */
 .btn-custom.btn-outline {

@@ -81,6 +81,9 @@ window.renderOrderSummary = function() {
 };
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    window.renderOrderSummary();
+});
 
 //Checkout Buttons
 window.toggleBillingAddress = function toggleBillingAddress(show) {
@@ -166,7 +169,7 @@ function fetchEcontOffices() {
         .catch(error => console.error('Problem fetching Econt offices:', error));
 }
 
-    // Event listener setup call
+// Event listener setup call
     document.addEventListener('DOMContentLoaded', function() {
         window.setupDeliveryMethodChange();
     });

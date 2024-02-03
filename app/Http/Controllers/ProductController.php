@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     // Method to show a single product's details
-    public function show($id)
+    public function show($slug)
     {
-        $product = Product::with(['images', 'price', 'attributes'])->findOrFail($id);
+        $product = Product::with(['images', 'price', 'attributes'])->where('slug', $slug)->firstOrFail();
         return view('products.product_show', compact('product'));
     }
 }

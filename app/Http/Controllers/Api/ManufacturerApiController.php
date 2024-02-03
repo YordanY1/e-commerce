@@ -25,7 +25,7 @@ class ManufacturerApiController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:manufacturers',
+            // 'slug' => 'required|string|max:255|unique:manufacturers',
             'code' => 'required|string|max:255',
             // 'country_id' => 'required|integer|exists:countries,id', // Assuming you have a countries table
             // 'status' => 'required|integer',

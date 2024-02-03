@@ -11,9 +11,9 @@
                     <div class="fh5co-contact-info">
                         <h3>Контакти с нас</h3>
                         <ul>
-                            <li class="address"><i class="fas fa-map-marker-alt"></i> 198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-                            <li class="phone"><i class="fas fa-phone"></i> <a href="tel://1234567920">+ 1235 2355 98</a></li>
-                            <li class="email"><i class="fas fa-envelope"></i> <a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+                            <li class="address"><i class="fas fa-map-marker-alt"></i> Северен, ул. „Брезовска“ 36, 4003 Пловдив</li>
+                            <li class="phone"><i class="fas fa-phone"></i> <a href="tel://0888707691">088 870 7691</a></li>
+                            <li class="email"><i class="fas fa-envelope"></i> <a href="mailto:jeronimostore1@gmail.com">jeronimostore1@gmail.com</a></li>
                         </ul>
                     </div>
 
@@ -23,19 +23,19 @@
                     <form id="contactForm">
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Вашето име">
+                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Вашето име" autocomplete="name">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Вашият e-mail">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Вашият e-mail" autocomplete="email">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Тема">
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Тема" autocomplete="on">
                             </div>
                         </div>
 
@@ -44,8 +44,6 @@
                                 <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Съобщение"></textarea>
                             </div>
                         </div>
-
-
                         <div class="form-group">
                             <input type="submit" value="Изпрати" class="btn btn-primary" onclick="sendEmail(event)">
                         </div>
@@ -78,7 +76,7 @@
         <div class="row">
             <div class="col-12 py-3 d-flex justify-content-center">
                 <div class="google-maps-custom"> <!-- You can adjust 800px to your preferred width -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2965.0471957347427!2d24.871350475201865!3d41.99926265782086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd8cf286788b7%3A0xa27802ec1c9b58df!2z0YPQuy4g4oCe0JzQtdGB0YLQsOKAnCAxLCA0MjMwINC60LIuINCh0LLQtdGC0Lgg0JPQtdC-0YDQs9C4LCDQkNGB0LXQvdC-0LLQs9GA0LDQtA!5e0!3m2!1sbg!2sbg!4v1702191083660!5m2!1sbg!2sbg" width="100%" height="600" frameborder="0" style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d189505.8622275022!2d24.66819153969921!3d42.08542609723215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd18527aa4bfb%3A0xa64afcc18d5a65d4!2z0JzQsNCz0LDQt9C40L0g0LfQsCDQs9Cw0LfQvtCy0Lgg0YPRgNC10LTQuCBHZXJvbmltbw!5e0!3m2!1sbg!2sbg!4v1706964707831!5m2!1sbg!2sbg" width="100%" height="600" frameborder="0" style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>

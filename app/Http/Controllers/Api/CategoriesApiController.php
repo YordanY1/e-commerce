@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoriesApiController extends Controller
 {
@@ -25,14 +26,10 @@ class CategoriesApiController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories',
             'code' => 'required|string|max:255',
-            // 'parent_id' => 'sometimes|nullable|integer|exists:categories,id',
-            'description' => 'sometimes|string',
-            // 'keywords' => 'sometimes|string',
-            // 'status' => 'required|integer',
-            // Add other fields as necessary
         ]);
+
+        $validatedData['slug'] = Str::slug($request->name);
 
         $category = Category::create($validatedData);
         return response()->json($category, 201);

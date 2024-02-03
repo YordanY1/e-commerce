@@ -15,11 +15,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="manufacturerSlug" class="form-label">Slug</label>
-                        <input type="text" class="form-control" id="manufacturerSlug" name="slug" required>
-                    </div>
-
-                    <div class="mb-3">
                         <label for="manufacturerCode" class="form-label">Code</label>
                         <input type="text" class="form-control" id="manufacturerCode" name="code" required>
                     </div>

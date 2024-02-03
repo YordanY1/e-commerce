@@ -15,10 +15,6 @@
                         <input type="text" class="form-control" id="editCategoryName" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editCategorySlug" class="form-label">Slug</label>
-                        <input type="text" class="form-control" id="editCategorySlug" name="slug">
-                    </div>
-                    <div class="mb-3">
                         <label for="editCategoryCode" class="form-label">Code</label>
                         <input type="text" class="form-control" id="editCategoryCode" name="code">
                     </div>

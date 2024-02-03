@@ -47,7 +47,7 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/products', [ProductsController::class, 'index']);
 
 //Products by ID
-Route::get('/product/{id}', [ProductController::class, 'show']);
+Route::get('/product/{slug}', [ProductController::class, 'show']);
 
 //Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

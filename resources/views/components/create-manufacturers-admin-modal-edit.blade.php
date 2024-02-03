@@ -13,10 +13,6 @@
                 </div>
                 <!-- Placeholder for additional fields -->
                 <div class="mb-3">
-                    <label for="editManufacturerSlug" class="form-label">Slug</label>
-                    <input type="text" class="form-control" id="editManufacturerSlug">
-                </div>
-                <div class="mb-3">
                     <label for="editManufacturerCode" class="form-label">Code</label>
                     <input type="text" class="form-control" id="editManufacturerCode">
                 </div>

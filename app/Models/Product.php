@@ -11,6 +11,8 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    protected $appends = ['slug'];
+
     // Релация към Manufacturer
     public function manufacturer()
     {
@@ -38,5 +40,6 @@ class Product extends Model
     {
         return $this->hasMany(File::class);
     }
+
 
 }

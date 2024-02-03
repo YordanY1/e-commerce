@@ -14,16 +14,8 @@
                         <input type="text" class="form-control" id="categoryName" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="categorySlug" class="form-label">Slug</label>
-                        <input type="text" class="form-control" id="categorySlug" name="slug">
-                    </div>
-                    <div class="mb-3">
                         <label for="categoryCode" class="form-label">Code</label>
                         <input type="text" class="form-control" id="categoryCode" name="code">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categorydescription" class="form-label">description</label>
-                        <input type="text" class="form-control" id="description" name="description">
                     </div>
                 </form>
             </div>

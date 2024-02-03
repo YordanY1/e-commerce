@@ -34,7 +34,7 @@
                     </div>
                     <div class="desc">
                         <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
-                        <span class="price">${{ optional($product->price)->price ?? 'N/A' }}</span>
+                        <span class="price">{{ optional($product->price)->price ?? 'N/A' }} лв</span>
                     </div>
                 </div>
             </div>

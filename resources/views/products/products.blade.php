@@ -30,19 +30,19 @@
                 <ul class="price-range-list">
                     <li>
                         <input type="radio" id="price-range-1" name="price-range" class="price-range-input">
-                        <label for="price-range-1">0 лв - 50 лв</label>
+                        <label for="price-range-1">0 лв. - 50 лв.</label>
                     </li>
                     <li>
                         <input type="radio" id="price-range-2" name="price-range" class="price-range-input">
-                        <label for="price-range-2">50 лв - 100 лв</label>
+                        <label for="price-range-2">50 лв. - 100 лв.</label>
                     </li>
                     <li>
                         <input type="radio" id="price-range-3" name="price-range" class="price-range-input">
-                        <label for="price-range-3">100 лв - 200 лв</label>
+                        <label for="price-range-3">100 лв. - 200 лв.</label>
                     </li>
                     <li>
                         <input type="radio" id="price-range-4" name="price-range" class="price-range-input">
-                        <label for="price-range-4">200+ лв</label>
+                        <label for="price-range-4">200+ лв.</label>
                     </li>
                 </ul>
             </div>

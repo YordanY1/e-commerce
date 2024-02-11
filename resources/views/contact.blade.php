@@ -11,7 +11,11 @@
                     <div class="fh5co-contact-info">
                         <h3>Контакти с нас</h3>
                         <ul>
-                            <li class="address"><i class="fas fa-map-marker-alt"></i> Северен, ул. „Брезовска“ 36, 4003 Пловдив</li>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Северен, ул. „Брезовска“ 36, 4003 Пловдив" target="_blank">
+                                <li class="address">
+                                    <i class="fas fa-map-marker-alt"></i> Северен, ул. „Брезовска“ 36, 4003 Пловдив
+                                </li>
+                            </a>
                             <li class="phone"><i class="fas fa-phone"></i> <a href="tel://0888707691">088 870 7691</a></li>
                             <li class="email"><i class="fas fa-envelope"></i> <a href="mailto:jeronimostore1@gmail.com">jeronimostore1@gmail.com</a></li>
                         </ul>

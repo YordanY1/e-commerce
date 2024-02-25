@@ -105,23 +105,26 @@
     background: rgba(255, 255, 255, 0.9);
     margin-top: -2rem;
     transition: all 0.3s ease;
-}
-
-.desc h3, .desc .price {
-    color: #333; /* Black color for the text */
-    font-size: 0.9rem; /* Smaller font size */
-    transition: color 0.3s ease; /* Smooth transition for color change */
-}
-
-.desc h3 a {
-    color: inherit; /* Inherits color from h3 */
-    text-decoration: none; /* Removes underline from links */
-
-    &:hover {
-        color: inherit; /* Inherits color from h3 on hover */
+    h3 {
+        margin-bottom: 0;
+        color: #333; /* Black color for the text */
+        font-size: 1rem; /* Smaller font size */
+        text-transform: uppercase;
+        transition: color 0.3s ease; /* Smooth transition for color change */
+        a {
+            color: inherit; /* Inherits color from h3 */
+            text-decoration: none; /* Removes underline from links */
+            &:hover {
+                color: inherit; /* Inherits color from h3 on hover */
+            }
+        }
+    }
+    .price {
+        color: #333; /* Black color for the text */
+        font-size: 0.8rem; /* Smaller font size */
+        transition: color 0.3s ease; /* Smooth transition for color change */
     }
 }
-
 
 /* Custom button styling */
 .btn-custom.btn-outline {

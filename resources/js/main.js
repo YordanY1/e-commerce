@@ -12,24 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-//Carosel
-function moveCarousel(index) {
-    $('#productCarousel').carousel(index);
-}
-
-
-//Sorting
 document.addEventListener('DOMContentLoaded', () => {
-    // Select elements
+    // Select elements from the main page
     const categoryInputs = document.querySelectorAll('.category-input');
     const priceRangeInputs = document.querySelectorAll('.price-range-input');
-
-    // These will only be set if elements with the corresponding IDs exist
     const sortingSelect = document.getElementById('sorting');
     const paginationSelect = document.getElementById('pagination');
 
-    // Event listeners for category and price range filters
+    // Attach event listeners for category and price range filters
     categoryInputs.forEach(input => {
         input.addEventListener('change', fetchProducts);
     });
@@ -47,13 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
         paginationSelect.addEventListener('change', fetchProducts);
     }
 
+    // Attach event listeners for sorting and pagination options in the modals
+    document.querySelectorAll('input[name="sorting-option"]').forEach(input => {
+        input.addEventListener('change', fetchProducts);
+    });
+
+    document.querySelectorAll('input[name="pagination-option"]').forEach(input => {
+        input.addEventListener('change', fetchProducts);
+    });
+
     function fetchProducts() {
-        const selectedCategoryId = Array.from(categoryInputs)
-            .find(input => input.checked)?.dataset.category || 'all';
-        const selectedPriceRangeId = Array.from(priceRangeInputs)
-            .find(input => input.checked)?.id || 'all';
-        const selectedSorting = sortingSelect ? sortingSelect.value : 'default';
-        const selectedPagination = paginationSelect ? paginationSelect.value : 'default';
+        // Get selected category and price range
+        const selectedCategoryId = Array.from(categoryInputs).find(input => input.checked)?.dataset.category || 'all';
+        const selectedPriceRangeId = Array.from(priceRangeInputs).find(input => input.checked)?.id || 'all';
+
+        // Get selected sorting and pagination option
+        // Check both main page and modal inputs
+        const selectedSorting = document.querySelector('input[name="sorting-option"]:checked')?.value || sortingSelect?.value || 'default';
+        const selectedPagination = document.querySelector('input[name="pagination-option"]:checked')?.value || paginationSelect?.value || 'default';
 
         fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId, selectedSorting, selectedPagination);
     }
@@ -61,31 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchProductsByFilters(categoryId, priceRangeId, sorting, pagination) {
         const url = new URL(window.location.href);
 
-        // Set or remove query parameters based on filters
-        if (categoryId !== 'all') {
-            url.searchParams.set('category', categoryId);
-        } else {
-            url.searchParams.delete('category');
-        }
-
-        if (priceRangeId !== 'all') {
-            url.searchParams.set('priceRange', priceRangeId);
-        } else {
-            url.searchParams.delete('priceRange');
-        }
-
-        // Add parameters only if they exist
-        if (sorting !== 'default') {
-            url.searchParams.set('sorting', sorting);
-        } else {
-            url.searchParams.delete('sorting');
-        }
-
-        if (pagination !== 'default') {
-            url.searchParams.set('pagination', pagination);
-        } else {
-            url.searchParams.delete('pagination');
-        }
+        // Update URL with query parameters
+        url.searchParams.set('category', categoryId !== 'all' ? categoryId : '');
+        url.searchParams.set('priceRange', priceRangeId !== 'all' ? priceRangeId : '');
+        url.searchParams.set('sorting', sorting !== 'default' ? sorting : '');
+        url.searchParams.set('pagination', pagination !== 'default' ? pagination : '');
 
         // Fetch and update the product list
         fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
@@ -96,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error:', error));
     }
 });
+
 
 
 //Emails

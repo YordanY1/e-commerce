@@ -1,6 +1,6 @@
 @extends('layouts.products.layout')
 
-@section('title', 'Product Details')
+@section('title', 'Продукти')
 
 @section('content')
 <div id="fh5co-product">
@@ -8,44 +8,19 @@
         <div class="row">
             <div class="col-md-10 offset-md-1 animate-box">
                 <!-- Bootstrap Carousel -->
-                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-                    <!-- Carousel items -->
-                    <div class="carousel-inner">
-                        @foreach($product->images as $key => $image)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $image->path) }}" class="d-block w-100" alt="{{ $product->name }}">
-                            </div>
-                        @endforeach
-                    </div>
+                <div id="productImage" style="width: 100%; overflow: hidden; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;">
+                    <!-- Display the first image of the product -->
+                    @if($product->images->count() > 0)
+                        <img src="{{ asset('storage/' . $product->images->first()->path) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" alt="{{ $product->name }}">
+                    @else
 
-                    <!-- Add carousel controls if there are multiple images -->
-                    @if($product->images->count() > 1)
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        <img src="{{ asset('storage/default-placeholder.png') }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" alt="Default Image">
                     @endif
                 </div>
 
-                <!-- Bootstrap Stepper (Dynamic) -->
-                @if($product->images->count() > 1)
-                  <!-- Bootstrap Stepper (Display regardless of image count) -->
-                    <div class="d-flex justify-content-center mt-4" id="carouselStepper">
-                        <ul class="dot-stepper">
-                            @foreach($product->images as $key => $image)
-                                <li onclick="moveCarousel({{ $key }})" class="{{ $key == 0 ? 'active' : '' }}"></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <div class="row justify-content-center animate-box">
                     <div class="col-md-8 text-center fh5co-heading">
-                        <h2>{{ $product->name }}</h2> <!-- Display product name dynamically -->
+                        <h2>{{ $product->name }}</h2>
                         <p>
                             <a href="#" class="btn btn-primary btn-lg" id="add-to-cart">Добави в количката</a>
                         </p>
@@ -78,9 +53,8 @@
                                     <div class="col-lg-10">
                                         <div class="tab-content active" data-tab-content="1">
                                             <div class="bg-light p-4 shadow-sm rounded">
-                                                <span class="price text-primary">Цена: ${{ $product->price->price }}</span>
-                                                <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
-
+                                                    <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
+                                                    <span class="price text-primary d-inline-block p-2 bg-light fs-4 rounded">Цена: {{ $product->price->price }} лв.</span>
                                                 <div class="row g-4">
                                                     <div class="col-md-6">
                                                         <div class="h-100 p-4 border-start border-4 border-primary">

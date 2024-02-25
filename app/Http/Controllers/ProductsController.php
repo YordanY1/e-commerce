@@ -26,10 +26,13 @@ class ProductsController extends Controller
             ->with(['images']); // Eager load images
 
         // Category filter logic
-        $categoryId = $request->query('category');
+        $categorySlug = $request->query('category');
+        $categoryId = Category::where('slug', $categorySlug)->value('id');
+
+
         if ($categoryId) {
             $query->whereHas('attributes', function ($query) use ($categoryId) {
-                $query->whereJsonContains('categories', (string) $categoryId);
+                $query->whereJsonContains('categories', (string)$categoryId);
             });
         }
 

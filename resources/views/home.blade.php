@@ -7,8 +7,8 @@
         <div class="full-bg-image" style="background-image: url('/images/gas_carousel_home.jpg');">
             <div class="container">
                 <div class="welcome-text" data-aos="fade-in" data-aos-duration="1000">
-                    <h2>Добре дошли в нашия магазин!</h2>
-                    <h6>Разгледайте нашите разнообразни продукти</h6>
+                    <h2 style="color: #106EE8">Добре дошли в нашия магазин!</h2>
+                    <h6 style="color: #106EE8">Разгледайте нашите разнообразни продукти</h6>
                 </div>
             </div>
         </div>
@@ -81,15 +81,15 @@
                                                 <a href="#" class="icon add-to-cart btn btn-primary square-icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </a>
-                                                <a href="{{ url('/product', $product->id) }}" class="icon btn btn-primary square-icon">
+                                                <a href="{{ url('/product', $product->slug) }}" class="icon btn btn-primary square-icon">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="desc">
-                                        <h3><a href="{{ url('/product', $product->id) }}">{{ $product->name }}</a></h3>
-                                        <span class="price">${{ $product->price->price ?? 'N/A' }}</span>
+                                        <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
+                                        <span class="price">{{ $product->price->price ?? 'N/A' }} лв.</span>
                                     </div>
                                 </div>
                             </div>

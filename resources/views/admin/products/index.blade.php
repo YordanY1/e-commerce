@@ -17,6 +17,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
+                            <th>Slug</th>
                             <th>Manufacturer</th>
                             <th>Description</th>
                             <th>Category</th>
@@ -28,12 +29,13 @@
                     <tbody>
                         @foreach ($products as $product)
                         <tr>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->code }}</td>
-                            <td>{{ $product->manufacturer->name }}</td>
-                            <td>{{ $product->attributes->description }}</td>
+                            <td>{{ $product->name ?? '' }}</td>
+                            <td>{{ $product->code ?? '' }}</td>
+                            <td>{{ $product->slug ?? '' }}</td>
+                            <td>{{ $product->manufacturer->name ?? '' }}</td>
+                            <td>{{ $product->attributes->description ?? '' }}</td>
                             <td>
-                                @if(is_array($product->attributes->categories))
+                                @if(is_array($product->attributes->categories ?? []))
                                     @foreach ($product->attributes->categories as $category_id)
                                         @if ($category = $categories->firstWhere('id', $category_id))
                                             <span class="badge bg-secondary">{{ $category->name }}</span>
@@ -41,13 +43,12 @@
                                     @endforeach
                                 @endif
                             </td>
-
                             <td>
-                                @if ($product->images->isNotEmpty())
+                                @if (($product->images->isNotEmpty()) ?? false)
                                     <img src="{{ asset('storage/' . $product->images->first()->path) }}" alt="{{ $product->name }}" style="width: 100px; height: auto;">
                                 @endif
                             </td>
-                            <td>{{ $product->price->price }}</td> <!-- Displaying the price -->
+                            <td>{{ $product->price->price ?? '' }}</td>
                             <td>
                                 <!-- Actions -->
                                 <button class="btn btn-primary btn-sm" onclick="editProduct({{ $product->id }})">Edit</button>

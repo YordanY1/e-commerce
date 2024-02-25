@@ -20,9 +20,9 @@
                     <!-- Add an option for all categories -->
                     <li><a class="dropdown-item" href="{{ url('/products') }}">Всички категории</a></li>
 
-                    <!-- List all individual categories -->
+                 <!-- List all individual categories -->
                     @foreach ($categories as $category)
-                        <li><a class="dropdown-item" href="{{ url('/products?category=' . $category->id) }}">{{ $category->name }}</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/products?category=' . $category->slug) }}">{{ $category->name }}</a></li>
                     @endforeach
                 </ul>
             </li>

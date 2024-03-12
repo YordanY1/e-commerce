@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait ShippingInfromationTrait
+trait ShippingInformationTrait
 {
     public function addShippingInformation()
     {

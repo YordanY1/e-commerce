@@ -17,11 +17,13 @@ use App\Http\Controllers\Admin\ProductsController as AdminProductsController;
 use App\Http\Controllers\Admin\ManufacturersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Api\StripePaymentApiController;
 use App\Http\Controllers\Payment\PaymentBankController;
 use App\Http\Controllers\Payment\PaymentDataController;
 use App\Http\Controllers\Payment\PaymentFailedController;
 use App\Http\Controllers\Payment\PaymentStripeController;
 use App\Http\Controllers\Payment\PaymentSuccessController;
+use App\Http\Controllers\Payment\StripePaymentGeneralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,10 @@ Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
 Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
 Route::get('payment/success', [PaymentSuccessController::class, 'index']);
 Route::get('payment/failed', [PaymentFailedController::class, 'index']);
+
+//Stripe
+Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
+Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
 
 //Login Register
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

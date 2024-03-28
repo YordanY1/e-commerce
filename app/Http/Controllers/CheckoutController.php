@@ -10,4 +10,8 @@ class CheckoutController extends Controller
     {
         return view('checkout.checkout');
     }
+    public function stripeCharge()
+    {
+        return view('checkout.stripe.stripe');
+    }
 }

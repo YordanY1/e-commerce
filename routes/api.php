@@ -53,7 +53,7 @@ Route::post('/send-email', [MailController::class, 'sendEmail']);
 
 //Shopping Cart API Routes
 Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);
-Route::get('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addProductToCart']);
+Route::post('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addProductToCart'])->middleware('web');
 Route::post('/shopping-cart/remove-from-cart/{product}', [ShoppingCartApiController::class, 'removeProductFromCart']);
 Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emptyUserCart']);
 

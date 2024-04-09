@@ -18,7 +18,6 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" onclick="location.href='{{ url('/cart') }}'">виж количката</button>
-
         </div>
       </div>
     </div>

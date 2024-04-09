@@ -23,7 +23,7 @@
         <x-footer />
 
         <!-- Vite JS for Laravel Mix -->
-        @vite(['resources/js/app.js', 'resources/js/cart/cartManager.js'])
+        @vite(['resources/js/app.js', 'resources/js/cart/sessionCartManager.js'])
 
         @stack('scripts')
 </body>

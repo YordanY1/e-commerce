@@ -12,6 +12,8 @@ use Validator;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 class ShoppingCartApiController extends Controller
 {
@@ -35,23 +37,15 @@ class ShoppingCartApiController extends Controller
 
     public function addProductToCart(Product $product, Request $request)
     {
+
         try {
-            // $product_data = [
-            //     'id' => $product->id,
-            //     'quantity' => 1,
-            //     'name' => $product->name,
-            //     'price' => $product->price->price,
-            //     'price_currency' => 'BGN', //$product->price->currency->code,
-            //     'image' => $product->image,
-            // ];
-            //TEST
             $product_data = [
-                'id' => 1,
+                'id' => $product->id,
                 'quantity' => 1,
-                'name' => 'Test Product',
-                'price' => '125.00',
+                'name' => $product->name,
+                'price' => $product->price->price,
                 'price_currency' => 'BGN',
-                'image' => 'test.png',
+                'image' => $product->image,
             ];
 
             $this->addToCart($product_data, $request);
@@ -60,7 +54,7 @@ class ShoppingCartApiController extends Controller
             Log::error('Shopping Cart Add Error: '. $e->getMessage());
         }
 
-        return true;
+        return response()->json($product_data);
     }
 
     public function removeProductFromCart(Product $product, Request $request)
@@ -81,7 +75,7 @@ class ShoppingCartApiController extends Controller
         } catch(Exception $e) {
             Log::error('Shopping Cart Empty Error: '. $e->getMessage());
         }
-        
+
         return true;
     }
 

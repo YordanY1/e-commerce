@@ -1,3 +1,6 @@
+import axios from "axios"
+window.axios = axios;
+
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 import select2 from 'select2';
@@ -21,4 +24,4 @@ import './main';
 import './products/productsIntoBasket';
 
 //Checkout
-
+import './cart/sessionCartManager';

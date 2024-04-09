@@ -31,9 +31,7 @@ window.scm_addToCart = async function(el, evnt) {
             // Save the updated cart back to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
 
-            document.addEventListener('DOMContentLoaded', function() {
-                updateCartUI();
-            });
+            updateCartUI(); // Call directly to update the UI without waiting for DOMContentLoaded
 
             // Update modal content
             document.getElementById('modal-product-image').src = result.data.image;

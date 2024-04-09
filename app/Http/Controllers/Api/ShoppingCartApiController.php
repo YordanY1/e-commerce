@@ -39,13 +39,19 @@ class ShoppingCartApiController extends Controller
     {
 
         try {
+
+            $imagePath = $product->images->first()?->path;
+
+
+            $imageUrl = asset('/storage/' . $imagePath);
+
             $product_data = [
                 'id' => $product->id,
                 'quantity' => 1,
                 'name' => $product->name,
                 'price' => $product->price->price,
                 'price_currency' => 'BGN',
-                'image' => $product->image,
+                'image' => $imageUrl
             ];
 
             $this->addToCart($product_data, $request);

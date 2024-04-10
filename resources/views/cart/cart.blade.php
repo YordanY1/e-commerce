@@ -87,9 +87,10 @@ function updateCartSummary() {
 }
 
 function increaseQuantity(productId) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    if(cart[productId]) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    if (cart[productId]) {
         cart[productId].quantity += 1;
+        updateQuantityInBackend(productId, cart[productId].quantity);
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCartItems();
         updateCartSummary();
@@ -97,18 +98,30 @@ function increaseQuantity(productId) {
 }
 
 function decreaseQuantity(productId) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    if(cart[productId] && cart[productId].quantity > 1) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    if (cart[productId] && cart[productId].quantity > 1) {
         cart[productId].quantity -= 1;
+        updateQuantityInBackend(productId, cart[productId].quantity);
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCartItems();
         updateCartSummary();
-    } else if(cart[productId] && cart[productId].quantity === 1) {
-
+    } else if (cart[productId] && cart[productId].quantity === 1) {
         delete cart[productId];
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCartItems();
         updateCartSummary();
+    }
+}
+
+async function updateQuantityInBackend(productId, quantity) {
+    try {
+        const response = await axios.post('api/shopping-cart/update', { productId, quantity });
+        console.log('Quantity updated in backend', response.data);
+        if(response.data.success) {
+            updateCartSummary();
+        }
+    } catch (error) {
+        console.error('Error updating quantity in backend:', error);
     }
 }
 

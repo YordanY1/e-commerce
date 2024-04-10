@@ -131,7 +131,7 @@ class CheckoutController extends Controller
                 // Send confirmation email to the user
                 Mail::to($userEmail)->send(new OrderConfirmationMail($cart, $emailData['payment']));
 
-                // Optionally, notify another recipient
+                // Send confirmation email to the store
                 Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationMail($cart, $emailData['payment']));
 
                 // Clear the session cart
@@ -139,13 +139,14 @@ class CheckoutController extends Controller
 
                 return redirect()->route('checkout.success');
             } else {
-                Log::info("PaymentIntent status: {$intent->status}");
-                return back()->withErrors("Payment failed with status: {$intent->status}");
+                Log::error("Payment failed with status: {$intent->status}");
+                return redirect()->route('checkout.failure')->withErrors("Payment failed with status: {$intent->status}");
             }
         } catch (\Exception $e) {
             Log::error('Payment processing failed: ' . $e->getMessage());
-            return back()->withErrors('Payment processing failed. Please try again.');
+            return redirect()->route('checkout.failure')->withErrors('Payment processing failed. Please try again.');
         }
     }
+
 }
 

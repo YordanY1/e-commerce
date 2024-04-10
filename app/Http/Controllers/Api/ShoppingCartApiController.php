@@ -85,4 +85,32 @@ class ShoppingCartApiController extends Controller
         return true;
     }
 
+    public function updateQuantity(Request $request)
+    {
+        $productId = $request->input('productId');
+        $quantity = (int) $request->input('quantity'); // Ensure quantity is treated as integer
+
+        // Assuming 'cart' structure is correct and 'products' key exists
+        $cart = session('cart', []);
+        Log::info('Cart before update:', ['cart' => $cart]);
+
+        if (isset($cart['products'][$productId])) { // Adjusted access pattern
+            $cart['products'][$productId]['quantity'] = max(1, $quantity);
+            session(['cart' => $cart]);
+            Log::info('Cart after update:', ['cart' => $cart]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Quantity updated',
+            ]);
+        } else {
+            Log::info('Attempted to update quantity for non-existent product in cart.', ['productId' => $productId, 'cart' => $cart]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found in cart',
+            ]);
+        }
+    }
+
+
 }

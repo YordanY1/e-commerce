@@ -61,6 +61,10 @@ Route::get('/checkout/success', function () {
 return view('checkout.success');
 })->name('checkout.success');
 
+Route::get('/checkout/failure', function () {
+    return view('checkout.failure');
+})->name('checkout.failure');
+
 
 // Route::get('payment/checkout', [PaymentDataController::class, 'index']);
 // Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);

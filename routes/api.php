@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\CategoriesApiController;
 use App\Http\Controllers\Api\ShoppingCartApiController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Api\ShipmentController;
-
+use App\Http\Controllers\EcontController;
 
 
 /*
@@ -59,9 +59,8 @@ Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emp
 Route::post('/shopping-cart/update', [ShoppingCartApiController::class, 'updateQuantity'])->name('cart.update')->middleware('web');
 
 
+//Shipment API Routes
+Route::get('/econt/offices', [EcontController::class, 'fetchOffices']);
 
-//Shipping
-Route::post('/shipment/create', [ShipmentController::class, 'createShipment']);
-Route::get('/fetchOffices', [ShipmentController::class, 'getOffices']);
 
 

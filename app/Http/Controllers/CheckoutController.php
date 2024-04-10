@@ -58,10 +58,11 @@ class CheckoutController extends Controller
     private function calculateCartTotal($cart)
     {
         $total = 0;
+
         foreach ($cart['products'] as $item) {
             $total += (float)$item['price'] * (int)$item['quantity'];
         }
-        return $total; // Total in Lev
+        return $total; // Returns total in Lev
     }
 
 

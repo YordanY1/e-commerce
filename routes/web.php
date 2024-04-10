@@ -56,15 +56,21 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 //Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::get('payment/checkout', [PaymentDataController::class, 'index']);
-Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
-Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
-Route::get('payment/success', [PaymentSuccessController::class, 'index']);
-Route::get('payment/failed', [PaymentFailedController::class, 'index']);
+Route::post('/payment', [CheckoutController::class, 'processPayment'])->name('checkout.process');
+Route::get('/checkout/success', function () {
+return view('checkout.success');
+})->name('checkout.success');
+
+
+// Route::get('payment/checkout', [PaymentDataController::class, 'index']);
+// Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
+// Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
+// Route::get('payment/success', [PaymentSuccessController::class, 'index']);
+// Route::get('payment/failed', [PaymentFailedController::class, 'index']);
 
 //Stripe
-Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
-Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
+// Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
+// Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
 
 //Login Register
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

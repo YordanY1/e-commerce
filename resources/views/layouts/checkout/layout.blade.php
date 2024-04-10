@@ -24,11 +24,11 @@
         <x-footer />
 
         <!-- Vite JS for Laravel Mix -->
-        @vite(['resources/js/app.js', 'resources/js/checkout/checkout.js'])
+        {{-- @vite(['resources/js/app.js', 'resources/js/checkout/checkout.js']) --}}
 
         <!-- External JS Libraries -->
 
-        <script src="https://js.stripe.com/v3/"></script>
+        {{-- <script src="https://js.stripe.com/v3/"></script> --}}
 
         @stack('scripts')
 </body>

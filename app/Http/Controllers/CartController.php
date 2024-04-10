@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('cart.cart');
+        $cart = $request->session()->get('cart', []);
+
+        return view('cart.cart', ['cart' => $cart]);
     }
 }

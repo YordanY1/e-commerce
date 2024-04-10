@@ -6,39 +6,33 @@ use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\Price;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 trait ShoppingCartTrait
 {
-    public function addToCart($product_data, Request $request)
-    {
-        //TODO Product object find by id
-        //Array
-        $cart = $request->session()->get('cart');
+    public function addToCart($product_data, Request $request) {
+        $cart = $request->session()->get('cart', ['products' => [], 'total' => 0.00]);
+        $productId = $product_data['id'];
 
-        if (empty($cart)) {
-            $cart = [
-                'products' => [],
-                'total' => 0.00,
-            ];
-        }
-
-        if (array_key_exists($product_data['id'], $cart['products'])) {
-            $cart['products'][$product_data['id']]['quantity']++;
+        if(isset($cart['products'][$productId])) {
+            // Product exists, update quantity and recalculate price
+            $cart['products'][$productId]['quantity'] += $product_data['quantity'];
         } else {
-            $cart['products'][$product_data['id']] = [
-                'id' => $product_data['id'],
-                'quantity' => 1,
-                'name' => $product_data['name'],
-                'price' => $product_data['price'],
-                'price_currency' => $product_data['price_currency'], // 'BGN
-                'image' => $product_data['image'],
-            ];
+            // New product, add to cart
+            $cart['products'][$productId] = $product_data;
         }
+
+        // Recalculate total
+        $cart['total'] = array_reduce($cart['products'], function($carry, $item) {
+            return $carry + ($item['price'] * $item['quantity']);
+        }, 0);
 
         $request->session()->put('cart', $cart);
+        Log::info('Cart updated:', $cart);
 
         return true;
     }
+
 
     public function removeFromCart($product_data, Request $request)
     {
@@ -112,11 +106,11 @@ trait ShoppingCartTrait
         $cart_products = $request->session()->get('cart.products');
 
         $total = 0;
-        
+
         if (empty($cart_products)) {
             $cart_products = [];
         }
-        
+
         foreach ($cart_products as $key => $item) {
             $total += $item['price'] * $item['quantity'];
         }

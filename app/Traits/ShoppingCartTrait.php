@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Log;
 trait ShoppingCartTrait
 {
     public function addToCart($product_data, Request $request) {
+
+        Log::info('addToCart: Start', ['Session ID' => session()->getId(), 'Product Data' => $product_data]);
         $cart = $request->session()->get('cart', ['products' => [], 'total' => 0.00]);
+
         $productId = $product_data['id'];
 
         if(isset($cart['products'][$productId])) {
@@ -28,7 +31,8 @@ trait ShoppingCartTrait
         }, 0);
 
         $request->session()->put('cart', $cart);
-        Log::info('Cart updated:', $cart);
+
+        Log::info('addToCart: End', ['Updated Cart' => $cart]);
 
         return true;
     }

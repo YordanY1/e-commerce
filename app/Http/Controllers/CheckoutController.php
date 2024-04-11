@@ -84,19 +84,24 @@ class CheckoutController extends Controller
      */
     public function processPayment(Request $request)
     {
+        Log::info('processPayment: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $paymentIntentId = $request->input('payment_intent_id');
 
         if (empty($paymentIntentId)) {
-            Log::error('PaymentIntent ID not provided.');
+            Log::error('processPayment: PaymentIntent ID not provided.');
             return back()->withErrors('Payment processing failed. Please try again.');
         }
 
         try {
             $intent = PaymentIntent::retrieve($paymentIntentId);
+            Log::info('processPayment: PaymentIntent retrieved', ['Intent Status' => $intent->status]);
 
             if ($intent->status === 'succeeded') {
                 $cart = $request->session()->get('cart', []);
+                Log::info('processPayment: Cart at payment success', ['Cart' => $cart]);
+
                 $userEmail = $request->input('email');
 
                 // Assuming the amount_received is in stotinki and VAT is 20%
@@ -134,16 +139,16 @@ class CheckoutController extends Controller
                 // Send confirmation email to the store
                 Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationMail($cart, $emailData['payment']));
 
-                // Clear the session cart
+                // // Clear the session cart
                 $request->session()->forget('cart');
 
                 return redirect()->route('checkout.success');
             } else {
-                Log::error("Payment failed with status: {$intent->status}");
+                Log::error("processPayment: Payment failed", ['Status' => $intent->status]);
                 return redirect()->route('checkout.failure')->withErrors("Payment failed with status: {$intent->status}");
             }
         } catch (\Exception $e) {
-            Log::error('Payment processing failed: ' . $e->getMessage());
+            Log::error('processPayment: Payment processing failed', ['Error' => $e->getMessage()]);
             return redirect()->route('checkout.failure')->withErrors('Payment processing failed. Please try again.');
         }
     }

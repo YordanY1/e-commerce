@@ -1,5 +1,5 @@
 {{-- resources/views/checkout/failure.blade.php --}}
-@extends('layouts.app')
+@extends('layouts.checkout.layout')
 
 @section('content')
     <div class="container">

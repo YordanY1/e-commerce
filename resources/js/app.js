@@ -1,4 +1,8 @@
-import axios from "axios"
+import axios from "axios";
+
+// Set withCredentials to true for Axios globally
+axios.defaults.withCredentials = true;
+
 window.axios = axios;
 
 // import $ from 'jquery';

@@ -56,7 +56,8 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 //Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/payment', [CheckoutController::class, 'processPayment'])->name('checkout.process');
+Route::post('/payment', [CheckoutController::class, 'processPayment'])->name('checkout.process')->middleware('web');
+
 Route::get('/checkout/success', function () {
 return view('checkout.success');
 })->name('checkout.success');

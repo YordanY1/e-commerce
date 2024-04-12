@@ -3,85 +3,58 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 
 class EcontService
 {
     protected $client;
     protected $apiUrl;
-    protected $username;
-    protected $password;
 
-    public function __construct()
+    public function __construct($demo = false)
     {
-        $this->client = new Client();
-        $this->apiUrl = config('app.env') === 'production' ?
-                        config('econt.prod_api_url') :
-                        config('econt.test_api_url');
-        $this->username = config('econt.username');
-        $this->password = config('econt.password');
+        $this->apiUrl = $demo ? config('econt.demo_url') : config('econt.production_url');
+        $this->client = new Client([
+            'base_uri' => $this->apiUrl,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ]
+        ]);
     }
 
-    public function createShipment($shipmentData)
+    public function getOffices($cityID = null, $showCargoReceptions = false, $showLC = false)
     {
-        $xml = $this->formatShipmentDataToXML($shipmentData);
+        $body = [
+            'countryCode' => 'BGR',
+            'cityID' => $cityID,
+            'showCargoReceptions' => $showCargoReceptions,
+            'showLC' => $showLC
+        ];
+
+        $body = array_filter($body, function($value) { return $value !== null; });
+
         try {
-            $response = $this->client->request('POST', $this->apiUrl, [
-                'auth' => [$this->username, $this->password],
-                'headers' => ['Content-Type' => 'multipart/form-data'],
-                'body' => $xml
-            ]);
-            return simplexml_load_string($response->getBody()->getContents());
-        } catch (GuzzleException $e) {
-            throw $e;
-        }
-    }
-
-    private function formatShipmentDataToXML($data)
-    {
-        $xml = new \SimpleXMLElement('<ShipmentRequest/>');
-        $recipient = $xml->addChild('recipient');
-        $recipient->addChild('name', $data['recipient_name']);
-        $shipment = $xml->addChild('shipment');
-        $shipment->addChild('delivery_method', $data['delivery_method']);
-
-        if ($data['delivery_method'] === 'addressDelivery') {
-            $address = $shipment->addChild('address');
-            $address->addChild('city', $data['city']);
-            $address->addChild('region', $data['region']);
-            $address->addChild('street', $data['address']);
-        } elseif ($data['delivery_method'] === 'ekontOffice') {
-            $shipment->addChild('office_id', $data['selected_office_id']);
-        }
-
-        return $xml->asXML();
-    }
-
-    public function getOffices()
-    {
-        $request = $this->buildOfficesRequestJSON();
-        try {
-            $endpoint = '/Nomenclatures/NomenclaturesService.getOffices.json';
-            $url = $this->apiUrl . $endpoint;
-            $response = $this->client->request('POST', $url, [
-                'auth' => [$this->username, $this->password],
-                'headers' => ['Content-Type' => 'application/json'],
-                'json' => $request
+            $response = $this->client->post('Nomenclatures/NomenclaturesService.getOffices.json', [
+                'json' => $body
             ]);
             return json_decode($response->getBody()->getContents(), true);
-        } catch (GuzzleException $e) {
-            throw $e;
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
         }
     }
 
-    private function buildOfficesRequestJSON()
+    public function createLabel(array $data)
     {
-        return [
-            'client' => [
-                'username' => $this->username,
-                'password' => $this->password,
-            ],
-            'request_type' => 'offices',
-        ];
+        \Log::info('Sending data to Econt API:', $data);
+
+        try {
+            $response = $this->client->post('Shipments/LabelService.createLabel.json', [
+                'json' => $data
+            ]);
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
     }
+
+
 }

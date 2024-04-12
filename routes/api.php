@@ -7,8 +7,8 @@ use App\Http\Controllers\Api\ProductsApiController;
 use App\Http\Controllers\Api\CategoriesApiController;
 use App\Http\Controllers\Api\ShoppingCartApiController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\Api\ShipmentController;
 use App\Http\Controllers\EcontController;
+
 
 
 /*
@@ -60,7 +60,10 @@ Route::post('/shopping-cart/update', [ShoppingCartApiController::class, 'updateQ
 
 
 //Shipment API Routes
-Route::get('/econt/offices', [EcontController::class, 'fetchOffices']);
+Route::get('/econt/offices', [EcontController::class, 'getOffices']);
+Route::post('/econt/labels/create', [EcontController::class, 'createLabel'])->name('econt.labels.create');
+
+
 
 
 

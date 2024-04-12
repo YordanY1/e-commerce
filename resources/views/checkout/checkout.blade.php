@@ -26,17 +26,6 @@
                 <label for="phone" class="form-label">Phone Number</label>
                 <input type="tel" id="phone" name="phone" class="form-control" required>
             </div>
-
-            <!-- Shipping Information -->
-            <div class="col-12"><h3 class="mt-4">Shipping Information</h3></div>
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="econt_office">Select Econt Office</label>
-                    <select id="econt_office" name="econt_office" class="form-control select2">
-                        <option value="">Select an office...</option>
-                    </select>
-                </div>
-            </div>
         </div>
 
         <!-- Payment Information -->
@@ -57,38 +46,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#econt_office').select2();
-    });
 
-    var stripe = Stripe('{{ $stripeKey }}');
-    var elements = stripe.elements();
-    var cardElement = elements.create('card');
-    cardElement.mount('#card-element');
+        // $('#econt_office').select2();
 
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('submit-button').disabled = true;
-        stripe.confirmCardPayment('{{ $clientSecret }}', {
-            payment_method: {
-                card: cardElement,
-                billing_details: {
-                    email: document.getElementById('email').value,
-                    name: document.getElementById('first_name').value + ' ' + document.getElementById('last_name').value,
-                    phone: document.getElementById('phone').value,
-                },
-            }
-        }).then(function(result) {
-            if (result.error) {
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-                document.getElementById('submit-button').disabled = false;
-            } else {
-                if (result.paymentIntent.status === 'succeeded') {
-                    console.log("Payment succeeded");
-                    form.submit();
+        var stripe = Stripe('{{ $stripeKey }}');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('submit-button').disabled = true;
+
+            stripe.confirmCardPayment('{{ $clientSecret }}', {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        email: document.getElementById('email').value,
+                        name: document.getElementById('first_name').value + ' ' + document.getElementById('last_name').value,
+                        phone: document.getElementById('phone').value,
+                    },
                 }
-            }
+            }).then(function(result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                    document.getElementById('submit-button').disabled = false;
+                } else if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                    // After successful payment, initiate the Econt label creation
+                    $.ajax({
+                        url: '{{ route("econt.labels.create") }}',
+                        type: 'POST',
+                        data: {
+                            // _token: '{{ csrf_token() }}',
+                            first_name: $('#first_name').val(),
+                            last_name: $('#last_name').val(),
+                            phone: $('#phone').val(),
+                            email: $('#email').val(),
+                        },
+                        success: function(response) {
+                            console.log("Econt label created", response);
+                            // Here you might want to redirect or update the UI to show a success message
+                            alert('Payment and label creation successful!');
+                            // Optionally, redirect or update the UI further here
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Econt label creation failed", error);
+                        }
+                    });
+                }
+            });
         });
     });
 </script>

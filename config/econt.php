@@ -1,10 +1,8 @@
 <?php
 
 return [
-
-    'test_api_url' => env('ECONT_TEST_API_URL'),
-    'prod_api_url' => env('ECONT_PROD_API_URL'),
+    'demo_url' => 'http://demo.econt.com/ee/services/',
+    'production_url' => 'http://ee.econt.com/services/',
     'username' => env('ECONT_USERNAME'),
     'password' => env('ECONT_PASSWORD'),
-
 ];

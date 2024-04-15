@@ -49,7 +49,7 @@ class ProductsApiController extends Controller
                 'weight' => $request->weight,
                 'color' => $request->color,
                 'description' => $request->description,
-                'categories' => $request->categories, // Storing categories as JSON
+                'categories' => $request->categories,
                 // Additional attributes...
             ]);
             $product->attributes()->save($attributes);

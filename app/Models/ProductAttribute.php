@@ -14,4 +14,9 @@ class ProductAttribute extends Model
     protected $casts = [
         'categories' => 'array',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

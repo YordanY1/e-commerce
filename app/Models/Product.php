@@ -10,22 +10,18 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
     protected $appends = ['slug'];
 
-    // Релация към Manufacturer
     public function manufacturer()
     {
         return $this->belongsTo(Manufacturer::class);
     }
 
-    // Релация към ProductAttribute
     public function attributes()
     {
         return $this->hasOne(ProductAttribute::class);
     }
 
-    // Релация към Price
     public function price()
     {
         return $this->hasOne(Price::class);
@@ -40,6 +36,4 @@ class Product extends Model
     {
         return $this->hasMany(File::class);
     }
-
-
 }

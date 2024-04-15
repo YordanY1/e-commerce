@@ -28,6 +28,41 @@
             </div>
         </div>
 
+        <!-- Delivery Address and Method -->
+        <div class="row g-3 mt-4">
+            <div class="col-12"><h3>Delivery Address and Method</h3></div>
+            <div class="col-md-12">
+                <label for="delivery_method" class="form-label">Метод на доставка</label>
+                <select id="delivery_method" name="delivery_method" class="form-control">
+                    <option value="">Изберете метод</option>
+                    <option value="speedy_office">До офис на Спиди</option>
+                    <option value="econt_office">До офис на Еконт</option>
+                    <option value="address">До адрес</option>
+                </select>
+            </div>
+            <!-- Conditional Fields for 'до адрес' -->
+            <div id="address_fields" style="display: none;" class="col-12">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="city" class="form-label">Град/Село*</label>
+                        <input type="text" id="city" name="city" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="postcode" class="form-label">Postcode*</label>
+                        <input type="text" id="postcode" name="postcode" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="street" class="form-label">Street*</label>
+                        <input type="text" id="street" name="street" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="additional_info" class="form-label">Допълнителна информация (блок/вход)</label>
+                        <input type="text" id="additional_info" name="additional_info" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Payment Information -->
         <div class="col-12"><h3 class="mt-4">Payment Information</h3></div>
         <div class="col-12">
@@ -54,10 +89,38 @@
         var cardElement = elements.create('card');
         cardElement.mount('#card-element');
 
+        $('#delivery_method').change(function() {
+            var method = $(this).val();
+            if (method === 'address') {
+                $('#address_fields').show();
+            } else {
+                $('#address_fields').hide();
+            }
+        });
+
         var form = document.getElementById('payment-form');
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             document.getElementById('submit-button').disabled = true;
+
+            // Extract street name and number
+            var fullStreet = $('#street').val();
+            var streetNumber = fullStreet.match(/\d+$/) ? fullStreet.match(/\d+$/)[0] : '';
+            var streetName = fullStreet.replace(streetNumber, '').trim();
+
+
+            // Extract cart data from local storage
+            var cartData = JSON.parse(localStorage.getItem('cart'));
+            var description = '';
+            var totalWeight = 0;
+            var packCount = 0;
+
+            for (var id in cartData) {
+                var item = cartData[id];
+                description += item.description + "; ";
+                totalWeight += parseInt(item.weight);
+                packCount += parseInt(item.quantity);
+            }
 
             stripe.confirmCardPayment('{{ $clientSecret }}', {
                 payment_method: {
@@ -80,21 +143,21 @@
                         url: '{{ route("econt.labels.create") }}',
                         type: 'POST',
                         data: {
-                            // _token: '{{ csrf_token() }}',
+                            _token: '{{ csrf_token() }}',
                             first_name: $('#first_name').val(),
                             last_name: $('#last_name').val(),
                             phone: $('#phone').val(),
                             email: $('#email').val(),
+                            delivery_method: $('#delivery_method').val(),
+                            city: $('#city').val(),
+                            postcode: $('#postcode').val(),
+                            street: streetName,
+                            num: streetNumber,
+                            additional_info: $('#additional_info').val(),
+                            description: description,
+                            weight: totalWeight,
+                            packCount: packCount
                         },
-                        success: function(response) {
-                            console.log("Econt label created", response);
-                            // Here you might want to redirect or update the UI to show a success message
-                            alert('Payment and label creation successful!');
-                            // Optionally, redirect or update the UI further here
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Econt label creation failed", error);
-                        }
                     });
                 }
             });

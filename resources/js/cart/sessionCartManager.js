@@ -21,7 +21,9 @@ window.scm_addToCart = async function(el, event, increment = 1) {
                 quantity: increment, // Starting with the increment quantity
                 name: productData.name,
                 price: productData.price,
-                image: productData.image
+                image: productData.image,
+                description: productData.description,
+                weight: productData.weight
             };
         }
 

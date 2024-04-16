@@ -78,8 +78,9 @@
                                         @endforeach
                                         <div class="inner">
                                             <p>
-                                                <a href="#" class="icon add-to-cart btn btn-primary square-icon">
-                                                    <i class="fas fa-shopping-cart"></i>
+                                                <a href="#" class="icon add-to-cart btn btn-primary square-icon"
+                                                    onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
+                                                        <i class="fas fa-shopping-cart"></i>
                                                 </a>
                                                 <a href="{{ url('/product', $product->slug) }}" class="icon btn btn-primary square-icon">
                                                     <i class="fas fa-eye"></i>

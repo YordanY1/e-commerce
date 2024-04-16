@@ -17,7 +17,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="location.href='{{ url('/cart') }}'">виж количката</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='{{ url('/cart') }}'">Виж количката</button>
         </div>
       </div>
     </div>

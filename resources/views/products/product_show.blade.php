@@ -22,7 +22,14 @@
                     <div class="col-md-8 text-center fh5co-heading">
                         <h2>{{ $product->name }}</h2>
                         <p>
-                            <a href="#" class="btn btn-primary btn-lg" id="add-to-cart">Добави в количката</a>
+                            <div class="inner">
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-lg"
+                                        onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
+                                            Добави в количката
+                                    </a>
+                                </p>
+                            </div>
                         </p>
                     </div>
                 </div>
@@ -99,5 +106,6 @@
         </div>
     </div>
 </div>
+<x-products.cart-modal/>
 
 @endsection

@@ -110,3 +110,63 @@ body {
     width: 100% !important;
     max-width: 400px;
 }
+
+
+.terms-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.section-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.section-container h2 {
+    color: #2a2a2a;
+}
+
+.section-container p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.cookie-banner p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.cookie-banner a {
+    color: #106EE8;
+    text-decoration: underline;
+}
+
+.cookie-banner button {
+    background-color: #106EE8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -28,7 +28,7 @@
         <x-footer />
 
         <!-- Vite JS for Laravel Mix -->
-        {{-- @vite(['resources/js/app.js', 'resources/js/checkout/checkout.js']) --}}
+        @vite(['resources/js/app.js'])
 
         <!-- External JS Libraries -->
 

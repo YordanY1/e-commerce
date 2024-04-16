@@ -44,9 +44,14 @@ Route::get('/about', [AboutController::class, 'index']);
 
 //Contacts
 Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send-email');
 
 //Products
 Route::get('/products', [ProductsController::class, 'index']);
+
+//Terms
+Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms.index');
+
 
 //Products by ID
 Route::get('/product/{slug}', [ProductController::class, 'show']);
@@ -83,6 +88,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
+
 
 
 //Admin panel

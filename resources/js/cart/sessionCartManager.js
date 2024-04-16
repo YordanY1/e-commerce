@@ -47,8 +47,6 @@ function updateCartUI() {
     // Calculate total quantity for cart badge
     let totalQuantity = Object.values(cart).reduce((total, product) => total + product.quantity, 0);
     cartBadge.textContent = totalQuantity;
-
-    // Update other parts of the UI as necessary
 }
 
 // Function to update modal with the latest added product details

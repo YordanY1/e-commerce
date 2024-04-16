@@ -13,7 +13,7 @@ class ContactFormAutoResponse extends Mailable
     public function build()
     {
         return $this
-            ->from('nothingstar142@gmail.com', 'Jeronimo')
+            ->from('jeronimostore1@gmail.com', 'Jeronimo')
             ->subject('Получихме вашето запитване!')
             ->view('emails.autoresponse');
     }

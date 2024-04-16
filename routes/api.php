@@ -48,8 +48,6 @@ Route::post('/categories', [CategoriesApiController::class, 'store']);
 Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
 Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
 
-//Emails
-Route::post('/send-email', [MailController::class, 'sendEmail']);
 
 //Shopping Cart API Routes
 Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);

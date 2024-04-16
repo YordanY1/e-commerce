@@ -13,7 +13,10 @@
                 <ul class="nav flex-column flex-sm-row">
                     <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">За нас</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Контакти</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Общи Условия</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('terms.index') }}">Общи условия</a>
+                    </li>
+
                 </ul>
             </div>
 

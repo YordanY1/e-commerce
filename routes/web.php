@@ -44,9 +44,14 @@ Route::get('/about', [AboutController::class, 'index']);
 
 //Contacts
 Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send-email');
 
 //Products
 Route::get('/products', [ProductsController::class, 'index']);
+
+//Terms
+Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms.index');
+
 
 //Products by ID
 Route::get('/product/{slug}', [ProductController::class, 'show']);
@@ -85,12 +90,13 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
 
-//Admin panel
-// Route::prefix('admin')->middleware('auth')->group(function () {
-//     Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
 
-//     Route::resource('products', AdminProductsController::class)->names('admin.products');
-//     Route::resource('manufacturers', ManufacturersController::class)->names('admin.manufacturers');
-//     Route::resource('categories', CategoriesController::class)->names('admin.categories');
-//     Route::resource('users', UsersController::class)->names('admin.users');
-// });
+//Admin panel
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
+
+    Route::resource('products', AdminProductsController::class)->names('admin.products');
+    Route::resource('manufacturers', ManufacturersController::class)->names('admin.manufacturers');
+    Route::resource('categories', CategoriesController::class)->names('admin.categories');
+    Route::resource('users', UsersController::class)->names('admin.users');
+});

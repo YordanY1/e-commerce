@@ -60,7 +60,7 @@ function renderCartItems() {
                 <button class="btn btn-outline-secondary btn-sm" onclick="increaseQuantity('${item.id}')">+</button>
             </div>
             <div class="col-md-3 text-right">
-                <button class="btn btn-danger btn-sm" onclick="removeItem('${item.id}')">Remove</button>
+                <button class="btn btn-danger btn-sm" onclick="removeItem('${item.id}')">Изтрий</button>
             </div>
         </div>
     `;
@@ -82,8 +82,8 @@ function updateCartSummary() {
     const taxRate = 0.20; // 20% tax
     const totalPrice = subtotalPrice + (subtotalPrice * taxRate);
 
-    subtotalPriceSpan.textContent = `${subtotalPrice.toFixed(2)} BGN`;
-    totalPriceSpan.textContent = `${totalPrice.toFixed(2)} BGN`;
+    subtotalPriceSpan.textContent = `${subtotalPrice.toFixed(2)} лв.`;
+    totalPriceSpan.textContent = `${totalPrice.toFixed(2)} лв.`;
 }
 
 function increaseQuantity(productId) {

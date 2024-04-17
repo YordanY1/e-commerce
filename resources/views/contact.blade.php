@@ -1,7 +1,5 @@
 @extends('layouts.contacts.layout')
 
-@section('title', 'Контакти')
-
 @section('content')
 
     <div id="fh5co-contact">

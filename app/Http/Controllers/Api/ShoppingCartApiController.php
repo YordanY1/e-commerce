@@ -65,16 +65,19 @@ class ShoppingCartApiController extends Controller
         return response()->json($product_data);
     }
 
+
     public function removeProductFromCart(Product $product, Request $request)
     {
-        try {
-            $this->removeFromCart($product, $request);
-        } catch(Exception $e) {
-            Log::error('Shopping Cart Remove Error: '. $e->getMessage());
+        $cart = $request->session()->get('cart', []);
+        if (isset($cart['products'][$product->id])) {
+            unset($cart['products'][$product->id]); // Remove the product from the cart
+            $request->session()->put('cart', $cart); // Update the session cart
+            return response()->json(['success' => true, 'message' => 'Product removed successfully']);
         }
 
-        return true;
+        return response()->json(['success' => false, 'message' => 'Product not found in the cart'], 404);
     }
+
 
     public function emptyUserCart(Request $request)
     {

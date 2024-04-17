@@ -32,9 +32,15 @@ class CheckoutController extends Controller
         $vatAmountStotinki = $vatAmountLev * 100;
         $totalAmountStotinki = $totalAmountLev * 100;
 
+        // Check if the amount meets Stripe's minimum requirement for BGN
+        if ($totalAmountStotinki < 100) { // Stripe's minimum amount for BGN is usually 100 stotinki (1 BGN)
+            Log::error('Total amount too low for Stripe processing.', ['Amount' => $totalAmountStotinki]);
+            return back()->withErrors('Total amount too low for processing. Minimum amount required is 1 BGN.');
+        }
+
         try {
             $paymentIntent = PaymentIntent::create([
-                'amount' => $totalAmountStotinki, // Charge the total amount including VAT
+                'amount' => $totalAmountStotinki,
                 'currency' => 'bgn',
             ]);
 
@@ -42,7 +48,7 @@ class CheckoutController extends Controller
                 'clientSecret' => $paymentIntent->client_secret,
                 'stripeKey' => env('STRIPE_KEY'),
                 'paymentIntentId' => $paymentIntent->id,
-                'baseAmount' => $baseAmountLev, // Display amounts in Lev for clarity
+                'baseAmount' => $baseAmountLev,
                 'vatAmount' => $vatAmountLev,
                 'totalAmount' => $totalAmountLev,
             ]);
@@ -58,14 +64,13 @@ class CheckoutController extends Controller
     private function calculateCartTotal($cart)
     {
         $total = 0;
-
-        foreach ($cart['products'] as $item) {
-            $total += (float)$item['price'] * (int)$item['quantity'];
+        if (isset($cart['products']) && is_array($cart['products'])) {
+            foreach ($cart['products'] as $item) {
+                $total += (float)$item['price'] * (int)$item['quantity'];
+            }
         }
         return $total; // Returns total in Lev
     }
-
-
 
     /**
      * Handle the successful payment page.
@@ -74,10 +79,8 @@ class CheckoutController extends Controller
     {
         // Clear the session cart
         $request->session()->forget('cart');
-
         return view('checkout.success');
     }
-
 
     /**
      * Process the payment on the server-side after receiving the payment confirmation from the front-end.
@@ -103,7 +106,6 @@ class CheckoutController extends Controller
                 Log::info('processPayment: Cart at payment success', ['Cart' => $cart]);
 
                 $userEmail = $request->input('email');
-
                 // Assuming the amount_received is in stotinki and VAT is 20%
                 $amountBeforeVAT = $intent->amount_received / 100 / 1.2; // Calculate amount before VAT
                 $vatAmount = $amountBeforeVAT * 0.20; // 20% VAT of the amount before VAT
@@ -124,22 +126,16 @@ class CheckoutController extends Controller
                 $emailData = [
                     'cart' => $cart,
                     'payment' => [
-                        'amount' => number_format($amountBeforeVAT, 2), // Subtotal
-                        'vatAmount' => number_format($vatAmount, 2), // VAT
-                        'totalAmount' => number_format($totalAmount, 2), // Total amount
+                        'amount' => number_format($amountBeforeVAT, 2),
+                        'vatAmount' => number_format($vatAmount, 2),
+                        'totalAmount' => number_format($totalAmount, 2),
                         'currency' => $intent->currency,
                     ]
                 ];
 
                 Log::info('Sending Order Confirmation Email with data:', $emailData);
-
-                // Send confirmation email to the user
                 Mail::to($userEmail)->send(new OrderConfirmationMail($cart, $emailData['payment']));
-
-                // Send confirmation email to the store
                 Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationMail($cart, $emailData['payment']));
-
-                // // Clear the session cart
                 $request->session()->forget('cart');
 
                 return redirect()->route('checkout.success');
@@ -152,6 +148,4 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.failure')->withErrors('Payment processing failed. Please try again.');
         }
     }
-
 }
-

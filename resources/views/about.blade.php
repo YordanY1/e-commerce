@@ -1,7 +1,5 @@
 @extends('layouts.about.layout')
 
-@section('title', 'За нас')
-
 @section('content')
 
     <div id="fh5co-about">

@@ -81,9 +81,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-
-        // $('#econt_office').select2();
-
         var stripe = Stripe('{{ $stripeKey }}');
         var elements = stripe.elements();
         var cardElement = elements.create('card');
@@ -108,19 +105,21 @@
             var streetNumber = fullStreet.match(/\d+$/) ? fullStreet.match(/\d+$/)[0] : '';
             var streetName = fullStreet.replace(streetNumber, '').trim();
 
-
-            // Extract cart data from local storage
+            // Ensure cartData is properly initialized
             var cartData = JSON.parse(localStorage.getItem('cart'));
+            if (!cartData || !cartData.products) {
+                cartData = { products: {}, total: 0 };
+            }
+
             var description = '';
             var totalWeight = 0;
             var packCount = 0;
 
-            for (var id in cartData) {
-                var item = cartData[id];
+            Object.values(cartData.products).forEach(item => {
                 description += item.description + "; ";
                 totalWeight += parseInt(item.weight);
                 packCount += parseInt(item.quantity);
-            }
+            });
 
             stripe.confirmCardPayment('{{ $clientSecret }}', {
                 payment_method: {
@@ -138,30 +137,37 @@
                     document.getElementById('submit-button').disabled = false;
                 } else if (result.paymentIntent.status === 'succeeded') {
                     form.submit();
-                    // After successful payment, initiate the Econt label creation
-                    $.ajax({
-                        url: '{{ route("econt.labels.create") }}',
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            first_name: $('#first_name').val(),
-                            last_name: $('#last_name').val(),
-                            phone: $('#phone').val(),
-                            email: $('#email').val(),
-                            delivery_method: $('#delivery_method').val(),
-                            city: $('#city').val(),
-                            postcode: $('#postcode').val(),
-                            street: streetName,
-                            num: streetNumber,
-                            additional_info: $('#additional_info').val(),
-                            description: description,
-                            weight: totalWeight,
-                            packCount: packCount
-                        },
-                    });
+                    // $.ajax({
+                    //     url: '{{ route("econt.labels.create") }}',
+                    //     type: 'POST',
+                    //     data: {
+                    //         _token: '{{ csrf_token() }}',
+                    //         first_name: $('#first_name').val(),
+                    //         last_name: $('#last_name').val(),
+                    //         phone: $('#phone').val(),
+                    //         email: $('#email').val(),
+                    //         delivery_method: $('#delivery_method').val(),
+                    //         city: $('#city').val(),
+                    //         postcode: $('#postcode').val(),
+                    //         street: streetName,
+                    //         num: streetNumber,
+                    //         // additional_info: $('#additional_info').val(),
+                    //         // description: description,
+                    //         // weight: totalWeight,
+                    //         // packCount: packCount
+                    //     },
+                    //     success: function() {
+                    //         window.location.href = '/success';
+                    //     },
+                    //     error: function(xhr, status, error) {
+                    //         console.error('Failed to create Econt label:', error);
+                    //     }
+                    // });
                 }
             });
         });
     });
 </script>
+
 @endpush
+

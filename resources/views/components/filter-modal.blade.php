@@ -8,39 +8,34 @@
             </div>
             <div class="modal-body">
                 <div class="category-filter-section">
-                    <h4>Филтрирай по катерогия:</h4>
+                    <h4>Филтрирай по категория:</h4>
                     <ul class="category-list">
-                        <li>
-                            <input type="checkbox" id="category-all" class="category-input" data-category="all">
-                            <label for="category-all">All</label>
-                        </li>
                         @foreach ($categories as $category)
                             <li>
-                                <input type="checkbox" id="category-{{ $category->id }}" class="category-input" data-category="{{ $category->id }}">
-                                <label for="category-{{ $category->id }}">{{ $category->name }}</label>
+                                <input type="checkbox" id="modal-category-{{ $category->id }}" class="modal-category-input modal-checkbox" data-category="{{ $category->id }}">
+                                <label for="modal-category-{{ $category->id }}">{{ $category->name }}</label>
                             </li>
                         @endforeach
                     </ul>
                 </div>
-
                 <div class="price-filter-section">
-                    <h4>Филтрирай по цена:</h4>
+                    <h4>Филтриране по цена</h4>
                     <ul class="price-range-list">
                         <li>
-                            <input type="radio" id="price-range-1" name="price-range" class="price-range-input">
-                            <label for="price-range-1">0 лв. - 50 лв.</label>
+                            <input type="checkbox" id="modal-price-range-1" name="price-range" class="modal-price-range-input modal-checkbox">
+                            <label for="modal-price-range-1">0 лв. - 50 лв.</label>
                         </li>
                         <li>
-                            <input type="radio" id="price-range-2" name="price-range" class="price-range-input">
-                            <label for="price-range-2">50 лв. - 100 лв.</label>
+                            <input type="checkbox" id="modal-price-range-2" name="price-range" class="modal-price-range-input modal-checkbox">
+                            <label for="modal-price-range-2">50 лв. - 100 лв.</label>
                         </li>
                         <li>
-                            <input type="radio" id="price-range-3" name="price-range" class="price-range-input">
-                            <label for="price-range-3">100 лв. - 200 лв.</label>
+                            <input type of="checkbox" id="modal-price-range-3" name="price-range" class="modal-price-range-input modal-checkbox">
+                            <label for="modal-price-range-3">100 лв. - 200 лв.</label>
                         </li>
                         <li>
-                            <input type="radio" id="price-range-4" name="price-range" class="price-range-input">
-                            <label for="price-range-4">200+ лв.</label>
+                            <input type of="checkbox" id="modal-price-range-4" name="price-range" class="modal-price-range-input modal-checkbox">
+                            <label for="modal-price-range-4">200+ лв.</label>
                         </li>
                     </ul>
                 </div>

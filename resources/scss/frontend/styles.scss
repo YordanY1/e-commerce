@@ -170,3 +170,29 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Modal Checkbox Styling for Mobile */
+.modal-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer
+}
+
+.modal-checkbox + label {
+    font-size: 16px;
+    line-height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+/* Adjust layout for better touch interaction */
+.modal-body ul {
+    padding-left: 0;
+}
+
+.modal-body li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+

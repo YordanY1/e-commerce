@@ -28,8 +28,6 @@ class ProductsController extends Controller
         // Category filter logic
         $categorySlug = $request->query('category');
         $categoryId = Category::where('slug', $categorySlug)->value('id');
-
-
         if ($categoryId) {
             $query->whereHas('attributes', function ($query) use ($categoryId) {
                 $query->whereJsonContains('categories', (string)$categoryId);
@@ -37,7 +35,34 @@ class ProductsController extends Controller
         }
 
         // Price range filter logic
-        $priceRange = $request->query('priceRange');
+        $this->applyPriceFilter($query, $request->query('priceRange'));
+
+        // Sorting logic
+        $this->applySorting($query, $request->query('sorting'));
+
+        // Check if 'all' products are requested
+        if ($request->query('pagination') === 'all') {
+            $products = $query->get(); // Retrieve all products without pagination
+        } else {
+            $pagination = $request->query('pagination', 100); // Default or requested pagination
+            $products = $query->paginate($pagination);
+        }
+
+
+        // Check if the request is an AJAX call
+        if ($request->ajax()) {
+            // Return JSON response for AJAX request
+            return response()->json([
+                'html' => view('products.partials.product_list', compact('products'))->render()
+            ]);
+        }
+
+        // Return the full view for non-AJAX requests
+        return view('products.products', compact('products', 'categories'));
+    }
+
+    private function applyPriceFilter($query, $priceRange)
+    {
         switch ($priceRange) {
             case 'price-range-1':
                 $query->where('price_subquery.min_price', '<=', 50);
@@ -52,38 +77,20 @@ class ProductsController extends Controller
                 $query->where('price_subquery.min_price', '>', 200);
                 break;
         }
+    }
 
-        // Sorting logic
-        $sorting = $request->query('sorting');
-        if ($sorting) {
-            switch ($sorting) {
-                case 'popular':
-                    // Replace 'popularity' with an existing column in your 'products' table
-                    $query->orderBy('created_at', 'desc');
-                    break;
-                case 'expensive':
-                    $query->orderBy('price_subquery.min_price', 'desc');
-                    break;
-                case 'low-price':
-                    $query->orderBy('price_subquery.min_price', 'asc');
-                    break;
-            }
+    private function applySorting($query, $sorting)
+    {
+        switch ($sorting) {
+            case 'popular':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'expensive':
+                $query->orderBy('price_subquery.min_price', 'desc');
+                break;
+            case 'low-price':
+                $query->orderBy('price_subquery.min_price', 'asc');
+                break;
         }
-
-
-        // Pagination logic
-        $pagination = $request->query('pagination') ?: 10; // Default pagination
-        $products = $query->paginate($pagination);
-
-        // Check if the request is an AJAX call
-        if ($request->ajax()) {
-            // Return JSON response for AJAX request
-            return response()->json([
-                'html' => view('products.partials.product_list', compact('products'))->render()
-            ]);
-        }
-
-        // Return the full view for non-AJAX requests
-        return view('products.products', compact('products', 'categories'));
     }
 }

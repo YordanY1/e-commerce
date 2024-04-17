@@ -58,7 +58,7 @@ function updateCartUI() {
 function updateModal(productData) {
     document.getElementById('modal-product-image').src = productData.image;
     document.getElementById('modal-product-name').textContent = productData.name;
-    document.getElementById('modal-product-price').textContent = `Price: ${productData.price} BGN`;
+    document.getElementById('modal-product-price').textContent = `Цена: ${productData.price} лв.`;
 
     // Show the modal
     var cartModal = new bootstrap.Modal(document.getElementById('cartModal'));

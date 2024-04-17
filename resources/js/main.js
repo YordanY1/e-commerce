@@ -1,74 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle Navigation Toggle and Page Blur
     const navbarToggler = document.querySelector('.navbar-toggler');
     const pageContent = document.querySelector('.page-content');
 
-    navbarToggler.addEventListener('click', () => {
-        if (navbarToggler.classList.contains('collapsed')) {
-            pageContent.classList.add('blur-when-active');
-        } else {
-            pageContent.classList.remove('blur-when-active');
-        }
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Select elements from the main page
-    const categoryInputs = document.querySelectorAll('.category-input');
-    const priceRangeInputs = document.querySelectorAll('.price-range-input');
-    const sortingSelect = document.getElementById('sorting');
-    const paginationSelect = document.getElementById('pagination');
-
-    // Attach event listeners for category and price range filters
-    categoryInputs.forEach(input => {
-        input.addEventListener('change', fetchProducts);
-    });
-
-    priceRangeInputs.forEach(input => {
-        input.addEventListener('change', fetchProducts);
-    });
-
-    // Event listeners for sorting and pagination, if those elements exist
-    if (sortingSelect) {
-        sortingSelect.addEventListener('change', fetchProducts);
+    if (navbarToggler && pageContent) {
+        navbarToggler.addEventListener('click', () => {
+            if (navbarToggler.classList.contains('collapsed')) {
+                pageContent.classList.add('blur-when-active');
+            } else {
+                pageContent.classList.remove('blur-when-active');
+            }
+        });
     }
 
-    if (paginationSelect) {
-        paginationSelect.addEventListener('change', fetchProducts);
-    }
+    // Sorting and Pagination Handling
+    const desktopCategoryInputs = document.querySelectorAll('.desktop-category-input');
+    const modalCategoryInputs = document.querySelectorAll('.modal-category-input');
+    const desktopPriceRangeInputs = document.querySelectorAll('.desktop-price-range-input');
+    const modalPriceRangeInputs = document.querySelectorAll('.modal-price-range-input');
+    const desktopSortingSelect = document.getElementById('desktop-sorting');
+    const modalSortingOptions = document.querySelectorAll('.modal-sorting-option');
+    const desktopPaginationSelect = document.getElementById('desktop-pagination');
+    const modalPaginationOptions = document.querySelectorAll('.modal-pagination-option');
 
-    // Attach event listeners for sorting and pagination options in the modals
-    document.querySelectorAll('input[name="sorting-option"]').forEach(input => {
-        input.addEventListener('change', fetchProducts);
-    });
-
-    document.querySelectorAll('input[name="pagination-option"]').forEach(input => {
-        input.addEventListener('change', fetchProducts);
-    });
-
+    // Define a function to fetch products based on filters
     function fetchProducts() {
-        // Get selected category and price range
-        const selectedCategoryId = Array.from(categoryInputs).find(input => input.checked)?.dataset.category || 'all';
-        const selectedPriceRangeId = Array.from(priceRangeInputs).find(input => input.checked)?.id || 'all';
+        if (desktopSortingSelect && desktopPaginationSelect) {
+            const selectedCategoryId = getSelectedCategoryId();
+            const selectedPriceRangeId = getSelectedPriceRangeId();
+            const selectedSorting = getSelectedSorting();
+            const selectedPagination = getSelectedPagination();
 
-        // Get selected sorting and pagination option
-        // Check both main page and modal inputs
-        const selectedSorting = document.querySelector('input[name="sorting-option"]:checked')?.value || sortingSelect?.value || 'default';
-        const selectedPagination = document.querySelector('input[name="pagination-option"]:checked')?.value || paginationSelect?.value || 'default';
-
-        fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId, selectedSorting, selectedPagination);
+            fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId, selectedSorting, selectedPagination);
+        }
     }
 
+    function getSelectedCategoryId() {
+        const desktopSelected = Array.from(desktopCategoryInputs).find(input => input.checked);
+        const modalSelected = Array.from(modalCategoryInputs).find(input => input.checked);
+        return desktopSelected ? desktopSelected.dataset.category : (modalSelected ? modalSelected.dataset.category : 'all');
+    }
+
+    function getSelectedPriceRangeId() {
+        const desktopSelected = Array.from(desktopPriceRangeInputs).find(input => input.checked);
+        const modalSelected = Array.from(modalPriceRangeInputs).find(input => input.checked);
+        return desktopSelected ? desktopSelected.id : (modalSelected ? modalSelected.id : 'all');
+    }
+
+    function getSelectedSorting() {
+        const modalSelected = Array.from(modalSortingOptions).find(option => option.checked);
+        return desktopSortingSelect ? desktopSortingSelect.value : (modalSelected ? modalSelected.value : 'default');
+    }
+
+    function getSelectedPagination() {
+        const modalSelected = Array.from(modalPaginationOptions).find(option => option.checked);
+        return desktopPaginationSelect ? desktopPaginationSelect.value : (modalSelected ? modalSelected.value : 'all');
+    }
+
+    // Attach event listeners conditionally
+    desktopCategoryInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    modalCategoryInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    desktopPriceRangeInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    modalPriceRangeInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    if (desktopSortingSelect) {
+        desktopSortingSelect.addEventListener('change', fetchProducts);
+    }
+    modalSortingOptions.forEach(option => option.addEventListener('change', fetchProducts));
+    if (desktopPaginationSelect) {
+        desktopPaginationSelect.addEventListener('change', fetchProducts);
+    }
+    modalPaginationOptions.forEach(option => option.addEventListener('change', fetchProducts));
+
+    // Function to execute fetching products with current filters
     function fetchProductsByFilters(categoryId, priceRangeId, sorting, pagination) {
         const url = new URL(window.location.href);
+        url.searchParams.set('category', categoryId);
+        url.searchParams.set('priceRange', priceRangeId);
+        url.searchParams.set('sorting', sorting);
+        url.searchParams.set('pagination', pagination);
 
-        // Update URL with query parameters
-        url.searchParams.set('category', categoryId !== 'all' ? categoryId : '');
-        url.searchParams.set('priceRange', priceRangeId !== 'all' ? priceRangeId : '');
-        url.searchParams.set('sorting', sorting !== 'default' ? sorting : '');
-        url.searchParams.set('pagination', pagination !== 'default' ? pagination : '');
-
-        // Fetch and update the product list
         fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
             .then(response => response.json())
             .then(data => {
@@ -77,4 +87,3 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error:', error));
     }
 });
-

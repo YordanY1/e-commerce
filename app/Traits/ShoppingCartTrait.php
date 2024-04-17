@@ -13,6 +13,17 @@ trait ShoppingCartTrait
     public function addToCart($product_data, Request $request) {
 
         Log::info('addToCart: Start', ['Session ID' => session()->getId(), 'Product Data' => $product_data]);
+
+        // Initial validation to ensure all necessary product data is present
+        $requiredKeys = ['id', 'quantity', 'price'];
+        foreach ($requiredKeys as $key) {
+            if (!array_key_exists($key, $product_data)) {
+                Log::error('addToCart: Missing product data', ['Missing Key' => $key]);
+                return false; // Or throw an exception depending on your error handling strategy
+            }
+        }
+
+        // Fetch cart from session or initialize a new one if not present
         $cart = $request->session()->get('cart', ['products' => [], 'total' => 0.00]);
 
         $productId = $product_data['id'];
@@ -23,6 +34,7 @@ trait ShoppingCartTrait
         } else {
             // New product, add to cart
             $cart['products'][$productId] = $product_data;
+            $cart['products'][$productId]['quantity'] = $product_data['quantity']; // Ensure quantity is set
         }
 
         // Recalculate total
@@ -30,13 +42,13 @@ trait ShoppingCartTrait
             return $carry + ($item['price'] * $item['quantity']);
         }, 0);
 
+        // Save updated cart back to session
         $request->session()->put('cart', $cart);
 
         Log::info('addToCart: End', ['Updated Cart' => $cart]);
 
         return true;
     }
-
 
     public function removeFromCart($product_data, Request $request)
     {

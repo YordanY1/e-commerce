@@ -1,6 +1,5 @@
 @extends('layouts.home.layout')
 
-@section('title', 'Начало')
 
 @section('content')
 

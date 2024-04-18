@@ -8,7 +8,7 @@
         @csrf
         <!-- Customer Information -->
         <div class="row g-3">
-            <div class="col-12"><h3>Информация за клиента</h3></div>
+            <div class="col-12"><h3>Вашите данни</h3></div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Имейл*</label>
                 <input type="email" id="email" name="email" class="form-control" required>
@@ -44,12 +44,16 @@
         <!-- Payment Method Selection -->
         <div class="row mb-3">
             <div class="col-md-12">
-                <label for="payment_method" class="form-label">Начин на плащане*</label>
+                <label for="payment_method" class="form-label"><h3 class="mb-3 mt-3">Начин на плащане</h3></label>
                 <select id="payment_method" class="form-control">
                     <option value="" disabled selected>Изберете начин на плащане</option>
-                    <option value="card">Плащане с карта на самия продук, без доставка</option>
-                    <option value="cod">Плащане при доставка с наложен платеж на цялата сума</option>
+                    <option value="card">Плащане с карта</option>
+                    <option value="cod">Плащане при доставка с наложен платеж</option>
                 </select>
+                <!-- Hidden message about card payments -->
+                <div id="card-payment-message" class="text-danger mt-2" style="display: none;">
+                    ВАЖНО: При заплащане с карта Вие заплащате само самата поръчка без доставка!
+                </div>
             </div>
         </div>
 
@@ -72,6 +76,7 @@
                 </label>
             </div>
         </div>
+
 
         <button id="submit-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
         <button id="finalize-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
@@ -113,24 +118,27 @@
         }
 
         paymentMethodDropdown.change(function() {
-            if (this.value === 'card') {
-                $('#payment_info').show();
-                initializeStripeElements();
-                submitButton.show();
-                finalizeButton.hide();
-                form.attr('action', '{{ route("checkout.process") }}');
-                if ($('#payment_intent_id').length === 0) {
-                    form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
-                }
-            } else {
-                $('#payment_info').hide();
-                destroyStripeElements();
-                submitButton.hide();
-                finalizeButton.show();
-                form.attr('action', '{{ route("checkout.cod") }}');
-                $('#payment_intent_id').remove();
+        if (this.value === 'card') {
+            $('#payment_info').show();
+            $('#card-payment-message').show();
+            initializeStripeElements();
+            submitButton.show();
+            finalizeButton.hide();
+            form.attr('action', '{{ route("checkout.process") }}');
+            if ($('#payment_intent_id').length === 0) {
+                form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
             }
+        } else {
+            $('#payment_info').hide();
+            $('#card-payment-message').hide();
+            destroyStripeElements();
+            submitButton.hide();
+            finalizeButton.show();
+            form.attr('action', '{{ route("checkout.cod") }}');
+            $('#payment_intent_id').remove();
+        }
         }).trigger('change');
+
 
         form.on('submit', function(event) {
             event.preventDefault();

@@ -196,3 +196,16 @@ body {
     margin-bottom: 10px;
 }
 
+@media (max-width: 768px) {
+    .form-check-label {
+        font-size: 12.5px;
+    }
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        margin-top: 0.3rem;
+    }
+    .text-left p {
+        font-size: 14px;
+    }
+}

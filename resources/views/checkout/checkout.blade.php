@@ -2,75 +2,68 @@
 
 @section('content')
 <div class="container py-5">
-    <h1 class="mb-4">Checkout Completion</h1>
+    <h1 class="mb-4">Завършване на плащането</h1>
 
-    <form id="payment-form" action="{{ route('checkout.process') }}" method="post">
-        <input type="hidden" name="payment_intent_id" value="{{ $paymentIntentId }}">
+    <form id="payment-form" method="post">
         @csrf
         <!-- Customer Information -->
         <div class="row g-3">
-            <div class="col-12"><h3>Customer Information</h3></div>
+            <div class="col-12"><h3>Информация за клиента</h3></div>
             <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Имейл*</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label">Име*</label>
                 <input type="text" id="first_name" name="first_name" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label">Фамилия*</label>
                 <input type="text" id="last_name" name="last_name" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label for="phone" class="form-label">Phone Number</label>
+                <label for="phone" class="form-label">Телефонен номер*</label>
                 <input type="tel" id="phone" name="phone" class="form-control" required>
             </div>
-        </div>
-
-        <!-- Delivery Address and Method -->
-        <div class="row g-3 mt-4">
-            <div class="col-12"><h3>Delivery Address and Method</h3></div>
-            <div class="col-md-12">
-                <label for="delivery_method" class="form-label">Метод на доставка</label>
-                <select id="delivery_method" name="delivery_method" class="form-control">
-                    <option value="">Изберете метод</option>
-                    <option value="speedy_office">До офис на Спиди</option>
-                    <option value="econt_office">До офис на Еконт</option>
-                    <option value="address">До адрес</option>
-                </select>
-            </div>
-            <!-- Conditional Fields for 'до адрес' -->
-            <div id="address_fields" style="display: none;" class="col-12">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label for="city" class="form-label">Град/Село*</label>
-                        <input type="text" id="city" name="city" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="postcode" class="form-label">Postcode*</label>
-                        <input type="text" id="postcode" name="postcode" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="street" class="form-label">Street*</label>
-                        <input type="text" id="street" name="street" class="form-control" required>
-                    </div>
-                    <div class="col-md-12">
-                        <label for="additional_info" class="form-label">Допълнителна информация (блок/вход)</label>
-                        <input type="text" id="additional_info" name="additional_info" class="form-control">
-                    </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="city" class="form-label">Град/Село*</label>
+                    <input type="text" id="city" name="city" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="postcode" class="form-label">Пощенски код*</label>
+                    <input type="text" id="postcode" name="postcode" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="street" class="form-label">Улица*</label>
+                    <input type="text" id="street" name="street" class="form-control" required>
                 </div>
             </div>
         </div>
 
-        <!-- Payment Information -->
-        <div class="col-12"><h3 class="mt-4">Payment Information</h3></div>
-        <div class="col-12">
-            <div id="card-element" class="form-control"></div>
-            <div id="card-errors" class="text-danger mt-2"></div>
+        <!-- Payment Method Selection -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="payment_method" class="form-label">Начин на плащане*</label>
+                <select id="payment_method" class="form-control">
+                    <option value="card">Плащане с карта на самия продук, без доставка</option>
+                    <option value="cod">Плащане при доставка с наложен платеж на цялата сума</option>
+                </select>
+            </div>
         </div>
 
-        <button id="submit-button" class="btn btn-primary mt-4" type="submit">Pay</button>
+         <!-- Payment Information -->
+         <div id="payment_info" class="row g-3" style="display: none;">
+            <div class="col-12"><h3>Въведете вашата карта</h3></div>
+            <div class="col-12">
+                <div id="card-element" class="form-control"></div>
+                <div id="card-errors" class="text-danger mt-2"></div>
+            </div>
+        </div>
+
+
+        <button id="submit-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
+        <button id="finalize-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
     </form>
 </div>
 @endsection
@@ -81,90 +74,78 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        var stripe = Stripe('{{ $stripeKey }}');
-        var elements = stripe.elements();
-        var cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        const stripe = Stripe('{{ $stripeKey }}');
+        let elements;
+        let cardElement;
 
-        $('#delivery_method').change(function() {
-            var method = $(this).val();
-            if (method === 'address') {
-                $('#address_fields').show();
+        const form = $('#payment-form');
+        const submitButton = $('#submit-button');
+        const finalizeButton = $('#finalize-button');
+        const cardErrors = $('#card-errors');
+        const paymentMethodDropdown = $('#payment_method');
+
+        function initializeStripeElements() {
+            if (!elements) {
+                elements = stripe.elements();
+                cardElement = elements.create('card');
+                cardElement.mount('#card-element');
+            }
+        }
+
+        function destroyStripeElements() {
+            if (cardElement) {
+                cardElement.unmount();
+                cardElement = null;
+                elements = null;
+            }
+        }
+
+        paymentMethodDropdown.change(function() {
+            if (this.value === 'card') {
+                $('#payment_info').show();
+                initializeStripeElements();
+                submitButton.show();
+                finalizeButton.hide();
+                form.attr('action', '{{ route("checkout.process") }}');
+                if ($('#payment_intent_id').length === 0) {
+                    form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
+                }
             } else {
-                $('#address_fields').hide();
+                $('#payment_info').hide();
+                destroyStripeElements();
+                submitButton.hide();
+                finalizeButton.show();
+                form.attr('action', '{{ route("checkout.cod") }}');
+                $('#payment_intent_id').remove();
             }
-        });
+        }).trigger('change');
 
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
+        form.on('submit', function(event) {
             event.preventDefault();
-            document.getElementById('submit-button').disabled = true;
-
-            // Extract street name and number
-            var fullStreet = $('#street').val();
-            var streetNumber = fullStreet.match(/\d+$/) ? fullStreet.match(/\d+$/)[0] : '';
-            var streetName = fullStreet.replace(streetNumber, '').trim();
-
-            // Ensure cartData is properly initialized
-            var cartData = JSON.parse(localStorage.getItem('cart'));
-            if (!cartData || !cartData.products) {
-                cartData = { products: {}, total: 0 };
+            const paymentMethod = paymentMethodDropdown.val();
+            if (paymentMethod === 'card') {
+                submitButton.prop('disabled', true);
+                cardErrors.text('');
+                stripe.confirmCardPayment('{{ $clientSecret }}', {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            email: $('#email').val(),
+                            name: $('#first_name').val() + ' ' + $('#last_name').val(),
+                            phone: $('#phone').val(),
+                        },
+                    }
+                }).then(function(result) {
+                    if (result.error) {
+                        cardErrors.text(result.error.message);
+                        submitButton.prop('disabled', false);
+                    } else if (result.paymentIntent.status === 'succeeded') {
+                        form.off('submit').submit();
+                    }
+                });
+            } else {
+                form.off('submit').submit();
             }
-
-            var description = '';
-            var totalWeight = 0;
-            var packCount = 0;
-
-            Object.values(cartData.products).forEach(item => {
-                description += item.description + "; ";
-                totalWeight += parseInt(item.weight);
-                packCount += parseInt(item.quantity);
-            });
-
-            stripe.confirmCardPayment('{{ $clientSecret }}', {
-                payment_method: {
-                    card: cardElement,
-                    billing_details: {
-                        email: document.getElementById('email').value,
-                        name: document.getElementById('first_name').value + ' ' + document.getElementById('last_name').value,
-                        phone: document.getElementById('phone').value,
-                    },
-                }
-            }).then(function(result) {
-                if (result.error) {
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                    document.getElementById('submit-button').disabled = false;
-                } else if (result.paymentIntent.status === 'succeeded') {
-                    form.submit();
-                    // $.ajax({
-                    //     url: '{{ route("econt.labels.create") }}',
-                    //     type: 'POST',
-                    //     data: {
-                    //         _token: '{{ csrf_token() }}',
-                    //         first_name: $('#first_name').val(),
-                    //         last_name: $('#last_name').val(),
-                    //         phone: $('#phone').val(),
-                    //         email: $('#email').val(),
-                    //         delivery_method: $('#delivery_method').val(),
-                    //         city: $('#city').val(),
-                    //         postcode: $('#postcode').val(),
-                    //         street: streetName,
-                    //         num: streetNumber,
-                    //         // additional_info: $('#additional_info').val(),
-                    //         // description: description,
-                    //         // weight: totalWeight,
-                    //         // packCount: packCount
-                    //     },
-                    //     success: function() {
-                    //         window.location.href = '/success';
-                    //     },
-                    //     error: function(xhr, status, error) {
-                    //         console.error('Failed to create Econt label:', error);
-                    //     }
-                    // });
-                }
-            });
         });
     });
 </script>

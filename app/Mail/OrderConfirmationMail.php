@@ -15,24 +15,28 @@ class OrderConfirmationMail extends Mailable
 
     public $cart;
     public $payment;
+    public $customerDetails;
+
 
     /**
      * Create a new message instance.
      */
-    public function __construct($cart, $payment)
+    public function __construct($cart, $payment, $customerDetails)
     {
         $this->cart = $cart;
         $this->payment = $payment;
+        $this->customerDetails = $customerDetails;
     }
 
-    public function build()
-    {
-        return $this->markdown('emails.order.confirmation')
-                    ->with([
-                        'cart' => $this->cart,
-                        'payment' => $this->payment,
-                    ]);
-    }
+   public function build()
+{
+    return $this->markdown('emails.order.confirmation')
+                ->with([
+                    'cart' => $this->cart,
+                    'payment' => $this->payment,
+                    'customer' => $this->customerDetails,
+                ]);
+}
     /**
      * Get the message envelope.
      */

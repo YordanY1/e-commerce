@@ -24,6 +24,7 @@ use App\Http\Controllers\Payment\PaymentFailedController;
 use App\Http\Controllers\Payment\PaymentStripeController;
 use App\Http\Controllers\Payment\PaymentSuccessController;
 use App\Http\Controllers\Payment\StripePaymentGeneralController;
+use App\Http\Controllers\CashOnDeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,8 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 //Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/payment', [CheckoutController::class, 'processPayment'])->name('checkout.process')->middleware('web');
+Route::post('/checkout/cash-on-delivery', [CashOnDeliveryController::class, 'processOrder'])->name('checkout.cod');
+
 
 Route::get('/checkout/success', function () {
 return view('checkout.success');

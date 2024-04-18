@@ -11,6 +11,7 @@ use App\Models\Payment;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirmationMail;
+use App\Mail\OrderConfirmationOwnerMail;
 
 class CheckoutController extends Controller
 {
@@ -91,6 +92,7 @@ class CheckoutController extends Controller
 
     Stripe::setApiKey(env('STRIPE_SECRET'));
     $paymentIntentId = $request->input('payment_intent_id');
+    $paymentMethod = $request->input('payment_method', 'Плащане с карта');
 
     if (empty($paymentIntentId)) {
         Log::error('processPayment: PaymentIntent ID not provided.');
@@ -141,12 +143,16 @@ class CheckoutController extends Controller
                     'vatAmount' => number_format($vatAmount, 2),
                     'totalAmount' => number_format($totalAmount, 2),
                     'currency' => $intent->currency,
+                    'method' => $paymentMethod
                 ]
             ];
 
-            Log::info('Sending Order Confirmation Email with data:', $emailData);
+            // Email to customer
             Mail::to($customerDetails['email'])->send(new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails));
-            Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails));
+
+            // Email to owner
+            Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod));
+
             $request->session()->forget('cart');
 
             return redirect()->route('checkout.success');

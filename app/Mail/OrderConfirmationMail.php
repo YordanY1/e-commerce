@@ -28,15 +28,17 @@ class OrderConfirmationMail extends Mailable
         $this->customerDetails = $customerDetails;
     }
 
-   public function build()
-{
-    return $this->markdown('emails.order.confirmation')
-                ->with([
-                    'cart' => $this->cart,
-                    'payment' => $this->payment,
-                    'customer' => $this->customerDetails,
-                ]);
-}
+    public function build()
+    {
+        return $this->to($this->customerDetails['email'])
+                    ->markdown('emails.order.confirmation_customer')
+                    ->with([
+                        'cart' => $this->cart,
+                        'payment' => $this->payment,
+                        'customer' => $this->customerDetails,
+                    ]);
+    }
+
     /**
      * Get the message envelope.
      */
@@ -53,7 +55,7 @@ class OrderConfirmationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.order.confirmation',
+            markdown: 'emails.order.confirmation_customer',
         );
     }
 

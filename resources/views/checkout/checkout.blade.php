@@ -46,11 +46,13 @@
             <div class="col-md-12">
                 <label for="payment_method" class="form-label">Начин на плащане*</label>
                 <select id="payment_method" class="form-control">
+                    <option value="" disabled selected>Изберете начин на плащане</option>
                     <option value="card">Плащане с карта на самия продук, без доставка</option>
                     <option value="cod">Плащане при доставка с наложен платеж на цялата сума</option>
                 </select>
             </div>
         </div>
+
 
          <!-- Payment Information -->
          <div id="payment_info" class="row g-3" style="display: none;">
@@ -61,9 +63,19 @@
             </div>
         </div>
 
+        <div class="text-left mt-4">
+            <p>Вашите лични данни ще бъдат използвани за обработка на Вашата поръчка. <a href="{{ route('terms.index') }}">Защита на лични данни.</a></p>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="termsAgreement" required>
+                <label class="form-check-label" for="termsAgreement">
+                    Прочетох и се съгласявам с <a href="{{ route('terms.index') }}">правилата и условията на сайта</a>*
+                </label>
+            </div>
+        </div>
 
         <button id="submit-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
         <button id="finalize-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
+
     </form>
 </div>
 @endsection

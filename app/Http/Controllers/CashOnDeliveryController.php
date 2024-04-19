@@ -69,9 +69,9 @@ class CashOnDeliveryController extends Controller
                 'customer' => $customerDetails,
                 'cart' => $cart,
                 'payment' => [
-                    'amount' => number_format($amountBeforeVAT, 2),
-                    'vatAmount' => number_format($vatAmount, 2),
-                    'totalAmount' => number_format($totalAmount, 2),
+                    'amount' => floatval(number_format($amountBeforeVAT, 2)),
+                    'vatAmount' => floatval(number_format($vatAmount, 2)),
+                    'totalAmount' => floatval(number_format($totalAmount, 2)),
                     'method' => $paymentMethod
                 ]
             ];

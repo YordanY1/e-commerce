@@ -28,7 +28,7 @@
 | Артикул       | Количество | Единична цена | Общо   |
 |--------------|------------|---------------|--------|
 @foreach($cart['products'] as $item)
-| {{ $item['name'] }} | {{ $item['quantity'] }} | {{ number_format($item['price'], 2) }} лв | {{ number_format($item['price'] * $item['quantity'], 2) }} лв |
+| {{ $item['name'] }} | {{ $item['quantity'] }} | {{ number_format((float) $item['price'], 2) }} лв | {{ number_format((float) $item['price'] * (int) $item['quantity'], 2) }} лв |
 @endforeach
 @endcomponent
 

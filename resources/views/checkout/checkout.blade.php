@@ -243,7 +243,7 @@
                     <div class="flex-grow-1 text-center">
                         <h5 class="mb-1">${product.name}</h5>
                     </div>
-                    <span class="badge bg-primary rounded-pill fs-6">${product.quantity} x $${priceWithVat.toFixed(2)}</span>
+                    <span class="badge bg-primary rounded-pill fs-6">${product.quantity} x лв.${priceWithVat.toFixed(2)}</span>
                 </li>`;
             });
 

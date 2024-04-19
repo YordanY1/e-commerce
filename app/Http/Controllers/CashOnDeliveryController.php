@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Payment;
 use App\Mail\OrderConfirmationMail;
+use App\Mail\OrderConfirmationOwnerMail;
 use Illuminate\Support\Facades\Mail;
 
 class CashOnDeliveryController extends Controller
@@ -15,7 +16,23 @@ class CashOnDeliveryController extends Controller
      */
     public function processOrder(Request $request)
     {
-        Log::info('CashOnDelivery: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
+
+        $paymentMethod = $request->input('payment_method', 'Плащане с наложен платеж');
+
+        // Initialize invoice details with default values
+        $invoiceDetails = ['invoiceRequested' => false];
+
+        if ($request->input('invoiceRequest')) {
+            $validatedInvoiceDetails = $request->validate([
+                'companyName' => 'required|string|max:255',
+                'companyID' => 'required|string|max:255',
+                'companyAddress' => 'required|string|max:255',
+                'companyTaxNumber' => 'required|string|max:255',
+                'companyMol' => 'required|string|max:255',
+            ]);
+
+            $invoiceDetails = array_merge($validatedInvoiceDetails, ['invoiceRequested' => true]);
+        }
 
         try {
             $customerDetails = $request->validate([
@@ -55,12 +72,19 @@ class CashOnDeliveryController extends Controller
                     'amount' => number_format($amountBeforeVAT, 2),
                     'vatAmount' => number_format($vatAmount, 2),
                     'totalAmount' => number_format($totalAmount, 2),
-                    'currency' => 'BGN',
+                    'method' => $paymentMethod
                 ]
             ];
 
-            Mail::to($customerDetails['email'])->send(new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails));
-            Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails));
+            // Instantiate mail classes with all required arguments
+            $customerMail = new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails);
+            $ownerMail = new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod, $invoiceDetails ?? []);
+
+
+            // Sending emails
+            Mail::to($customerDetails['email'])->send($customerMail);
+            Mail::to('jeronimostore1@gmail.com')->send($ownerMail);
+
             $request->session()->forget('cart');
 
             return redirect()->route('checkout.success');

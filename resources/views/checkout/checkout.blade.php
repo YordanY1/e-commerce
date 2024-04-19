@@ -8,7 +8,7 @@
         @csrf
         <!-- Customer Information -->
         <div class="row g-3">
-            <div class="col-12"><h3>Информация за клиента</h3></div>
+            <div class="col-12"><h3>Вашите данни</h3></div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Имейл*</label>
                 <input type="email" id="email" name="email" class="form-control" required>
@@ -41,14 +41,72 @@
             </div>
         </div>
 
+        <!-- Invoice Request Checkbox -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="invoiceRequest" name="invoiceRequest">
+                    <label class="form-check-label" for="invoiceRequest">Желая фактура</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div id="invoiceDetails" class="row g-3" style="display: none;">
+            <div class="col-md-6">
+                <label for="companyName" class="form-label">Име на фирмата</label>
+                <input type="text" id="companyName" name="companyName" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyID" class="form-label">ЕИК/Булстат</label>
+                <input type="text" id="companyID" name="companyID" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyAddress" class="form-label">Адрес на фирмата</label>
+                <input type="text" id="companyAddress" name="companyAddress" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyTaxNumber" class="form-label">ДДС Номер</label>
+                <input type="text" id="companyTaxNumber" name="companyTaxNumber" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyMol" class="form-label">МОЛ</label>
+                <input type="text" id="companyMol" name="companyMol" class="form-control">
+            </div>
+        </div>
+
+
+        <!-- Order Summary -->
+        <div class="col-md-12">
+            <div class="card cart-summary-card">
+                <div class="card-header">
+                    <h3>Обобщение на поръчката</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" id="cart-items">
+                        <!-- Cart items will be populated here by JavaScript -->
+                    </ul>
+                    <div class="mt-4 left-align">
+                        <strong>Общо: <span id="grand-total"></span></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Payment Method Selection -->
         <div class="row mb-3">
             <div class="col-md-12">
-                <label for="payment_method" class="form-label">Начин на плащане*</label>
+                <label for="payment_method" class="form-label"><h3 class="mb-3 mt-3">Начин на плащане</h3></label>
                 <select id="payment_method" class="form-control">
-                    <option value="card">Плащане с карта на самия продук, без доставка</option>
-                    <option value="cod">Плащане при доставка с наложен платеж на цялата сума</option>
+                    <option value="" disabled selected>Изберете начин на плащане</option>
+                    <option value="card">Плащане с карта</option>
+                    <option value="cod">Плащане при доставка с наложен платеж</option>
                 </select>
+                <!-- Hidden message about card payments -->
+                <div id="card-payment-message" class="text-danger mt-2" style="display: none;">
+                    ВАЖНО: При заплащане с карта Вие заплащате само самата поръчка без доставка!
+                </div>
             </div>
         </div>
 
@@ -61,9 +119,20 @@
             </div>
         </div>
 
+        <div class="text-left mt-4">
+            <p>Вашите лични данни ще бъдат използвани за обработка на Вашата поръчка. <a href="{{ route('terms.index') }}">Защита на лични данни.</a></p>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="termsAgreement" required>
+                <label class="form-check-label" for="termsAgreement">
+                    Прочетох и се съгласявам с <a href="{{ route('terms.index') }}">правилата и условията на сайта</a>*
+                </label>
+            </div>
+        </div>
+
 
         <button id="submit-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
         <button id="finalize-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
+
     </form>
 </div>
 @endsection
@@ -100,25 +169,37 @@
             }
         }
 
-        paymentMethodDropdown.change(function() {
-            if (this.value === 'card') {
-                $('#payment_info').show();
-                initializeStripeElements();
-                submitButton.show();
-                finalizeButton.hide();
-                form.attr('action', '{{ route("checkout.process") }}');
-                if ($('#payment_intent_id').length === 0) {
-                    form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
-                }
+         // Toggle Invoice Details
+         $('#invoiceRequest').change(function() {
+            if ($(this).is(':checked')) {
+                $('#invoiceDetails').show();
             } else {
-                $('#payment_info').hide();
-                destroyStripeElements();
-                submitButton.hide();
-                finalizeButton.show();
-                form.attr('action', '{{ route("checkout.cod") }}');
-                $('#payment_intent_id').remove();
+                $('#invoiceDetails').hide();
             }
+        });
+
+        paymentMethodDropdown.change(function() {
+        if (this.value === 'card') {
+            $('#payment_info').show();
+            $('#card-payment-message').show();
+            initializeStripeElements();
+            submitButton.show();
+            finalizeButton.hide();
+            form.attr('action', '{{ route("checkout.process") }}');
+            if ($('#payment_intent_id').length === 0) {
+                form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
+            }
+        } else {
+            $('#payment_info').hide();
+            $('#card-payment-message').hide();
+            destroyStripeElements();
+            submitButton.hide();
+            finalizeButton.show();
+            form.attr('action', '{{ route("checkout.cod") }}');
+            $('#payment_intent_id').remove();
+        }
         }).trigger('change');
+
 
         form.on('submit', function(event) {
             event.preventDefault();
@@ -147,7 +228,33 @@
                 form.off('submit').submit();
             }
         });
+
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) return;
+            let itemsHtml = '';
+            let subtotal = 0;
+            $.each(cart.products, function(index, product) {
+                let priceWithVat = product.price * 1.20; // Calculate price including 20% VAT
+                let totalProductPrice = priceWithVat * product.quantity; // Total price including VAT for the quantity
+                subtotal += totalProductPrice; // Accumulate subtotal of all products including VAT
+                itemsHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    <img src="${product.image}" alt="${product.name}" class="img-fluid" style="width: 150px; height: auto;">
+                    <div class="flex-grow-1 text-center">
+                        <h5 class="mb-1">${product.name}</h5>
+                    </div>
+                    <span class="badge bg-primary rounded-pill fs-6">${product.quantity} x $${priceWithVat.toFixed(2)}</span>
+                </li>`;
+            });
+
+            $('#cart-items').html(itemsHtml);
+            $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Update the grand total including VAT
+        }
+
+        loadCart();
+
     });
+
 </script>
 
 @endpush

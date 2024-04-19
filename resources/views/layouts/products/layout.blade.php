@@ -11,6 +11,8 @@
     <meta property="og:title" content="Разгледайте нашите газови уреди | Джеронимо">
     <meta property="og:description" content="Открийте нашите сертифицирани и ефективни газови уреди за домашна и индустриална употреба.">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon for all devices -->
     <link rel="icon" href="{{ asset('svg/jeronimo-logo-color.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('svg/jeronimo-logo-color.svg') }}">

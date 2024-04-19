@@ -11,6 +11,8 @@
     <meta property="og:title" content="Висококачествени Газови Уреди | Джеронимо">
     <meta property="og:description" content="Открийте висококачествени газови уреди за отопление, готвене и индустриални нужди. Надеждност и иновация с нашите сертифицирани продукти.">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon for all devices -->
     <link rel="icon" href="{{ asset('svg/jeronimo-logo-color.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('svg/jeronimo-logo-color.svg') }}">

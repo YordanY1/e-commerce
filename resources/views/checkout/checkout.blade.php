@@ -99,7 +99,7 @@
         <div class="row mb-3">
             <div class="col-md-12">
                 <label for="payment_method" class="form-label"><h3 class="mb-3 mt-3">Начин на плащане</h3></label>
-                <select id="payment_method" class="form-control">
+                <select id="payment_method" class="form-control" required>
                     <option value="" disabled selected>Изберете начин на плащане</option>
                     <option value="card">Плащане с карта</option>
                     <option value="cod">Плащане при доставка с наложен платеж</option>

@@ -94,6 +94,7 @@
         </div>
 
 
+
         <!-- Payment Method Selection -->
         <div class="row mb-3">
             <div class="col-md-12">
@@ -238,12 +239,12 @@
                 let priceWithVat = product.price * 1.20; // Calculate price including 20% VAT
                 let totalProductPrice = priceWithVat * product.quantity; // Total price including VAT for the quantity
                 subtotal += totalProductPrice; // Accumulate subtotal of all products including VAT
-                itemsHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
-                    <img src="${product.image}" alt="${product.name}" class="img-fluid" style="width: 150px; height: auto;">
-                    <div class="flex-grow-1 text-center">
-                        <h5 class="mb-1">${product.name}</h5>
+                itemsHtml += `<li class="list-group-item cart-item">
+                    <img src="${product.image}" alt="${product.name}" class="img-fluid product-image" style="width: 150px; height: auto;">
+                    <div class="product-details">
+                        <h5 class="product-name mb-1">${product.name}</h5>
+                        <span class="product-price badge bg-primary rounded-pill fs-6">${product.quantity} x лв.${priceWithVat.toFixed(2)}</span>
                     </div>
-                    <span class="badge bg-primary rounded-pill fs-6">${product.quantity} x лв.${priceWithVat.toFixed(2)}</span>
                 </li>`;
             });
 

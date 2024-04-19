@@ -13,3 +13,8 @@
         <a href="{{ route('checkout.index') }}" class="btn btn-secondary">Опитайте отново</a>
     </div>
 @endsection
+
+<script>
+    localStorage.removeItem('cart');
+</script>
+

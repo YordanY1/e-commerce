@@ -16,7 +16,23 @@ class CashOnDeliveryController extends Controller
      */
     public function processOrder(Request $request)
     {
+
         $paymentMethod = $request->input('payment_method', 'Плащане с наложен платеж');
+
+        // Initialize invoice details with default values
+        $invoiceDetails = ['invoiceRequested' => false];
+
+        if ($request->input('invoiceRequest')) {
+            $validatedInvoiceDetails = $request->validate([
+                'companyName' => 'required|string|max:255',
+                'companyID' => 'required|string|max:255',
+                'companyAddress' => 'required|string|max:255',
+                'companyTaxNumber' => 'required|string|max:255',
+                'companyMol' => 'required|string|max:255',
+            ]);
+
+            $invoiceDetails = array_merge($validatedInvoiceDetails, ['invoiceRequested' => true]);
+        }
 
         try {
             $customerDetails = $request->validate([
@@ -62,7 +78,8 @@ class CashOnDeliveryController extends Controller
 
             // Instantiate mail classes with all required arguments
             $customerMail = new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails);
-            $ownerMail = new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod);
+            $ownerMail = new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod, $invoiceDetails ?? []);
+
 
             // Sending emails
             Mail::to($customerDetails['email'])->send($customerMail);

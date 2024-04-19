@@ -94,9 +94,19 @@ class CheckoutController extends Controller
     $paymentIntentId = $request->input('payment_intent_id');
     $paymentMethod = $request->input('payment_method', 'Плащане с карта');
 
-    if (empty($paymentIntentId)) {
-        Log::error('processPayment: PaymentIntent ID not provided.');
-        return back()->withErrors('Payment processing failed. Please try again.');
+    // Initialize invoice details with default values
+    $invoiceDetails = ['invoiceRequested' => false];
+
+    if ($request->input('invoiceRequest')) {
+        $validatedInvoiceDetails = $request->validate([
+            'companyName' => 'required|string|max:255',
+            'companyID' => 'required|string|max:255',
+            'companyAddress' => 'required|string|max:255',
+            'companyTaxNumber' => 'required|string|max:255',
+            'companyMol' => 'required|string|max:255',
+        ]);
+
+        $invoiceDetails = array_merge($validatedInvoiceDetails, ['invoiceRequested' => true]);
     }
 
     try {
@@ -151,7 +161,7 @@ class CheckoutController extends Controller
             Mail::to($customerDetails['email'])->send(new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails));
 
             // Email to owner
-            Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod));
+            Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod, $invoiceDetails));
 
             $request->session()->forget('cart');
 

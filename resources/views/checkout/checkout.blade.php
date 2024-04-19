@@ -41,6 +41,41 @@
             </div>
         </div>
 
+        <!-- Invoice Request Checkbox -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="invoiceRequest" name="invoiceRequest">
+                    <label class="form-check-label" for="invoiceRequest">Желая фактура</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div id="invoiceDetails" class="row g-3" style="display: none;">
+            <div class="col-md-6">
+                <label for="companyName" class="form-label">Име на фирмата</label>
+                <input type="text" id="companyName" name="companyName" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyID" class="form-label">ЕИК/Булстат</label>
+                <input type="text" id="companyID" name="companyID" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyAddress" class="form-label">Адрес на фирмата</label>
+                <input type="text" id="companyAddress" name="companyAddress" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyTaxNumber" class="form-label">ДДС Номер</label>
+                <input type="text" id="companyTaxNumber" name="companyTaxNumber" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="companyMol" class="form-label">МОЛ</label>
+                <input type="text" id="companyMol" name="companyMol" class="form-control">
+            </div>
+        </div>
+
+
         <!-- Order Summary -->
         <div class="col-md-12">
             <div class="card cart-summary-card">
@@ -133,6 +168,15 @@
                 elements = null;
             }
         }
+
+         // Toggle Invoice Details
+         $('#invoiceRequest').change(function() {
+            if ($(this).is(':checked')) {
+                $('#invoiceDetails').show();
+            } else {
+                $('#invoiceDetails').hide();
+            }
+        });
 
         paymentMethodDropdown.change(function() {
         if (this.value === 'card') {

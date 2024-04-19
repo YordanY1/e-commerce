@@ -1,13 +1,27 @@
 @component('mail::message')
 # Нова поръчка получена
 
-Получена е нова поръчка от клиент. По-долу са детайлите:
-
 ## Информация за клиента
 **Имейл:** {{ $customer['email'] }}
+<br/>
 **Име:** {{ $customer['first_name'] }} {{ $customer['last_name'] }}
+<br/>
 **Телефонен номер:** {{ $customer['phone'] }}
+<br/>
 **Адрес:** {{ $customer['street'] }}, {{ $customer['city'] }}, {{ $customer['postcode'] }}
+
+@if(!empty($invoice) && $invoice['invoiceRequested'])
+## Информация за фактурата
+**Име на фирмата:** {{ $invoice['companyName'] }}
+<br/>
+**ЕИК/Булстат:** {{ $invoice['companyID'] }}
+<br/>
+**Адрес на фирмата:** {{ $invoice['companyAddress'] }}
+<br/>
+**ДДС Номер:** {{ $invoice['companyTaxNumber'] }}
+<br/>
+**МОЛ:** {{ $invoice['companyMol'] }}
+@endif
 
 ## Обобщение на поръчката
 @component('mail::table')

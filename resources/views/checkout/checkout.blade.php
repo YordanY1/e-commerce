@@ -41,6 +41,24 @@
             </div>
         </div>
 
+        <!-- Order Summary -->
+        <div class="col-md-12">
+            <div class="card cart-summary-card">
+                <div class="card-header">
+                    <h3>Обобщение на поръчката</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" id="cart-items">
+                        <!-- Cart items will be populated here by JavaScript -->
+                    </ul>
+                    <div class="mt-4 left-align">
+                        <strong>Общо: <span id="grand-total"></span></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Payment Method Selection -->
         <div class="row mb-3">
             <div class="col-md-12">
@@ -56,7 +74,6 @@
                 </div>
             </div>
         </div>
-
 
          <!-- Payment Information -->
          <div id="payment_info" class="row g-3" style="display: none;">
@@ -167,7 +184,33 @@
                 form.off('submit').submit();
             }
         });
+
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) return;
+            let itemsHtml = '';
+            let subtotal = 0;
+            $.each(cart.products, function(index, product) {
+                let priceWithVat = product.price * 1.20; // Calculate price including 20% VAT
+                let totalProductPrice = priceWithVat * product.quantity; // Total price including VAT for the quantity
+                subtotal += totalProductPrice; // Accumulate subtotal of all products including VAT
+                itemsHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    <img src="${product.image}" alt="${product.name}" class="img-fluid" style="width: 150px; height: auto;">
+                    <div class="flex-grow-1 text-center">
+                        <h5 class="mb-1">${product.name}</h5>
+                    </div>
+                    <span class="badge bg-primary rounded-pill fs-6">${product.quantity} x $${priceWithVat.toFixed(2)}</span>
+                </li>`;
+            });
+
+            $('#cart-items').html(itemsHtml);
+            $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Update the grand total including VAT
+        }
+
+        loadCart();
+
     });
+
 </script>
 
 @endpush

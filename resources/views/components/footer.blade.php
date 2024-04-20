@@ -24,7 +24,7 @@
             <div class="col-12 col-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
                 <ul class="nav flex-column flex-sm-row">
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                    <!-- Additional social icons can be added here -->
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-instagram"></i></a></li>                    <!-- Additional social icons can be added here -->
                 </ul>
             </div>
         </div>

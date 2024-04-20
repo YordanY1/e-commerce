@@ -13,10 +13,13 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Favicon for all devices -->
-    <link rel="icon" href="{{ asset('svg/jeronimo-logo-color.svg') }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('svg/jeronimo-logo-color.svg') }}">
-    <link rel="shortcut icon" href="{{ asset('svg/jeronimo-logo-color.svg') }}" type="image/svg+xml">
+    <!-- PNG favicon for all browsers -->
+    <link rel="icon" type="image/png" href="{{ asset('images/jeronimo-logo-color.png') }}">
+    <!-- PNG for Apple touch icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/jeronimo-logo-color.png') }}">
+    <!-- PNG shortcut icon -->
+    <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
+
 
     <title>Джеронимо | Общи Условия</title>
 

@@ -157,10 +157,25 @@
         function initializeStripeElements() {
             if (!elements) {
                 elements = stripe.elements();
-                cardElement = elements.create('card');
+                cardElement = elements.create('card', {
+                    style: {
+                        base: {
+                            iconColor: '#666EE8',
+                            color: '#31325F',
+                            fontWeight: '300',
+                            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                            fontSize: '18px',
+                            '::placeholder': {
+                                color: '#CFD7E0',
+                            },
+                        },
+                    },
+                    hidePostalCode: true  // This option hides the postal code field
+                });
                 cardElement.mount('#card-element');
             }
         }
+
 
         function destroyStripeElements() {
             if (cardElement) {

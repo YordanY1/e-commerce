@@ -16,8 +16,11 @@
     <link rel="icon" type="image/png" href="{{ asset('images/jeronimo-logo-color.png') }}">
     <!-- PNG for Apple touch icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/jeronimo-logo-color.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/jeronimo-logo-color.png') }}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/jeronimo-logo-color.png') }}">
     <!-- PNG shortcut icon -->
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
+
 
 
     <title>Джеронимо | Газови Уреди</title>

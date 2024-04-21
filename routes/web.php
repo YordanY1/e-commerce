@@ -94,8 +94,8 @@ Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 
-//Admin panel
-Route::prefix('admin')->middleware('auth')->group(function () {
+//Admin panel with IP Whitelist and Authentication
+Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {
     Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
 
     Route::resource('products', AdminProductsController::class)->names('admin.products');

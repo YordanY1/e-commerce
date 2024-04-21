@@ -85,14 +85,16 @@ Route::get('/checkout/failure', function () {
 // Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
 // Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
 
-//Login Register
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
 
+// Apply whitelist middleware to login and registration routes
+Route::middleware(['whitelist'])->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
+});
 
 //Admin panel with IP Whitelist and Authentication
 Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {

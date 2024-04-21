@@ -4,14 +4,14 @@
 Благодарим Ви за поръчката! Ще се свържем с вас, за да уточним детайлите по нея! Ето детайли за вашата поръчка:
 
 @component('mail::table')
-| Продукт | Количество | Цена  | Междинна сума |
+| Продукт | Количество | Единична цена  | Междинна сума |
 |---------|----------|----------------|----------|
 @foreach($cart['products'] as $item)
 | {{ $item['name'] }} | {{ $item['quantity'] }} | {{ $item['price'] }} лв | {{ number_format($item['price'] * $item['quantity'], 2) }} лв |
 @endforeach
 @endcomponent
 
-**Общо: {{ $payment['totalAmount'] }} лв**
+**Общо: {{ number_format($payment['totalAmount'], 2) }} лв**
 
 Благодарим,<br>
 {{ config('app.name') }}

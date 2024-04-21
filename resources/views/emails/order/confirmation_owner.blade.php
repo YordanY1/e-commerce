@@ -34,7 +34,14 @@
 
 **Общо сума:** {{ number_format($payment['totalAmount'], 2) }} лв
 <br/>
-**Метод на плащане:** {{ $payment['method'] }}
+
+**Метод на плащане:**
+@if ($payment['method'] === 'card')
+    `Карта, през платформата на Stripe. Доставката се заплаща на куриера`
+@elseif ($payment['method'] === 'cod')
+    `Плащане с наложен платеж`
+@endif
+
 
 Благодарим Ви, че избрахте {{ config('app.name') }}!
 @endcomponent

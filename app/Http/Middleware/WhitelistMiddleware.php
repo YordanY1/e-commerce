@@ -17,14 +17,16 @@ class WhitelistMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // List of allowed IP addresses
-        $allowedIps = ['46.55.194.42'];
+        Log::info('Access attempt from IP: ' . $request->ip());
+        $allowedIps = [
+            '192.168.0.100', // Local network IP
+            '46.55.194.42',  // Your real public IP
+            '127.0.0.1'      // Localhost, for development and testing
+        ];
 
         if (!in_array($request->ip(), $allowedIps)) {
-            Log::warning('Unauthorized attempt to access admin area from IP: ' . $request->ip());
-
-            // Abort the request with a 403 Forbidden or redirect
-            return abort(403, 'Your IP address is not authorized to access this page.');
+            Log::warning('Unauthorized attempt to access from IP: ' . $request->ip());
+            return redirect('/'); // Redirects to the home page if IP is not allowed
         }
 
         return $next($request);

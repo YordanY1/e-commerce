@@ -99,7 +99,7 @@
         <div class="row mb-3">
             <div class="col-md-12">
                 <label for="payment_method" class="form-label"><h3 class="mb-3 mt-3">Начин на плащане</h3></label>
-                <select id="payment_method" class="form-control" required>
+                <select id="payment_method" name="payment_method" class="form-control" required>
                     <option value="" disabled selected>Изберете начин на плащане</option>
                     <option value="card">Плащане с карта</option>
                     <option value="cod">Плащане при доставка с наложен платеж</option>
@@ -218,32 +218,35 @@
 
 
         form.on('submit', function(event) {
-            event.preventDefault();
-            const paymentMethod = paymentMethodDropdown.val();
-            if (paymentMethod === 'card') {
-                submitButton.prop('disabled', true);
-                cardErrors.text('');
-                stripe.confirmCardPayment('{{ $clientSecret }}', {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            email: $('#email').val(),
-                            name: $('#first_name').val() + ' ' + $('#last_name').val(),
-                            phone: $('#phone').val(),
-                        },
-                    }
-                }).then(function(result) {
-                    if (result.error) {
-                        cardErrors.text(result.error.message);
-                        submitButton.prop('disabled', false);
-                    } else if (result.paymentIntent.status === 'succeeded') {
-                        form.off('submit').submit();
-                    }
-                });
-            } else {
-                form.off('submit').submit();
-            }
-        });
+        event.preventDefault();
+        const paymentMethod = paymentMethodDropdown.val();
+
+        if (paymentMethod === 'card') {
+            submitButton.prop('disabled', true);
+            cardErrors.text('');
+            stripe.confirmCardPayment('{{ $clientSecret }}', {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        email: $('#email').val(),
+                        name: $('#first_name').val() + ' ' + $('#last_name').val(),
+                        phone: $('#phone').val(),
+                    },
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    cardErrors.text(result.error.message);
+                    submitButton.prop('disabled', false);
+                } else if (result.paymentIntent.status === 'succeeded') {
+                    form.append('<input type="hidden" name="payment_method" value="card">'); // Ensure hidden input
+                    form.off('submit').submit(); // Submit form after adding hidden input
+                }
+            });
+        } else {
+            form.append('<input type="hidden" name="payment_method" value="cod">'); // Add hidden input for cod
+            form.off('submit').submit();
+        }
+    });
 
         function loadCart() {
             let cart = JSON.parse(localStorage.getItem('cart'));

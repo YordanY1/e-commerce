@@ -88,10 +88,25 @@ class CheckoutController extends Controller
      */
    public function processPayment(Request $request)
 {
+
+    $validatedData = $request->validate([
+        'payment_intent_id' => 'required|string',
+        'payment_method' => 'required|string',
+        'email' => 'required|email',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
+        'city' => 'required|string|max:255',
+        'postcode' => 'required|string|max:20',
+        'street' => 'required|string|max:255',
+    ]);
+
     Log::info('processPayment: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
 
     Stripe::setApiKey(env('STRIPE_SECRET'));
+
     $paymentIntentId = $request->input('payment_intent_id');
+
     $paymentMethod = $request->input('payment_method', 'Плащане с карта');
 
     // Initialize invoice details with default values
@@ -116,14 +131,16 @@ class CheckoutController extends Controller
         if ($intent->status === 'succeeded') {
             // Capturing customer details from the request
             $customerDetails = [
-                'email' => $request->input('email'),
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'phone' => $request->input('phone'),
-                'city' => $request->input('city'),
-                'postcode' => $request->input('postcode'),
-                'street' => $request->input('street')
+                'email' => $validatedData['email'],
+                'first_name' => $validatedData['first_name'],
+                'last_name' => $validatedData['last_name'],
+                'phone' => $validatedData['phone'],
+                'city' => $validatedData['city'],
+                'postcode' => $validatedData['postcode'],
+                'street' => $validatedData['street']
             ];
+
+            Log::info('processPayment: Customer details', ['Customer' => $customerDetails]);
 
             $cart = $request->session()->get('cart', []);
             Log::info('processPayment: Cart at payment success', ['Cart' => $cart]);

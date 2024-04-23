@@ -1,7 +1,18 @@
+
 <div class="row" data-aos="fade-up" data-aos-duration="1000">
     <div class="col-md-8 mx-auto text-center fh5co-heading">
-        <span>Запалване на иновациите в газовите технологии</span>
+        <div class="result-title">
+            <h5 id="search-results-title"></h5>
+        </div>
+        <h5>Намерени резултата: {{ $products->count() }} продукта </h5>
+    </div>
+</div>
+
+
+<div class="row" data-aos="fade-up" data-aos-duration="1000">
+    <div class="col-md-8 mx-auto text-center fh5co-heading">
         <h2>Иновативни и изключителни газови продукти</h2>
+        <span class="mb-4">Запалване на иновациите в газовите технологии</span>
         <p>Потопете се в света на Джеронимо, където иновациите срещат практичността. Разгледайте нашата внимателно подбрана селекция от газови продукти, всеки от които е изработен да предлага несравнима ефективност, безопасност и дизайн. От най-новите газови технологии до екологични решения, ние ви предлагаме ексклузивни продукти, които предефинират стандартите на газовото оборудване. Независимо дали сте професионалист в бранша или домашен ентусиаст, нашата гама обещава нещо специално за всяка нужда.
         </p>
     </div>
@@ -46,3 +57,13 @@
         @endforeach
     </div>
 @endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const lastSearch = localStorage.getItem('lastSearch');
+
+        if (lastSearch) {
+            document.getElementById('search-results-title').textContent = `Резултати за "${lastSearch}"`;
+        }
+    });
+</script>

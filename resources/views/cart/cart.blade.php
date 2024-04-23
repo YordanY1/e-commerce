@@ -36,6 +36,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        localStorage.removeItem('lastSearch');
         renderCartItems();
         updateCartSummary();
     });

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Services;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductController;
@@ -43,12 +44,17 @@ Route::get('/', [HomeController::class, 'index']);
 //About
 Route::get('/about', [AboutController::class, 'index']);
 
+//Services
+Route::get('/services', [Services::class, 'index'])->name('services.index');
+
 //Contacts
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send-email');
 
 //Products
 Route::get('/products', [ProductsController::class, 'index']);
+Route::get('/ajax-search', [ProductsController::class, 'ajaxSearch'])->name('ajax.search');
+
 
 //Terms
 Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms.index');
@@ -105,3 +111,5 @@ Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {
     Route::resource('categories', CategoriesController::class)->names('admin.categories');
     Route::resource('users', UsersController::class)->names('admin.users');
 });
+
+

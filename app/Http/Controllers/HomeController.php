@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['price', 'images'])->get(); // If multiple images per product
+        $products = Product::with(['price', 'images', 'reviews'])->get();
 
 
         return view('home', compact('products'));

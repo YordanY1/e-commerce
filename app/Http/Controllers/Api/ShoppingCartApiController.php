@@ -49,6 +49,7 @@ class ShoppingCartApiController extends Controller
                 'id' => $product->id,
                 'quantity' => 1,
                 'name' => $product->name,
+                'code' => $product->code,
                 'price' => $product->price->price,
                 'price_currency' => 'BGN',
                 'image' => $imageUrl,

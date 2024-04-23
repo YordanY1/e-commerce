@@ -25,12 +25,13 @@
 
 ## Обобщение на поръчката
 @component('mail::table')
-| Артикул       | Количество | Единична цена | Общо   |
-|--------------|------------|---------------|--------|
+| Артикул | Код | Количество | Единична цена | Общо   |
+|---------|-----|------------|---------------|--------|
 @foreach($cart['products'] as $item)
-| {{ $item['name'] }} | {{ $item['quantity'] }} | {{ number_format((float) $item['price'], 2) }} лв | {{ number_format((float) $item['price'] * (int) $item['quantity'], 2) }} лв |
+| {{ $item['name'] }} | {{ $item['code'] }} | {{ $item['quantity'] }} | {{ number_format((float) $item['price'], 2) }} лв | {{ number_format((float) $item['price'] * (int) $item['quantity'], 2) }} лв |
 @endforeach
 @endcomponent
+
 
 **Общо сума:** {{ number_format($payment['totalAmount'], 2) }} лв
 <br/>

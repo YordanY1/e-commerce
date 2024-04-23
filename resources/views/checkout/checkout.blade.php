@@ -273,8 +273,6 @@
         loadCart();
 
     });
-
 </script>
-
 @endpush
 

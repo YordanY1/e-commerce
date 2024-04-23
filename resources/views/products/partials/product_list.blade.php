@@ -1,16 +1,3 @@
-@if(session('lastSearch'))
-    <div class="row" data-aos="fade-up" data-aos-duration="1000">
-        <div class="col-md-8 mx-auto text-center fh5co-heading">
-            <h2>Резултати за "{{ session('lastSearch') }}"</h2>
-            @if($products->isNotEmpty())
-                <p>Намерени резултата: {{ $products->count() }} продукта в категория "{{ $category->name ?? 'Всички категории' }}"</p>
-            @else
-                <p>Няма намерени продукти.</p>
-            @endif
-        </div>
-    </div>
-@endif
-
 <div class="row" data-aos="fade-up" data-aos-duration="1000">
     <div class="col-md-8 mx-auto text-center fh5co-heading">
         <span>Запалване на иновациите в газовите технологии</span>

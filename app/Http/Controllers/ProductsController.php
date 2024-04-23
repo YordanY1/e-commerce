@@ -23,7 +23,17 @@ class ProductsController extends Controller
             ->joinSub($priceSubQuery, 'price_subquery', function ($join) {
                 $join->on('products.id', '=', 'price_subquery.product_id');
             })
-            ->with(['images']); // Eager load images
+            ->with(['images', 'reviews']); // Eager load images
+
+        // Handle search query
+        if ($searchQuery = $request->query('query')) {
+            $query->where(function ($q) use ($searchQuery) {
+                $q->where('name', 'LIKE', "%{$searchQuery}%")
+                  ->orWhereHas('attributes', function ($subQuery) use ($searchQuery) {
+                      $subQuery->where('description', 'LIKE', "%{$searchQuery}%");
+                  });
+            });
+        }
 
         // Category filter logic
         $categorySlug = $request->query('category');
@@ -93,4 +103,21 @@ class ProductsController extends Controller
                 break;
         }
     }
+
+    public function ajaxSearch(Request $request)
+    {
+        $query = $request->input('query');
+        session(['lastSearch' => $query]);
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+                           ->orWhereHas('attributes', function ($subQuery) use ($query) {
+                               $subQuery->where('description', 'LIKE', "%{$query}%");
+                           })
+                           ->limit(5) // Limit the results to 10
+                           ->get();
+
+        return response()->json([
+            'html' => view('products.partials.search_dropdown', compact('products'))->render()
+        ]);
+    }
+
 }

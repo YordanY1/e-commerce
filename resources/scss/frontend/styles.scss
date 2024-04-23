@@ -4,6 +4,15 @@ body {
     font-family: $font-primary;
 }
 
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .page-content.modal-open {
     filter: blur(5px);
@@ -209,3 +218,171 @@ body {
         font-size: 14px;
     }
 }
+
+.heading {
+    text-align: center;
+    color: #0275d8;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.services-table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.services-table, .services-table th, .services-table td {
+    border: 1px solid #ddd;
+}
+
+.services-table th, .services-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.services-table th {
+    background-color: #0275d8;
+    color: white;
+}
+
+.services-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.services-table tr:hover {
+    background-color: #ddd;
+}
+
+
+
+.page-content {
+    flex: 1 0 auto;
+}
+
+footer { /* Assuming your footer tag is straightforward */
+    flex-shrink: 0;
+}
+
+
+.star-rating {
+    line-height: 32px;
+    font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+    color: gray;
+    cursor: pointer;
+}
+
+.star-rating .fa-star.checked, .star-rating .fa-star:hover {
+    color: orange;
+    font-size: 10px;
+}
+
+.star-rating .fa-star:hover ~ .fa-star {
+    color: gray;
+    font-size: 10px;
+}
+
+
+.review-card {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.review-user strong {
+    color: #333;
+    font-size: 16px;
+}
+
+.review-rating .fa-star {
+    color: orange;
+}
+
+.review-rating .fa-star:not(.checked) {
+    color: #ccc;
+}
+
+.review-text p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.fa-star.checked {
+    color: orange;
+    font-size: 10px;
+}
+.fa-star {
+    color: grey;
+    font-size: 10px;
+}
+form.example .form-control {
+    font-size: 17px;
+    width: 80%;
+    background: #f1f1f1;
+  }
+
+  form.example .input-group-append button {
+    width: 100%;  /* Adjust based on your layout, assuming two buttons */
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  /* Scoped CSS for buttons within the cart page */
+.cart-page .example .input-group-append button {
+    width: 100%;  /* Adjusted to full width */
+    padding: 15px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+
+  form.example .input-group-append button:hover {
+    background: #0b7dda;
+  }
+
+  form.example .clear-search {
+    display: none; /* Initially hidden */
+  }
+
+  form.example .input-group {
+    display: flex; /* Ensures flex layout to align items in a row */
+  }
+
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  #search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    width: 100%;
+    padding: .5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+  }

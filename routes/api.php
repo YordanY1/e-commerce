@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoriesApiController;
 use App\Http\Controllers\Api\ShoppingCartApiController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\EcontController;
+use App\Http\Controllers\ReviewController;
 
 
 
@@ -62,6 +63,6 @@ Route::get('/econt/offices', [EcontController::class, 'getOffices']);
 Route::post('/econt/labels/create', [EcontController::class, 'createLabel'])->name('econt.labels.create');
 
 
-
-
+//Review
+Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 

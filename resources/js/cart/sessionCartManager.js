@@ -20,10 +20,11 @@ window.scm_addToCart = async function(el, event, increment = 1) {
                 id: productId,
                 quantity: increment,
                 name: productData.name,
+                code: productData.code,
                 price: productData.price,
                 image: productData.image,
                 description: productData.description,
-                weight: productData.weight
+                weight: productData.weight,
             };
         }
 

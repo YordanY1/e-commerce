@@ -1,3 +1,16 @@
+@if(session('lastSearch'))
+    <div class="row" data-aos="fade-up" data-aos-duration="1000">
+        <div class="col-md-8 mx-auto text-center fh5co-heading">
+            <h2>Резултати за "{{ session('lastSearch') }}"</h2>
+            @if($products->isNotEmpty())
+                <p>Намерени резултата: {{ $products->count() }} продукта в категория "{{ $category->name ?? 'Всички категории' }}"</p>
+            @else
+                <p>Няма намерени продукти.</p>
+            @endif
+        </div>
+    </div>
+@endif
+
 <div class="row" data-aos="fade-up" data-aos-duration="1000">
     <div class="col-md-8 mx-auto text-center fh5co-heading">
         <span>Запалване на иновациите в газовите технологии</span>
@@ -19,7 +32,7 @@
         @foreach ($products as $product)
             <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="product">
-                    <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : '/images/default-product.jpg' }}');">
+                    <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : asset('/images/default-product.jpg') }}');">
                         <div class="inner">
                             <p>
                                 <a href="#" class="icon add-to-cart btn btn-primary square-icon"
@@ -34,6 +47,11 @@
                     </div>
                     <div class="desc">
                         <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
+                        <div class="rating">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <span class="fa fa-star{{ $i <= $product->average_rating ? ' checked' : '' }}"></span>
+                            @endfor
+                        </div>
                         <span class="price">{{ optional($product->price)->price ?? 'N/A' }} лв.</span>
                     </div>
                 </div>

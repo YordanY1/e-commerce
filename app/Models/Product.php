@@ -43,4 +43,14 @@ class Product extends Model
         return Str::slug($this->name);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        return $this->reviews()->average('rating');
+    }
+
 }

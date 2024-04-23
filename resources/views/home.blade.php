@@ -89,6 +89,11 @@
                                     </div>
                                     <div class="desc">
                                         <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
+                                        <div class="rating">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <span class="fa fa-star{{ $i <= $product->average_rating ? ' checked' : '' }}"></span>
+                                            @endfor
+                                        </div>
                                         <span class="price">{{ $product->price->price ?? 'N/A' }} лв.</span>
                                     </div>
                                 </div>

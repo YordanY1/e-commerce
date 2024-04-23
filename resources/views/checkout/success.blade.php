@@ -1,4 +1,4 @@
-@extends('layouts.home.layout')
+@extends('layouts.cart.layout')
 
 @section('content')
 <div class="container text-center">

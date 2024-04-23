@@ -28,21 +28,21 @@
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])
 
-<body>
-        <!-- Navbar Component -->
-        <x-navbar />
+    <body class="cart-page">
+            <!-- Navbar Component -->
+            <x-navbar />
 
-        <!-- Main Content Area -->
-        <div class="page-content">
-            @yield('content')
-        </div>
+            <!-- Main Content Area -->
+            <div class="page-content">
+                @yield('content')
+            </div>
 
-        <!-- Footer Component -->
-        <x-footer />
+            <!-- Footer Component -->
+            <x-footer />
 
-        <!-- Vite JS for Laravel Mix -->
-        @vite(['resources/js/app.js'])
+            <!-- Vite JS for Laravel Mix -->
+            @vite(['resources/js/app.js'])
 
-        @stack('scripts')
-</body>
+            @stack('scripts')
+    </body>
 </html>

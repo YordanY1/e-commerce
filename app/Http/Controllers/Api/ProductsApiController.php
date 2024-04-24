@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Validator;
 use DB;
 
+
 class ProductsApiController extends Controller
 {
     // List all products
@@ -24,9 +25,11 @@ class ProductsApiController extends Controller
     // Create a new product
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
+            'quantity' => 'required|integer',
             'manufacturer_id' => 'required|exists:manufacturers,id',
             'categories' => 'required|array',
             'image' => 'required|image|max:2048', // Validate the image
@@ -39,15 +42,15 @@ class ProductsApiController extends Controller
         }
 
         $product = DB::transaction(function () use ($request) {
-            $productData = $request->only(['name', 'code', 'manufacturer_id']);
+            $productData = $request->only(['name', 'code', 'manufacturer_id', 'quantity']);
             $productData['slug'] = Str::slug($request->name);
             $product = Product::create($productData);
 
             // Handle product attributes including categories
             $attributes = new ProductAttribute([
-                'size' => $request->size,
-                'weight' => $request->weight,
-                'color' => $request->color,
+                // 'size' => $request->size,
+                // 'weight' => $request->weight,
+                // 'color' => $request->color,
                 'description' => $request->description,
                 'categories' => $request->categories,
                 // Additional attributes...
@@ -100,7 +103,7 @@ class ProductsApiController extends Controller
     // Show a specific product
     public function show($id)
     {
-        $product = Product::with(['attributes', 'price', 'images', 'files'])->findOrFail($id);
+        $product = Product::with(['attributes', 'price', 'images', 'files', 'quantity'])->findOrFail($id);
         return response()->json($product);
     }
 
@@ -111,6 +114,7 @@ class ProductsApiController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'string|max:255',
                 'code' => 'string|max:255',
+                'quantity' => 'integer',
                 'manufacturer_id' => 'exists:manufacturers,id',
                 'categories' => 'array',
                 // Additional validations for other fields as needed...
@@ -122,7 +126,7 @@ class ProductsApiController extends Controller
 
             $product = DB::transaction(function () use ($request, $id) {
                 $product = Product::findOrFail($id);
-                $product->update($request->only(['name', 'code', 'manufacturer_id']));
+                $product->update($request->only(['name', 'code', 'manufacturer_id', 'quantity']));
 
                 // Update product attributes including categories
                 $attributesData = [

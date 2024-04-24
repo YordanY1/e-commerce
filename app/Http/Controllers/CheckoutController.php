@@ -8,6 +8,7 @@ use Stripe\PaymentIntent;
 use Stripe\Exception\ApiErrorException;
 use Illuminate\Support\Facades\Log;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirmationMail;
@@ -129,6 +130,15 @@ class CheckoutController extends Controller
             Log::info('processPayment: PaymentIntent retrieved', ['Intent Status' => $intent->status]);
 
             if ($intent->status === 'succeeded') {
+                $cart = $request->session()->get('cart', []);
+                foreach ($cart['products'] as $productId => $productDetails) {
+                    $product = Product::find($productId);
+                    if ($product) {
+                        $newQuantity = $product->quantity - $productDetails['quantity'];
+                        $product->quantity = $newQuantity >= 0 ? $newQuantity : 0;
+                        $product->save();
+                    }
+                }
                 // Capturing customer details from the request
                 $customerDetails = [
                     'email' => $validatedData['email'],

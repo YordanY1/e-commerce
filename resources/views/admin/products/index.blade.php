@@ -17,6 +17,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
+                            <th>quantity</th>
                             <th>Slug</th>
                             <th>Manufacturer</th>
                             <th>Description</th>
@@ -31,6 +32,7 @@
                         <tr>
                             <td>{{ $product->name ?? '' }}</td>
                             <td>{{ $product->code ?? '' }}</td>
+                            <td>{{ $product->quantity ?? '' }}</td>
                             <td>{{ $product->slug ?? '' }}</td>
                             <td>{{ $product->manufacturer->name ?? '' }}</td>
                             <td>{{ $product->attributes->description ?? '' }}</td>

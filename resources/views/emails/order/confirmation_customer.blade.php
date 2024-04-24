@@ -11,7 +11,7 @@
 @endforeach
 @endcomponent
 
-**Общо: {{ number_format($payment['totalAmount'], 2) }} лв**
+**Общо: {{ number_format((float)$payment['totalAmount'], 2) }} лв**
 
 Благодарим,<br>
 {{ config('app.name') }}

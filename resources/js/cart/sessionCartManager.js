@@ -1,7 +1,7 @@
 // Function to handle adding products to the cart or updating their quantity
 window.scm_addToCart = async function(el, event, increment = 1) {
     const productId = el.getAttribute('data-product-id');
-    console.log('Product ID:', productId);
+    // console.log('Product ID:', productId);
 
     try {
         const response = await axios.post(`/api/shopping-cart/add-to-cart/${productId}`);
@@ -24,7 +24,7 @@ window.scm_addToCart = async function(el, event, increment = 1) {
                 price: productData.price,
                 image: productData.image,
                 description: productData.description,
-                weight: productData.weight,
+                // weight: productData.weight,
             };
         }
 

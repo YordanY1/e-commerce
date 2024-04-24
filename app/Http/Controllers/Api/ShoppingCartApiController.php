@@ -54,7 +54,7 @@ class ShoppingCartApiController extends Controller
                 'price_currency' => 'BGN',
                 'image' => $imageUrl,
                 'description' => $product->attributes->description,
-                'weight' =>  $product->attributes->weight
+                // 'weight' =>  $product->attributes->weight
             ];
 
             $this->addToCart($product_data, $request);

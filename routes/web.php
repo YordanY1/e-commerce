@@ -26,6 +26,7 @@ use App\Http\Controllers\Payment\PaymentStripeController;
 use App\Http\Controllers\Payment\PaymentSuccessController;
 use App\Http\Controllers\Payment\StripePaymentGeneralController;
 use App\Http\Controllers\CashOnDeliveryController;
+use App\Http\Controllers\CatBotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,5 +112,8 @@ Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {
     Route::resource('categories', CategoriesController::class)->names('admin.categories');
     Route::resource('users', UsersController::class)->names('admin.users');
 });
+
+Route::post('/catbot/respond', [CatBotController::class, 'respond']);
+Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);
 
 

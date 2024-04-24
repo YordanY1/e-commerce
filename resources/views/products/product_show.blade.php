@@ -18,9 +18,18 @@
                 <div class="row justify-content-center animate-box">
                     <div class="col-md-8 text-center fh5co-heading">
                         <h2>{{ $product->name }}</h2>
-                        <h4>Код на продукта: {{ $product->code }}</h4>
+                        @if($product->manufacturer)
+                            <h5 style="color: #777; display: inline;">Производител: <span style="color: #2196F3; display: inline;">{{ $product->manufacturer->name }}</span></h5>
+                        @endif
+                        <h5 style="color: #777">Код на продукта: {{ $product->code }}</h5>
+                            @if ($product->quantity > 0)
+                                <h6 style="color: #777; display: inline;">Наличност:</h6> <span style="color: green; display: inline;"> В наличност </span>
+                            @else
+                                <h6 style="color: #777; display: inline;">Наличност:</h6> <span style="color: red; display: inline;"> Не е в наличност </span>
+                            @endif
                         <p>
                             <div class="inner">
+                                <span class="price text-primary d-inline-block p-2 bg-light fs-4 rounded">Цена: {{ $product->price->price }} лв.</span>
                                 <p>
                                     <a href="#" class="btn btn-primary btn-lg"
                                         onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
@@ -63,8 +72,7 @@
                                     <div class="col-lg-10">
                                         <div class="tab-content active" data-tab-content="1">
                                             <div class="bg-light p-4 shadow-sm rounded">
-                                                    <h2 class="fw-bold mt-2">{{ $product->name }}</h2>
-                                                    <span class="price text-primary d-inline-block p-2 bg-light fs-4 rounded">Цена: {{ $product->price->price }} лв.</span>
+                                                    {{-- <h2 class="fw-bold mt-2">{{ $product->name }}</h2> --}}
                                                 <div class="row g-4">
                                                     <div class="col-md-6">
                                                         <div class="h-100 p-4 border-start border-4 border-primary">

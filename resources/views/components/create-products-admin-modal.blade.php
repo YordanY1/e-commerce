@@ -8,8 +8,8 @@
             </div>
             <div class="modal-body">
                 <!-- Add Product Form -->
-                <form id="addProductForm" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form id="addProductForm" method="POST" action="{{ url('/api/products') }}" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!-- Product Name -->
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
@@ -20,6 +20,11 @@
                     <div class="mb-3">
                         <label for="productCode" class="form-label">Product Code</label>
                         <input type="text" class="form-control" id="productCode" name="code" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">quantity</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity" required>
                     </div>
 
                     <!-- Manufacturer Select -->

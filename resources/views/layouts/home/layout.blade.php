@@ -21,8 +21,6 @@
     <!-- PNG shortcut icon -->
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
 
-
-
     <title>Джеронимо | Газови Уреди</title>
 
     <!-- Vite CSS for Laravel Mix -->
@@ -46,6 +44,21 @@
         <button onclick="declineCookies();" style="background-color: #e3342f; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left: 10px;">Отказвам</button>
     </div>
 
+    <div id="chatbotContainer">
+        <div id="chatHeader" style="background-color: #007bff; color: white; padding: 10px; border-top-left-radius: 15px; border-top-right-radius: 15px; cursor: pointer;">
+            <strong>Помощ</strong>
+            <span class="close-btn" style="float: right; cursor: pointer; color: white;">X</span>
+        </div>
+        <div id="chatArea" style="height: 430px; overflow-y: auto; padding: 10px; background-color: #f0f0f0; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+            <!-- Questions and responses will appear here -->
+        </div>
+    </div>
+
+    <button id="chatIcon">
+        <i class="fa-solid fa-headset" style="color: white; font-size: 20px;"></i>
+    </button>
+
+
     <!-- Footer Component -->
     <x-footer />
 
@@ -54,28 +67,90 @@
 
     @stack('scripts')
 
-    <script>
-        function acceptCookies() {
-            localStorage.setItem('cookieConsent', 'true');
-            document.querySelector('.cookie-banner').style.display = 'none';
-        }
+<script>
+document.getElementById('chatIcon').addEventListener('click', function() {
+    var chatContainer = document.getElementById('chatbotContainer');
+    var chatArea = document.getElementById('chatArea');
 
-        function declineCookies() {
-            localStorage.setItem('cookieConsent', 'false');
-            document.querySelector('.cookie-banner').style.display = 'none';
-            alert('Вие отказахте използването на бисквитки. Някои функции на сайта може да не работят коректно.');
-        }
+    function displayQuestions(excludeQuestion = null) {
+        fetch('/catbot/questions')
+        .then(response => response.json())
+        .then(questions => {
+            let questionArea = document.createElement('div');
+            questionArea.id = 'questionArea';
+            chatArea.appendChild(questionArea); // Append questions area if not already present
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var cookieConsent = localStorage.getItem('cookieConsent');
-            if (cookieConsent === 'true') {
-                document.querySelector('.cookie-banner').style.display = 'none';
-            } else if (cookieConsent === 'false') {
-            } else {
-                document.querySelector('.cookie-banner').style.display = 'block';
-            }
-        });
-        </script>
+            questions.forEach(question => {
+                if (question !== excludeQuestion) {
+                    let questionDiv = document.createElement('div');
+                    questionDiv.textContent = question;
+                    questionDiv.className = 'question';
+                    questionDiv.style.padding = '5px';
+                    questionDiv.style.cursor = 'pointer';
+                    questionArea.appendChild(questionDiv); // Append to the question area
+
+                    questionDiv.addEventListener('click', function() {
+                        fetch('/catbot/respond', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({ question: question })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            chatArea.innerHTML = ''; // Clear chat area before displaying response
+                            let responseDiv = document.createElement('div');
+                            responseDiv.className = 'response';
+                            responseDiv.innerHTML = `<strong>Q:</strong> ${question}<br><strong>A:</strong> ${data.message}`;
+                            chatArea.appendChild(responseDiv); // Append response
+
+                            // Display questions again, excluding the one just asked
+                            displayQuestions(question);
+                        });
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+        chatArea.innerHTML = ''; // Clear previous content
+        displayQuestions(); // Load questions initially
+    }
+
+    chatContainer.style.display = 'block';
+});
+
+document.querySelector('.close-btn').addEventListener('click', function() {
+    var chatContainer = document.getElementById('chatbotContainer');
+    chatContainer.style.display = 'none';
+});
+
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'true');
+    document.querySelector('.cookie-banner').style.display = 'none';
+}
+
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'false');
+    document.querySelector('.cookie-banner').style.display = 'none';
+    alert('Вие отказахте използването на бисквитки. Някои функции на сайта може да не работят коректно.');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var cookieConsent = localStorage.getItem('cookieConsent');
+    if (cookieConsent === 'true') {
+        document.querySelector('.cookie-banner').style.display = 'none';
+    } else if (cookieConsent === 'false') {
+    } else {
+        document.querySelector('.cookie-banner').style.display = 'block';
+    }
+});
+</script>
 
 </body>
 </html>

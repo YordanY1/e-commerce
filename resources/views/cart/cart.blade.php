@@ -23,7 +23,8 @@
             <hr>
 
             <p>Всички продукти: <span id="subtotal-price"></span></p>
-            {{-- <p>Общо с ДСС: <span id="total-price"></span></p> --}}
+            <p id="total-price-wrapper" style="display: none;">Общо с ДДС: <span id="total-price"></span></p>
+
 
             <div class="d-flex justify-content-end">
                 <a href="{{ url('/checkout') }}" class="btn btn-primary">Продължи напред</a>
@@ -73,14 +74,12 @@
 
     function updateCartSummary() {
         const subtotalPriceSpan = document.getElementById('subtotal-price');
-        const totalPriceSpan = document.getElementById('total-price');
         const cartData = JSON.parse(localStorage.getItem('cart')) || { products: {}, total: 0 };
 
         subtotalPriceSpan.textContent = `${cartData.total.toFixed(2)} лв.`;
-        const taxRate = 0.20; // 20% tax
-        const totalPrice = cartData.total * (1 + taxRate);
-        totalPriceSpan.textContent = `${totalPrice.toFixed(2)} лв.`;
+
     }
+
 
     function increaseQuantity(productId) {
         let cartData = JSON.parse(localStorage.getItem('cart')) || { products: {}, total: 0 };
@@ -105,7 +104,7 @@
     async function updateQuantityInBackend(productId, quantity) {
         try {
             const response = await axios.post('api/shopping-cart/update', { productId, quantity });
-            console.log('Quantity updated in backend', response.data);
+            // console.log('Quantity updated in backend', response.data);
             if (response.data.success) {
                 updateCartSummary();
             }
@@ -119,7 +118,7 @@
         if (cartData.products[productId]) {
             try {
                 const response = await axios.post(`/api/shopping-cart/remove-from-cart/${productId}`);
-                console.log('Item removed:', response.data);
+                // console.log('Item removed:', response.data);
                 if (response.data.success) {
                     delete cartData.products[productId];
                     updateTotal(cartData);
@@ -131,7 +130,7 @@
                 console.error('Error removing item:', error.response ? error.response.data : error);
             }
         } else {
-            console.log('Product not found in local cart:', productId);
+            // console.log('Product not found in local cart:', productId);
         }
     }
 

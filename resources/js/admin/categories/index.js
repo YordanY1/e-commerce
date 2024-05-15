@@ -18,7 +18,7 @@ document.getElementById('createCategoryForm').addEventListener('submit', functio
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        // console.log(data);
         location.reload();
     })
     .catch(error => console.error('Error:', error)); // Handle errors
@@ -64,7 +64,7 @@ document.getElementById('editCategoryForm').addEventListener('submit', function(
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Handle success
+        // console.log(data); // Handle success
         location.reload(); // Optionally reload the page to show the updated category
     })
     .catch(error => console.error('Error:', error)); // Handle errors
@@ -82,7 +82,7 @@ window.deleteCategory = function deleteCategory(categoryId) {
         })
         .then(response => {
             if (response.ok) {
-                console.log('Category deleted successfully');
+                // console.log('Category deleted successfully');
                 location.reload(); // Reload to update the list
             } else {
                 console.error('Error:', response);

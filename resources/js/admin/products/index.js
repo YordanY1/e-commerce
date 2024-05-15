@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            // console.log('Success:', data);
             $('#editProductModal').modal('hide'); // Close the modal
             location.reload(); // Refresh the page to show the updated product
         })
@@ -116,7 +116,7 @@ window.deleteProduct = function(productId) {
             return response.json();
         })
         .then(data => {
-            console.log('Product deleted:', data);
+            // console.log('Product deleted:', data);
             location.reload(); // Refresh the page or update the UI as needed
         })
         .catch(error => {

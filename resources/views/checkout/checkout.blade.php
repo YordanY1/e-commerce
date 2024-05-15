@@ -248,27 +248,31 @@
         }
     });
 
-        function loadCart() {
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            if (!cart) return;
-            let itemsHtml = '';
-            let subtotal = 0;
-            $.each(cart.products, function(index, product) {
-                let priceWithVat = product.price * 1.20; // Calculate price including 20% VAT
-                let totalProductPrice = priceWithVat * product.quantity; // Total price including VAT for the quantity
-                subtotal += totalProductPrice; // Accumulate subtotal of all products including VAT
-                itemsHtml += `<li class="list-group-item cart-item">
-                    <img src="${product.image}" alt="${product.name}" class="img-fluid product-image" style="width: 150px; height: auto;">
-                    <div class="product-details">
-                        <h5 class="product-name mb-1">${product.name}</h5>
-                        <span class="product-price badge bg-primary rounded-pill fs-6">${product.quantity} x лв.${priceWithVat.toFixed(2)}</span>
-                    </div>
-                </li>`;
-            });
+    function loadCart() {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        if (!cart) return;
+        let itemsHtml = '';
+        let subtotal = 0;
+        $.each(cart.products, function(index, product) {
+            let price = parseFloat(product.price); // Преобразуване на цената до число
+            if (isNaN(price)) {
+                console.error(`Invalid price for product: ${product.name}`);
+                return; // Прескачане на продукта, ако цената не е валидна
+            }
+            let totalProductPrice = price * product.quantity; // Обща цена за количеството
+            subtotal += totalProductPrice; // Натрупване на междинна сума за всички продукти
+            itemsHtml += `<li class="list-group-item cart-item">
+                <img src="${product.image}" alt="${product.name}" class="img-fluid product-image" style="width: 150px; height: auto;">
+                <div class="product-details">
+                    <h5 class="product-name mb-1">${product.name}</h5>
+                    <span class="product-price badge bg-primary rounded-pill fs-6">${product.quantity} x ${price.toFixed(2)}лв.</span>
+                </div>
+            </li>`;
+        });
 
-            $('#cart-items').html(itemsHtml);
-            $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Update the grand total including VAT
-        }
+        $('#cart-items').html(itemsHtml);
+        $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Обновяване на общата сума
+    }
 
         loadCart();
 

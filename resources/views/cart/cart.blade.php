@@ -23,7 +23,7 @@
             <hr>
 
             <p>Всички продукти: <span id="subtotal-price"></span></p>
-            <p>Общо с ДСС: <span id="total-price"></span></p>
+            {{-- <p>Общо с ДСС: <span id="total-price"></span></p> --}}
 
             <div class="d-flex justify-content-end">
                 <a href="{{ url('/checkout') }}" class="btn btn-primary">Продължи напред</a>

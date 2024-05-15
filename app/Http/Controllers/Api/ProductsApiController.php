@@ -25,7 +25,6 @@ class ProductsApiController extends Controller
     // Create a new product
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
@@ -34,6 +33,7 @@ class ProductsApiController extends Controller
             'categories' => 'required|array',
             'image' => 'required|image|max:2048', // Validate the image
             'files.*' => 'file|max:2048', // Validate each file
+            'price' => 'required|numeric', // Validate the base price
             // Other attribute validations...
         ]);
 
@@ -48,17 +48,23 @@ class ProductsApiController extends Controller
 
             // Handle product attributes including categories
             $attributes = new ProductAttribute([
-                // 'size' => $request->size,
-                // 'weight' => $request->weight,
-                // 'color' => $request->color,
                 'description' => $request->description,
                 'categories' => $request->categories,
                 // Additional attributes...
             ]);
             $product->attributes()->save($attributes);
 
+            // Calculate price with VAT
+            $basePrice = $request->input('price');
+            $vatRate = 0.20; // 20% VAT
+            $priceWithVAT = $basePrice * (1 + $vatRate);
+
             // Handle prices
-            $price = new Price($request->only(['price', 'cost', 'margin']));
+            $price = new Price([
+                'price' => $priceWithVAT,
+                'cost' => $request->input('cost'),
+                'margin' => $request->input('margin'),
+            ]);
             $product->price()->save($price);
 
             // Handle image upload
@@ -100,6 +106,7 @@ class ProductsApiController extends Controller
     }
 
 
+
     // Show a specific product
     public function show($id)
     {
@@ -109,50 +116,62 @@ class ProductsApiController extends Controller
 
 
    // Update a specific product
-        public function update(Request $request, $id)
-        {
-            $validator = Validator::make($request->all(), [
-                'name' => 'string|max:255',
-                'code' => 'string|max:255',
-                'quantity' => 'integer',
-                'manufacturer_id' => 'exists:manufacturers,id',
-                'categories' => 'array',
-                // Additional validations for other fields as needed...
-            ]);
+   public function update(Request $request, $id)
+   {
+       $validator = Validator::make($request->all(), [
+           'name' => 'string|max:255',
+           'code' => 'string|max:255',
+           'quantity' => 'integer',
+           'manufacturer_id' => 'exists:manufacturers,id',
+           'categories' => 'array',
+           'price' => 'numeric', // Validate the base price if provided
+           // Additional validations for other fields as needed...
+       ]);
 
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-            }
+       if ($validator->fails()) {
+           return response()->json($validator->errors(), 400);
+       }
 
-            $product = DB::transaction(function () use ($request, $id) {
-                $product = Product::findOrFail($id);
-                $product->update($request->only(['name', 'code', 'manufacturer_id', 'quantity']));
+       $product = DB::transaction(function () use ($request, $id) {
+           $product = Product::findOrFail($id);
+           $product->update($request->only(['name', 'code', 'manufacturer_id', 'quantity']));
 
-                // Update product attributes including categories
-                $attributesData = [
-                    'size' => $request->size,
-                    'weight' => $request->weight,
-                    'color' => $request->color,
-                    'description' => $request->description,
-                    'categories' => $request->categories, // Assuming categories are stored as JSON
-                ];
-                $product->attributes()->update($attributesData);
+           // Update product attributes including categories
+           $attributesData = [
+               'size' => $request->size,
+               'weight' => $request->weight,
+               'color' => $request->color,
+               'description' => $request->description,
+               'categories' => $request->categories, // Assuming categories are stored as JSON
+           ];
+           $product->attributes()->update($attributesData);
 
-                // Update prices
-                $priceData = $request->only(['price', 'cost', 'margin']);
-                if ($product->price) {
-                    // Update existing price
-                    $product->price->update($priceData);
-                } else {
-                    // Create new price if it doesn't exist
-                    $product->price()->create($priceData);
-                }
+           // Update prices
+           if ($request->has('price')) {
+               $basePrice = $request->input('price');
+               $vatRate = 0.20; // 20% VAT
+               $priceWithVAT = $basePrice * (1 + $vatRate);
 
-                return $product;
-            });
+               $priceData = [
+                   'price' => $priceWithVAT,
+                   'cost' => $request->input('cost'),
+                   'margin' => $request->input('margin'),
+               ];
+               if ($product->price) {
+                   // Update existing price
+                   $product->price->update($priceData);
+               } else {
+                   // Create new price if it doesn't exist
+                   $product->price()->create($priceData);
+               }
+           }
 
-            return response()->json($product);
-        }
+           return $product;
+       });
+
+       return response()->json($product);
+   }
+
 
 
     // Delete a specific product

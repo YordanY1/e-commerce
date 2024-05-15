@@ -54,14 +54,9 @@ class ProductsApiController extends Controller
             ]);
             $product->attributes()->save($attributes);
 
-            // Calculate price with VAT
-            $basePrice = $request->input('price');
-            $vatRate = 0.20; // 20% VAT
-            $priceWithVAT = $basePrice * (1 + $vatRate);
-
             // Handle prices
             $price = new Price([
-                'price' => $priceWithVAT,
+                'price' => $request->input('price'),
                 'cost' => $request->input('cost'),
                 'margin' => $request->input('margin'),
             ]);
@@ -148,12 +143,8 @@ class ProductsApiController extends Controller
 
            // Update prices
            if ($request->has('price')) {
-               $basePrice = $request->input('price');
-               $vatRate = 0.20; // 20% VAT
-               $priceWithVAT = $basePrice * (1 + $vatRate);
-
                $priceData = [
-                   'price' => $priceWithVAT,
+                   'price' => $request->input('price'),
                    'cost' => $request->input('cost'),
                    'margin' => $request->input('margin'),
                ];

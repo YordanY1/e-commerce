@@ -45,7 +45,7 @@ Route::delete('/products/{id}', [ProductsApiController::class, 'destroy']);
 // Category API Routes
 Route::get('/categories', [CategoriesApiController::class, 'index']);
 Route::get('/categories/{id}', [CategoriesApiController::class, 'show']);
-Route::post('/categories', [CategoriesApiController::class, 'store']);
+Route::post('/categories', [CategoriesApiController::class, 'store'])->name('categories.store');
 Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
 Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
 

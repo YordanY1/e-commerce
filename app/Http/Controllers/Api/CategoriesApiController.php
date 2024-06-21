@@ -54,6 +54,10 @@ class CategoriesApiController extends Controller
             \Log::info('Category created', $category->toArray());
 
             return response()->json($category, 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error: ' . $e->getMessage());
+            \Log::error('Validation errors: ', $e->errors());
+            return response()->json(['error' => 'Validation failed', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
             \Log::error('Error storing category: ' . $e->getMessage());
             \Log::error('Stack trace: ', $e->getTrace());

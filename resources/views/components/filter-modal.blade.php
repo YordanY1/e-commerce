@@ -7,6 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Category Filters for Modal -->
                 <div class="category-filter-section">
                     <h4>Филтрирай по категория:</h4>
                     <ul class="category-list">
@@ -20,6 +21,19 @@
                         @endforeach
                     </ul>
                 </div>
+                <!-- Manufacturer Filters for Modal -->
+                <div class="manufacturer-filter-section">
+                    <h4>Филтър по производители:</h4>
+                    <ul class="manufacturer-list">
+                        @foreach ($manufacturers as $manufacturer)
+                            <li>
+                                <input type="checkbox" id="modal-manufacturer-{{ $manufacturer->id }}" class="modal-manufacturer-input modal-checkbox" data-manufacturer="{{ $manufacturer->id }}">
+                                <label for="modal-manufacturer-{{ $manufacturer->id }}">{{ $manufacturer->name }}</label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <!-- Price Filters for Modal -->
                 <div class="price-filter-section">
                     <h4>Филтриране по цена</h4>
                     <ul class="price-range-list">

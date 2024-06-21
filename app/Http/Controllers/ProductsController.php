@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Manufacturer;
 
 class ProductsController extends Controller
 {
     public function index(Request $request)
     {
         $categories = Category::all();
+        $manufacturers = Manufacturer::all();
 
         // Subquery for the lowest price for each product
         $priceSubQuery = \DB::table('prices')
@@ -44,6 +46,12 @@ class ProductsController extends Controller
             });
         }
 
+        // Manufacturer filter logic
+        $manufacturerId = $request->query('manufacturer');
+        if ($manufacturerId && $manufacturerId !== 'all') {
+            $query->where('manufacturer_id', $manufacturerId);
+        }
+
         // Price range filter logic
         $this->applyPriceFilter($query, $request->query('priceRange'));
 
@@ -58,7 +66,6 @@ class ProductsController extends Controller
             $products = $query->paginate($pagination);
         }
 
-
         // Check if the request is an AJAX call
         if ($request->ajax()) {
             // Return JSON response for AJAX request
@@ -68,22 +75,22 @@ class ProductsController extends Controller
         }
 
         // Return the full view for non-AJAX requests
-        return view('products.products', compact('products', 'categories'));
+        return view('products.products', compact('products', 'categories', 'manufacturers'));
     }
 
     private function applyPriceFilter($query, $priceRange)
     {
         switch ($priceRange) {
-            case 'price-range-1':
+            case '0-50':
                 $query->where('price_subquery.min_price', '<=', 50);
                 break;
-            case 'price-range-2':
+            case '50-100':
                 $query->whereBetween('price_subquery.min_price', [50, 100]);
                 break;
-            case 'price-range-3':
+            case '100-200':
                 $query->whereBetween('price_subquery.min_price', [100, 200]);
                 break;
-            case 'price-range-4':
+            case '200+':
                 $query->where('price_subquery.min_price', '>', 200);
                 break;
         }
@@ -112,12 +119,11 @@ class ProductsController extends Controller
                            ->orWhereHas('attributes', function ($subQuery) use ($query) {
                                $subQuery->where('description', 'LIKE', "%{$query}%");
                            })
-                           ->limit(5) // Limit the results to 10
+                           ->limit(5) // Limit the results to 5
                            ->get();
 
         return response()->json([
             'html' => view('products.partials.search_dropdown', compact('products'))->render()
         ]);
     }
-
 }

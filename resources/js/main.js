@@ -16,23 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sorting and Pagination Handling
     const desktopCategoryInputs = document.querySelectorAll('.desktop-category-input');
     const modalCategoryInputs = document.querySelectorAll('.modal-category-input');
+    const desktopManufacturerInputs = document.querySelectorAll('.desktop-manufacturer-input');
+    const modalManufacturerInputs = document.querySelectorAll('.modal-manufacturer-input');
     const desktopPriceRangeInputs = document.querySelectorAll('.desktop-price-range-input');
     const modalPriceRangeInputs = document.querySelectorAll('.modal-price-range-input');
     const desktopSortingSelect = document.getElementById('desktop-sorting');
-    const modalSortingOptions = document.querySelectorAll('.modal-sorting-option');
     const desktopPaginationSelect = document.getElementById('desktop-pagination');
-    const modalPaginationOptions = document.querySelectorAll('.modal-pagination-option');
 
     // Define a function to fetch products based on filters
     function fetchProducts() {
-        if (desktopSortingSelect && desktopPaginationSelect) {
-            const selectedCategoryId = getSelectedCategoryId();
-            const selectedPriceRangeId = getSelectedPriceRangeId();
-            const selectedSorting = getSelectedSorting();
-            const selectedPagination = getSelectedPagination();
+        const selectedCategoryId = getSelectedCategoryId();
+        const selectedManufacturerId = getSelectedManufacturerId();
+        const selectedPriceRangeId = getSelectedPriceRangeId();
+        const selectedSorting = getSelectedSorting();
+        const selectedPagination = getSelectedPagination();
 
-            fetchProductsByFilters(selectedCategoryId, selectedPriceRangeId, selectedSorting, selectedPagination);
-        }
+        fetchProductsByFilters(selectedCategoryId, selectedManufacturerId, selectedPriceRangeId, selectedSorting, selectedPagination);
     }
 
     function getSelectedCategoryId() {
@@ -41,40 +40,45 @@ document.addEventListener('DOMContentLoaded', () => {
         return desktopSelected ? desktopSelected.dataset.category : (modalSelected ? modalSelected.dataset.category : 'all');
     }
 
+    function getSelectedManufacturerId() {
+        const desktopSelected = Array.from(desktopManufacturerInputs).find(input => input.checked);
+        const modalSelected = Array.from(modalManufacturerInputs).find(input => input.checked);
+        return desktopSelected ? desktopSelected.dataset.manufacturer : (modalSelected ? modalSelected.dataset.manufacturer : 'all');
+    }
+
     function getSelectedPriceRangeId() {
         const desktopSelected = Array.from(desktopPriceRangeInputs).find(input => input.checked);
         const modalSelected = Array.from(modalPriceRangeInputs).find(input => input.checked);
-        return desktopSelected ? desktopSelected.id : (modalSelected ? modalSelected.id : 'all');
+        return desktopSelected ? desktopSelected.dataset.priceRange : (modalSelected ? modalSelected.dataset.priceRange : 'all');
     }
 
     function getSelectedSorting() {
-        const modalSelected = Array.from(modalSortingOptions).find(option => option.checked);
-        return desktopSortingSelect ? desktopSortingSelect.value : (modalSelected ? modalSelected.value : 'default');
+        return desktopSortingSelect ? desktopSortingSelect.value : 'default';
     }
 
     function getSelectedPagination() {
-        const modalSelected = Array.from(modalPaginationOptions).find(option => option.checked);
-        return desktopPaginationSelect ? desktopPaginationSelect.value : (modalSelected ? modalSelected.value : 'all');
+        return desktopPaginationSelect ? desktopPaginationSelect.value : 'all';
     }
 
     // Attach event listeners conditionally
     desktopCategoryInputs.forEach(input => input.addEventListener('change', fetchProducts));
     modalCategoryInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    desktopManufacturerInputs.forEach(input => input.addEventListener('change', fetchProducts));
+    modalManufacturerInputs.forEach(input => input.addEventListener('change', fetchProducts));
     desktopPriceRangeInputs.forEach(input => input.addEventListener('change', fetchProducts));
     modalPriceRangeInputs.forEach(input => input.addEventListener('change', fetchProducts));
     if (desktopSortingSelect) {
         desktopSortingSelect.addEventListener('change', fetchProducts);
     }
-    modalSortingOptions.forEach(option => option.addEventListener('change', fetchProducts));
     if (desktopPaginationSelect) {
         desktopPaginationSelect.addEventListener('change', fetchProducts);
     }
-    modalPaginationOptions.forEach(option => option.addEventListener('change', fetchProducts));
 
     // Function to execute fetching products with current filters
-    function fetchProductsByFilters(categoryId, priceRangeId, sorting, pagination) {
+    function fetchProductsByFilters(categoryId, manufacturerId, priceRangeId, sorting, pagination) {
         const url = new URL(window.location.href);
         url.searchParams.set('category', categoryId);
+        url.searchParams.set('manufacturer', manufacturerId);
         url.searchParams.set('priceRange', priceRangeId);
         url.searchParams.set('sorting', sorting);
         url.searchParams.set('pagination', pagination);

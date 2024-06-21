@@ -34,7 +34,6 @@ class CategoriesApiController extends Controller
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:255',
                 'parent_id' => 'nullable|exists:categories,id',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
 
             \Log::info('Validation passed', $validatedData);

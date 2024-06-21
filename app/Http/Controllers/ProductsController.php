@@ -141,4 +141,12 @@ class ProductsController extends Controller
             'html' => view('products.partials.search_dropdown', compact('products'))->render()
         ]);
     }
+
+    public function showCategory($slug)
+    {
+        $category = Category::where('slug', $slug)->with('children')->firstOrFail();
+        $subcategories = $category->children;
+
+        return view('products.category', compact('category', 'subcategories'));
+    }
 }

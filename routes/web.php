@@ -55,6 +55,7 @@ Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send-
 //Products
 Route::get('/products', [ProductsController::class, 'index']);
 Route::get('/ajax-search', [ProductsController::class, 'ajaxSearch'])->name('ajax.search');
+Route::get('/category/{slug}', [ProductsController::class, 'showCategory'])->name('category.show');
 
 
 //Terms

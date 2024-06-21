@@ -1,3 +1,4 @@
+<!-- In your Navbar component view -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom-color">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -27,7 +28,7 @@
                                 <li><a class="dropdown-item" href="{{ url('/products?category=' . $category->slug) }}">{{ $category->name }}</a></li>
                             @else
                                 <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle" href="{{ url('/products?category=' . $category->slug) }}">{{ $category->name }}</a>
+                                    <a class="dropdown-item dropdown-toggle main-category" href="{{ route('category.show', $category->slug) }}" data-slug="{{ $category->slug }}">{{ $category->name }}</a>
                                     <ul class="dropdown-menu">
                                         @foreach ($category->children as $subCategory)
                                             <li><a class="dropdown-item" href="{{ url('/products?category=' . $subCategory->slug) }}">{{ $subCategory->name }}</a></li>
@@ -78,6 +79,7 @@
         </div>
     </div>
 </nav>
+
 
 <!-- Include Popper.js and Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -150,10 +152,22 @@
         });
 
         // Handle nested dropdowns
-        $('.dropdown-submenu .dropdown-toggle').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).next('.dropdown-menu').toggle();
+        $('.dropdown-submenu').hover(function(e) {
+            if ($(window).width() >= 992) { // Apply hover behavior only on desktop
+                $(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
+            }
+        }, function(e) {
+            if ($(window).width() >= 992) { // Apply hover behavior only on desktop
+                $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+            }
+        });
+
+        // Handle click behavior for mobile devices
+        $('.main-category').click(function(e) {
+            if ($(window).width() < 992) {
+                e.preventDefault();
+                window.location.href = $(this).attr('href');
+            }
         });
     });
 </script>

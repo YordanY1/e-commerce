@@ -8,10 +8,12 @@
             <h4>Филтър по категории:</h4>
             <ul class="category-list">
                 @foreach ($categories as $category)
-                <li>
-                    <input type="checkbox" id="desktop-category-{{ $category->id }}" class="desktop-category-input" data-category="{{ $category->id }}">
-                    <label for="desktop-category-{{ $category->id }}">{{ $category->name }}</label>
-                </li>
+                    @if (is_null($category->parent_id))
+                        <li>
+                            <input type="checkbox" id="desktop-category-{{ $category->id }}" class="desktop-category-input" data-category="{{ $category->id }}">
+                            <label for="desktop-category-{{ $category->id }}">{{ $category->name }}</label>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>
@@ -58,7 +60,6 @@
                     <option value="30">30</option>
                 </select>
             </div>
-
         </div>
 
         <!-- Buttons for Mobile Filters & Sorting -->
@@ -80,6 +81,6 @@
 @include('components.filter-modal')
 @include('components.sort-modal')
 
-    {{-- Include cart modal --}}
-    @include('components.products.cart-modal')
+{{-- Include cart modal --}}
+@include('components.products.cart-modal')
 @endsection

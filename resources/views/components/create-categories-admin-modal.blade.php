@@ -17,6 +17,19 @@
                         <label for="categoryCode" class="form-label">Code</label>
                         <input type="text" class="form-control" id="categoryCode" name="code">
                     </div>
+                    <div class="mb-3">
+                        <label for="parentCategory" class="form-label">Parent Category</label>
+                        <select class="form-select" id="parentCategory" name="parent_id">
+                            <option value="">None</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="categoryDescription" name="description"></textarea>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

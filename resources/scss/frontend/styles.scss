@@ -452,3 +452,16 @@ form.example .form-control {
         bottom: 10px; /* Adjust bottom spacing */
     }
 }
+
+
+/* Custom CSS for nested dropdowns */
+/* Custom CSS for nested dropdowns */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}

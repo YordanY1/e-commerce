@@ -12,13 +12,13 @@ class CategoriesApiController extends Controller
     // List all categories
     public function index()
     {
-        return Category::all();
+        return Category::with('children')->get();
     }
 
     // Show a single category by ID
     public function show($id)
     {
-        return Category::findOrFail($id);
+        return Category::with('children')->findOrFail($id);
     }
 
     // Store a new category
@@ -27,6 +27,7 @@ class CategoriesApiController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:categories,id'
         ]);
 
         $validatedData['slug'] = Str::slug($request->name);
@@ -42,13 +43,8 @@ class CategoriesApiController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'string|max:255',
-            // 'slug' => 'string|max:255|unique:categories,slug,' . $category->id,
             'code' => 'string|max:255',
-            // 'parent_id' => 'nullable|integer|exists:categories,id',
-            // 'description' => 'sometimes|string',
-            // 'keywords' => 'sometimes|string',
-            // 'status' => 'integer',
-            // Add other fields as necessary
+            'parent_id' => 'nullable|exists:categories,id'
         ]);
 
         $category->update($validatedData);

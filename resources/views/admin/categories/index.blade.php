@@ -23,6 +23,7 @@
                         <th>Slug</th>
                         <th>Code</th>
                         <th>Description</th>
+                        <th>Parent</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <td>{{ $category->slug }}</td>
                         <td>{{ $category->code }}</td>
                         <td>{{ $category->description }}</td>
+                        <td>{{ $category->parent ? $category->parent->name : 'None' }}</td>
                         <td>
                             <!-- Edit Button -->
                             <button type="button" class="btn btn-primary btn-sm" onclick="editCategory({{ $category->id }})">Edit</button>
@@ -41,8 +43,6 @@
                             <!-- Delete Button -->
                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteCategory({{ $category->id }})">Delete</button>
                         </td>
-                            <!-- Include Edit Category Modal Component -->
-                            @include('components.edit-categories-admin-modal')
                     </tr>
                     @endforeach
                 </tbody>
@@ -51,7 +51,3 @@
     </div>
 </div>
 @endsection
-
-{{-- @push('scripts')
-    <script src="{{ asset('js/admin/categories/index') }}"></script>
-@endpush --}}

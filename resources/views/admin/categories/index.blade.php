@@ -23,6 +23,7 @@
                         <th>Slug</th>
                         <th>Code</th>
                         <th>Description</th>
+                        <th>Image</th>
                         <th>Parent</th>
                         <th>Actions</th>
                     </tr>
@@ -35,6 +36,11 @@
                         <td>{{ $category->slug }}</td>
                         <td>{{ $category->code }}</td>
                         <td>{{ $category->description }}</td>
+                        <td>
+                            @if ($category->image)
+                                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" width="50">
+                            @endif
+                        </td>
                         <td>{{ $category->parent ? $category->parent->name : 'None' }}</td>
                         <td>
                             <!-- Edit Button -->

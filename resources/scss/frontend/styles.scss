@@ -465,3 +465,62 @@ form.example .form-control {
     left: 100%;
     margin-top: -1px;
 }
+
+
+/* General text color */
+h1, h4, p, .card-title, .card-text, .btn-primary {
+    color: #0275d8;
+}
+
+/* Card border color */
+.card {
+    border-color: #0275d8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Image styling within cards */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Button primary color */
+.btn-primary {
+    background-color: #0275d8;
+    border-color: #0275d8;
+}
+
+/* Button hover effect */
+.btn-primary:hover {
+    background-color: #025aa5;
+    border-color: #025aa5;
+}
+
+.filter-title {
+    font-size: 1.25rem;
+    color: #0275d8;
+    margin-bottom: 10px;
+}
+
+.category-list .form-check-label,
+.manufacturer-list .form-check-label,
+.price-range-list .form-check-label {
+    font-size: 0.9rem;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.category-filter-section,
+.manufacturer-filter-section,
+.price-filter-section,
+.sorting-pagination-section {
+    margin-bottom: 20px;
+}

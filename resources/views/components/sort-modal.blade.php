@@ -3,13 +3,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="sortModalLabel">Опции за сортиране</h5>
+                <h5 class="modal-title" id="sortModalLabel" style="color: #0275d8;">Опции за сортиране</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Sorting Options as List -->
                 <div class="sorting-options">
-                    <h6>Подреди:</h6>
+                    <h6  style="color: #0275d8;">Подреди:</h6>
                     <ul>
                         <li>
                             <input type="checkbox" id="modal-sort-popular" name="sorting-option" value="popular" class="modal-sorting-option modal-checkbox">
@@ -27,7 +27,7 @@
                 </div>
                 <!-- Pagination Options as List -->
                 <div class="pagination-options">
-                    <h6>Продукти на страница:</h6>
+                    <h6  style="color: #0275d8;">Продукти на страница:</h6>
                     <ul>
                         <li>
                             <input type="checkbox" id="modal-pagination-all" name="pagination-option" value="all" class="modal-pagination-option modal-checkbox" checked>

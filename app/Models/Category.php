@@ -11,6 +11,10 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = [
+        'name', 'slug', 'code', 'description', 'parent_id', 'image'
+    ];
+
     public function products()
     {
         // Replace 'category' with the correct table name if it's different

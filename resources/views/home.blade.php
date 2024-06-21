@@ -62,7 +62,7 @@
                 <div class="row animate-box">
                     <div class="col-md-8 mx-auto text-center fh5co-heading">
                         <span>Част от нашите</span>
-                        <h2>Продукти</h2>
+                        <h2 style="color: #0275d8; margin-top: 20px;">Продукти</h2>
                     </div>
                 </div>
 

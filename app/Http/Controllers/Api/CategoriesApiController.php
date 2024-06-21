@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+
 
 class CategoriesApiController extends Controller
 {
@@ -24,17 +26,40 @@ class CategoriesApiController extends Controller
     // Store a new category
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:categories,id'
-        ]);
+        \Log::info('Store method called');
 
-        $validatedData['slug'] = Str::slug($request->name);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'code' => 'required|string|max:255',
+                'parent_id' => 'nullable|exists:categories,id',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
 
-        $category = Category::create($validatedData);
-        return response()->json($category, 201);
+            \Log::info('Validation passed', $validatedData);
+
+            $validatedData['slug'] = Str::slug($request->name);
+
+            if ($request->hasFile('image')) {
+                \Log::info('Image found in request');
+                $path = $request->file('image')->store('category_images', 'public');
+                \Log::info('Image stored at path: ' . $path);
+                $validatedData['image'] = $path;
+            } else {
+                \Log::info('No image found in request');
+            }
+
+            $category = Category::create($validatedData);
+            \Log::info('Category created', $category->toArray());
+
+            return response()->json($category, 201);
+        } catch (\Exception $e) {
+            \Log::error('Error storing category: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred while storing the category'], 500);
+        }
     }
+
+
 
     // Update a category
     public function update(Request $request, $id)
@@ -44,8 +69,19 @@ class CategoriesApiController extends Controller
         $validatedData = $request->validate([
             'name' => 'string|max:255',
             'code' => 'string|max:255',
-            'parent_id' => 'nullable|exists:categories,id'
+            'parent_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($category->image) {
+                Storage::disk('public')->delete($category->image);
+            }
+
+            $path = $request->file('image')->store('category_images', 'public');
+            $validatedData['image'] = $path;
+        }
 
         $category->update($validatedData);
 

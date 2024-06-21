@@ -39,15 +39,24 @@ class ProductsController extends Controller
 
         // Category filter logic
         $categorySlug = $request->query('category');
-        $categoryId = Category::where('slug', $categorySlug)->value('id');
-        if ($categoryId) {
+        // \Log::info('Category Slug: ' . $categorySlug);
+
+        $category = Category::where('slug', $categorySlug)->first();
+        if ($category) {
+            $categoryId = $category->id;
+            // \Log::info('Category ID: ' . $categoryId);
+
             $query->whereHas('attributes', function ($query) use ($categoryId) {
                 $query->whereJsonContains('categories', (string)$categoryId);
             });
+        } else {
+            // \Log::warning('Category not found for slug: ' . $categorySlug);
         }
 
         // Manufacturer filter logic
         $manufacturerId = $request->query('manufacturer');
+        \Log::info('Manufacturer ID: ' . $manufacturerId);
+
         if ($manufacturerId && $manufacturerId !== 'all') {
             $query->where('manufacturer_id', $manufacturerId);
         }
@@ -80,18 +89,24 @@ class ProductsController extends Controller
 
     private function applyPriceFilter($query, $priceRange)
     {
+        // \Log::info('Price Range: ' . $priceRange);
+
         switch ($priceRange) {
             case '0-50':
                 $query->where('price_subquery.min_price', '<=', 50);
+                // \Log::info('Applying price filter: 0-50');
                 break;
             case '50-100':
                 $query->whereBetween('price_subquery.min_price', [50, 100]);
+                // \Log::info('Applying price filter: 50-100');
                 break;
             case '100-200':
                 $query->whereBetween('price_subquery.min_price', [100, 200]);
+                // \Log::info('Applying price filter: 100-200');
                 break;
             case '200+':
                 $query->where('price_subquery.min_price', '>', 200);
+                // \Log::info('Applying price filter: 200+');
                 break;
         }
     }

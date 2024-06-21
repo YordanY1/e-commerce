@@ -19,7 +19,7 @@ class Navbar extends Component
         // Get main categories with their children
         $this->categories = Category::whereNull('parent_id')->with('children')->get();
 
-        Log::info('Categories with children', ['categories' => $this->categories->toArray()]);
+        // Log::info('Categories with children', ['categories' => $this->categories->toArray()]);
 
 
     }

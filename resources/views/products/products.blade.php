@@ -10,7 +10,7 @@
                 @foreach ($categories as $category)
                     @if (is_null($category->parent_id))
                         <li class="form-check">
-                            <input type="checkbox" id="desktop-category-{{ $category->id }}" class="form-check-input desktop-category-input" data-category="{{ $category->id }}">
+                            <input type="checkbox" id="desktop-category-{{ $category->id }}" class="form-check-input desktop-category-input" data-category="{{ $category->slug }}">
                             <label for="desktop-category-{{ $category->id }}" class="form-check-label">{{ $category->name }}</label>
                         </li>
                     @endif

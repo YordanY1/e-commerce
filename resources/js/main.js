@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function getSelectedCategoryId() {
         const desktopSelected = Array.from(desktopCategoryInputs).find(input => input.checked);
         const modalSelected = Array.from(modalCategoryInputs).find(input => input.checked);
-        return desktopSelected ? desktopSelected.dataset.category : (modalSelected ? modalSelected.dataset.category : 'all');
+        return desktopSelected ? desktopSelected.dataset.category : (modalSelected ? modalSelected.dataset.category : getCurrentSubcategory());
     }
 
     function getSelectedManufacturerId() {
@@ -58,6 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getSelectedPagination() {
         return desktopPaginationSelect ? desktopPaginationSelect.value : 'all';
+    }
+
+    function getCurrentSubcategory() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('category') || 'all';
     }
 
     // Attach event listeners conditionally

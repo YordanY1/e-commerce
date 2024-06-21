@@ -14,8 +14,8 @@
                         @foreach ($categories as $category)
                             @if (is_null($category->parent_id))
                                 <li>
-                                    <input type="checkbox" id="modal-category-{{ $category->id }}" class="modal-category-input modal-checkbox" data-category="{{ $category->id }}">
-                                    <label for="modal-category-{{ $category->id }}">{{ $category->name }}</label>
+                                    <input type="checkbox" id="modal-category-{{ $category->slug }}" class="modal-category-input modal-checkbox" data-category="{{ $category->slug }}">
+                                    <label for="modal-category-{{ $category->slug }}">{{ $category->name }}</label>
                                 </li>
                             @endif
                         @endforeach

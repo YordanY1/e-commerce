@@ -7,26 +7,21 @@
     <table class="services-table">
         <thead>
             <tr>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Price</th>
+                <th>Услуги</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Web Development</td>
-                <td>Complete web design and development services.</td>
-                <td>$1000</td>
+                <td>Професионално ресторантско и кетъринг оборудване на газ</td>
             </tr>
             <tr>
-                <td>SEO Optimization</td>
-                <td>Improve your site's visibility with our SEO services.</td>
-                <td>$800</td>
+                <td>Ремонти на газови системи и уреди на кемпери и каравани</td>
             </tr>
             <tr>
-                <td>Technical Support</td>
-                <td>24/7 support for all your technical needs.</td>
-                <td>$500</td>
+                <td>Ремонти на битови газови уреди</td>
+            </tr>
+            <tr>
+                <td>Онлайн консултации</td>
             </tr>
         </tbody>
     </table>

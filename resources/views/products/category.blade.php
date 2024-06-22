@@ -1,4 +1,4 @@
-@extends('layouts.products.layout')
+@extends('layouts.caterogies.layout')
 
 @section('content')
 <div class="container my-4">
@@ -6,7 +6,7 @@
     <p>{{ $category->description }}</p>
 
     @if ($category->children->isNotEmpty())
-        <h4>Подкатегории:</h4>
+        {{-- <h4>Подкатегории:</h4> --}}
         <div class="row">
             <!-- Card for "All" categories -->
             <div class="col-md-4">
@@ -31,6 +31,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $subCategory->name }}</h5>
                             <p class="card-text">{{ $subCategory->description }}</p>
+                            <p class="card-text">Виж всички продукти от категорията</p>
                             <a href="{{ url('/products?category=' . $subCategory->slug) }}" class="btn btn-primary">Виж продуктите</a>
                         </div>
                     </div>

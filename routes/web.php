@@ -27,6 +27,7 @@ use App\Http\Controllers\Payment\PaymentSuccessController;
 use App\Http\Controllers\Payment\StripePaymentGeneralController;
 use App\Http\Controllers\CashOnDeliveryController;
 use App\Http\Controllers\CatBotController;
+use App\Http\Controllers\Api\CategoriesApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,3 +119,4 @@ Route::post('/catbot/respond', [CatBotController::class, 'respond']);
 Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);
 
 
+Route::post('/categories/store', [CategoriesApiController::class, 'store'])->name('categories.store');

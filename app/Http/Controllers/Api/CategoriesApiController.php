@@ -10,19 +10,6 @@ use App\Http\Controllers\Controller;
 
 class CategoriesApiController extends Controller
 {
-    // List all categories
-    public function index()
-    {
-        return Category::with('children')->get();
-    }
-
-    // Show a single category by ID
-    public function show($id)
-    {
-        return Category::with('children')->findOrFail($id);
-    }
-
-    // Store a new category
     public function store(Request $request)
     {
         \Log::info('Store method called');
@@ -34,6 +21,7 @@ class CategoriesApiController extends Controller
                 'name' => 'required|string|max:255',
                 'code' => 'required|string|max:255',
                 'parent_id' => 'nullable|exists:categories,id',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
 
             \Log::info('Validation passed', $validatedData);
@@ -42,7 +30,7 @@ class CategoriesApiController extends Controller
 
             if ($request->hasFile('image')) {
                 \Log::info('Image found in request');
-                $path = $request->file('image')->store('category_images', 'public');
+                $path = $request->file('image')->store('images', 'public');
                 \Log::info('Image stored at path: ' . $path);
                 $validatedData['image'] = $path;
             } else {
@@ -62,69 +50,6 @@ class CategoriesApiController extends Controller
             \Log::error('Stack trace: ', $e->getTrace());
 
             return response()->json(['error' => 'An error occurred while storing the category'], 500);
-        }
-    }
-
-    // Update a category
-    public function update(Request $request, $id)
-    {
-        \Log::info('Update method called for category ID: ' . $id);
-
-        try {
-            $category = Category::findOrFail($id);
-
-            \Log::info('Category found', $category->toArray());
-
-            $validatedData = $request->validate([
-                'name' => 'string|max:255',
-                'code' => 'string|max:255',
-                'parent_id' => 'nullable|exists:categories,id',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ]);
-
-            if ($request->hasFile('image')) {
-                \Log::info('New image found in request');
-                // Delete the old image if it exists
-                if ($category->image) {
-                    \Log::info('Deleting old image: ' . $category->image);
-                    Storage::disk('public')->delete($category->image);
-                }
-
-                $path = $request->file('image')->store('category_images', 'public');
-                \Log::info('New image stored at path: ' . $path);
-                $validatedData['image'] = $path;
-            }
-
-            $category->update($validatedData);
-
-            \Log::info('Category updated', $category->toArray());
-
-            return response()->json($category);
-        } catch (\Exception $e) {
-            \Log::error('Error updating category: ' . $e->getMessage());
-            \Log::error('Stack trace: ', $e->getTrace());
-
-            return response()->json(['error' => 'An error occurred while updating the category'], 500);
-        }
-    }
-
-    // Delete a category
-    public function destroy($id)
-    {
-        \Log::info('Destroy method called for category ID: ' . $id);
-
-        try {
-            $category = Category::findOrFail($id);
-            $category->delete();
-
-            \Log::info('Category deleted', ['id' => $id]);
-
-            return response()->json(['message' => 'Category deleted successfully']);
-        } catch (\Exception $e) {
-            \Log::error('Error deleting category: ' . $e->getMessage());
-            \Log::error('Stack trace: ', $e->getTrace());
-
-            return response()->json(['error' => 'An error occurred while deleting the category'], 500);
         }
     }
 }

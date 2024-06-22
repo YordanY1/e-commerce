@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="createCategoryForm" action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="createCategoryForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="categoryName" class="form-label">Name</label>
@@ -32,14 +32,45 @@
                     </div>
                     <div class="mb-3">
                         <label for="categoryImage" class="form-label">Image</label>
-                        <input type="file" class="form-control" id="categoryImage" name="image">
+                        <input type="file" class="form-control" id="categoryImage" name="image" accept="image/*">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="createCategoryForm">Save Category</button>
+                <button type="button" class="btn btn-primary" id="saveCategoryButton">Save Category</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('saveCategoryButton').addEventListener('click', function() {
+    var form = document.getElementById('createCategoryForm');
+    var formData = new FormData(form);
+
+    fetch('{{ route('categories.store') }}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.log('Validation errors:', data.errors);
+            alert('There was an error submitting the form.');
+        } else {
+            console.log('Category created:', data);
+            alert('Category created successfully.');
+            // Close the modal or perform other actions as needed
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+    });
+});
+
+</script>

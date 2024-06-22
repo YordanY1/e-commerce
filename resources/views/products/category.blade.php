@@ -12,7 +12,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4">
                         @if ($subCategory->image)
-                            <img src="{{ Storage::url($subCategory->image) }}" class="card-img-top" alt="{{ $subCategory->name }}">
+                            <img src="{{ asset('storage/' . $subCategory->image) }}" class="card-img-top" alt="{{ $subCategory->name }}">
                         @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $subCategory->name }}</h5>

@@ -524,3 +524,9 @@ h1, h4, p, .card-title, .card-text, .btn-primary {
 .sorting-pagination-section {
     margin-bottom: 20px;
 }
+
+@media (max-width: 991px) {
+    .main-category::after {
+        display: none;
+    }
+}

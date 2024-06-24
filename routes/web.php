@@ -28,6 +28,7 @@ use App\Http\Controllers\Payment\StripePaymentGeneralController;
 use App\Http\Controllers\CashOnDeliveryController;
 use App\Http\Controllers\CatBotController;
 use App\Http\Controllers\Api\CategoriesApiController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,3 +121,5 @@ Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);
 
 
 Route::post('/categories/store', [CategoriesApiController::class, 'store'])->name('categories.store');
+
+Route::post('/delete-session', [SessionController::class, 'deleteSession']);

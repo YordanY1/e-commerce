@@ -51,12 +51,13 @@ Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
 
 
 //Shopping Cart API Routes
-Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);
-Route::post('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addProductToCart'])->middleware('web');
-Route::post('/shopping-cart/remove-from-cart/{product}', [ShoppingCartApiController::class, 'removeProductFromCart'])->middleware('web');
-Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emptyUserCart']);
-Route::post('/shopping-cart/update', [ShoppingCartApiController::class, 'updateQuantity'])->name('cart.update')->middleware('web');
-
+Route::middleware(['session.expire'])->group(function () {
+    Route::get('/shopping-cart', [ShoppingCartApiController::class, 'index']);
+    Route::post('/shopping-cart/add-to-cart/{product}', [ShoppingCartApiController::class, 'addProductToCart'])->middleware('web');
+    Route::post('/shopping-cart/remove-from-cart/{product}', [ShoppingCartApiController::class, 'removeProductFromCart'])->middleware('web');
+    Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emptyUserCart']);
+    Route::post('/shopping-cart/update', [ShoppingCartApiController::class, 'updateQuantity'])->name('cart.update')->middleware('web');
+});
 
 //Shipment API Routes
 Route::get('/econt/offices', [EcontController::class, 'getOffices']);

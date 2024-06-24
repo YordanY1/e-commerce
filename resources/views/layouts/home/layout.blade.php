@@ -81,68 +81,6 @@
     @stack('scripts')
 
 <script>
-document.getElementById('chatIcon').addEventListener('click', function() {
-    var chatContainer = document.getElementById('chatbotContainer');
-    var chatArea = document.getElementById('chatArea');
-
-    function displayQuestions(excludeQuestion = null) {
-        fetch('/catbot/questions')
-        .then(response => response.json())
-        .then(questions => {
-            let questionArea = document.createElement('div');
-            questionArea.id = 'questionArea';
-            chatArea.appendChild(questionArea); // Append questions area if not already present
-
-            questions.forEach(question => {
-                if (question !== excludeQuestion) {
-                    let questionDiv = document.createElement('div');
-                    questionDiv.textContent = question;
-                    questionDiv.className = 'question';
-                    questionDiv.style.padding = '5px';
-                    questionDiv.style.cursor = 'pointer';
-                    questionArea.appendChild(questionDiv); // Append to the question area
-
-                    questionDiv.addEventListener('click', function() {
-                        fetch('/catbot/respond', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({ question: question })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            chatArea.innerHTML = ''; // Clear chat area before displaying response
-                            let responseDiv = document.createElement('div');
-                            responseDiv.className = 'response';
-                            responseDiv.innerHTML = `<strong>Q:</strong> ${question}<br><strong>A:</strong> ${data.message}`;
-                            chatArea.appendChild(responseDiv); // Append response
-
-                            // Display questions again, excluding the one just asked
-                            displayQuestions(question);
-                        });
-                    });
-                }
-            });
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
-        chatArea.innerHTML = ''; // Clear previous content
-        displayQuestions(); // Load questions initially
-    }
-
-    chatContainer.style.display = 'block';
-});
-
-document.querySelector('.close-btn').addEventListener('click', function() {
-    var chatContainer = document.getElementById('chatbotContainer');
-    chatContainer.style.display = 'none';
-});
-
-
 function acceptCookies() {
     localStorage.setItem('cookieConsent', 'true');
     document.querySelector('.cookie-banner').style.display = 'none';
@@ -162,7 +100,108 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         document.querySelector('.cookie-banner').style.display = 'block';
     }
+
+    // Check if cart data exists
+    const cartData = localStorage.getItem('cart');
+    if (cartData) {
+        // Restore cart data
+        console.log('Cart data restored from localStorage:', JSON.parse(cartData));
+    }
+
+    // Update cartTimestamp on any activity
+    function updateCartTimestamp() {
+        localStorage.setItem('cartTimestamp', Date.now());
+    }
+
+    // Update timestamp on page load
+    updateCartTimestamp();
+
+    // Save cart data and timestamp on any activity
+    function saveCartData(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartTimestamp();
+    }
+
+    window.addEventListener('beforeunload', function () {
+        localStorage.setItem('cartCloseTime', Date.now());
+    });
+
+    // Check if the browser was closed
+    if (localStorage.getItem('cartCloseTime')) {
+        const cartCloseTime = localStorage.getItem('cartCloseTime');
+        const currentTime = Date.now();
+        const expirationTime = 7200000;
+        if (currentTime - cartCloseTime > expirationTime) {
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartTimestamp');
+            localStorage.removeItem('cartCloseTime');
+            location.reload(); // Reload the page after clearing the cart
+        }
+    }
+
+    document.getElementById('chatIcon').addEventListener('click', function() {
+        var chatContainer = document.getElementById('chatbotContainer');
+        var chatArea = document.getElementById('chatArea');
+
+        function displayQuestions(excludeQuestion = null) {
+            fetch('/catbot/questions')
+            .then(response => response.json())
+            .then(questions => {
+                let questionArea = document.createElement('div');
+                questionArea.id = 'questionArea';
+                chatArea.appendChild(questionArea); // Append questions area if not already present
+
+                questions.forEach(question => {
+                    if (question !== excludeQuestion) {
+                        let questionDiv = document.createElement('div');
+                        questionDiv.textContent = question;
+                        questionDiv.className = 'question';
+                        questionDiv.style.padding = '5px';
+                        questionDiv.style.cursor = 'pointer';
+                        questionArea.appendChild(questionDiv); // Append to the question area
+
+                        questionDiv.addEventListener('click', function() {
+                            fetch('/catbot/respond', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({ question: question })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                chatArea.innerHTML = ''; // Clear chat area before displaying response
+                                let responseDiv = document.createElement('div');
+                                responseDiv.className = 'response';
+                                responseDiv.innerHTML = `<strong>Q:</strong> ${question}<br><strong>A:</strong> ${data.message}`;
+                                chatArea.appendChild(responseDiv); // Append response
+
+                                // Display questions again, excluding the one just asked
+                                displayQuestions(question);
+                            });
+                        });
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+            chatArea.innerHTML = ''; // Clear previous content
+            displayQuestions(); // Load questions initially
+        }
+
+        chatContainer.style.display = 'block';
+    });
+
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        var chatContainer = document.getElementById('chatbotContainer');
+        chatContainer.style.display = 'none';
+    });
 });
+</script>
+
 </script>
 
 </body>

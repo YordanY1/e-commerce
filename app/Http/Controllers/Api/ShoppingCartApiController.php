@@ -21,18 +21,35 @@ class ShoppingCartApiController extends Controller
 
     public function index(Request $request)
     {
-        //TODO
-        //DB Storage
-        $data = [];
 
-        try {
-            // $data = $this->getCart($request);
-            $data = $request->session()->get('cart');
-        } catch (Exception $e) {
-            Log::error('Shopping Cart Index Error: '. $e->getMessage());
+        $data = $request->session()->get('cart', ['products' => [], 'total' => 0.00]);
+        return response()->json($data);
+    }
+
+
+    private function checkSessionExpiration(Request $request)
+    {
+        $maxSessionTime = 7200;
+        $lastActivity = $request->session()->get('lastActivityTime');
+        $currentTime = time();
+
+        if ($lastActivity && ($currentTime - $lastActivity > $maxSessionTime)) {
+            // Clear the cart and other session data
+            $request->session()->forget('cart');
+            $request->session()->forget('lastActivityTime');
+            Log::info('Session expired. Cart data cleared by controller method.', [
+                'lastActivity' => $lastActivity,
+                'currentTime' => $currentTime,
+                'timeDifference' => $currentTime - $lastActivity
+            ]);
+        } else {
+            // Update the last activity time
+            $request->session()->put('lastActivityTime', $currentTime);
+            Log::info('Session activity updated by controller method.', [
+                'lastActivityTime' => $currentTime,
+                'cart' => $request->session()->get('cart')
+            ]);
         }
-
-        return $data;
     }
 
     public function addProductToCart(Product $product, Request $request)

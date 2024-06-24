@@ -58,10 +58,8 @@ Route::get('/products', [ProductsController::class, 'index']);
 Route::get('/ajax-search', [ProductsController::class, 'ajaxSearch'])->name('ajax.search');
 Route::get('/category/{slug}', [ProductsController::class, 'showCategory'])->name('category.show');
 
-
 //Terms
 Route::get('/terms', [App\Http\Controllers\TermsController::class, 'index'])->name('terms.index');
-
 
 //Products by ID
 Route::get('/product/{slug}', [ProductController::class, 'show']);
@@ -74,27 +72,13 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/payment', [CheckoutController::class, 'processPayment'])->name('checkout.process')->middleware('web');
 Route::post('/checkout/cash-on-delivery', [CashOnDeliveryController::class, 'processOrder'])->name('checkout.cod');
 
-
 Route::get('/checkout/success', function () {
-return view('checkout.success');
+    return view('checkout.success');
 })->name('checkout.success');
 
 Route::get('/checkout/failure', function () {
     return view('checkout.failure');
 })->name('checkout.failure');
-
-
-// Route::get('payment/checkout', [PaymentDataController::class, 'index']);
-// Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
-// Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
-// Route::get('payment/success', [PaymentSuccessController::class, 'index']);
-// Route::get('payment/failed', [PaymentFailedController::class, 'index']);
-
-//Stripe
-// Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
-// Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
-
-
 
 // Apply whitelist middleware to login and registration routes
 Route::middleware(['whitelist'])->group(function () {
@@ -117,6 +101,5 @@ Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {
 
 Route::post('/catbot/respond', [CatBotController::class, 'respond']);
 Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);
-
 
 Route::post('/categories/store', [CategoriesApiController::class, 'store'])->name('categories.store');

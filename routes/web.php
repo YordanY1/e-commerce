@@ -30,6 +30,9 @@ use App\Http\Controllers\CatBotController;
 use App\Http\Controllers\Api\CategoriesApiController;
 use App\Http\Controllers\SessionController;
 
+use App\Http\Controllers\LogController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -123,3 +126,5 @@ Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);
 Route::post('/categories/store', [CategoriesApiController::class, 'store'])->name('categories.store');
 
 Route::post('/delete-session', [SessionController::class, 'deleteSession']);
+
+Route::post('/log', [LogController::class, 'store']);

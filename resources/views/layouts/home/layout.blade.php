@@ -166,8 +166,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+        function logToServer(message) {
+            fetch('/log', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ message: message })
+            });
+        }
+
         function clearLocalStorage() {
             console.log('Clearing cart from localStorage');
+            logToServer('Clearing cart from localStorage');
             localStorage.removeItem('cart');
         }
 
@@ -177,29 +189,36 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('_token', '{{ csrf_token() }}');
 
             console.log('Sending session delete request for session:', '{{ session()->getId() }}');
-            navigator.sendBeacon('/delete-session', formData);
+            logToServer('Sending session delete request for session: {{ session()->getId() }}');
+            const success = navigator.sendBeacon('/delete-session', formData);
+            console.log('sendBeacon success:', success);
+            logToServer('sendBeacon success: ' + success);
         }
 
         // Записване на времето на последното посещение при затваряне на страницата
         window.addEventListener('beforeunload', function(event) {
             localStorage.setItem('lastVisit', Date.now());
             console.log('Recorded last visit time:', Date.now());
+            logToServer('Recorded last visit time: ' + Date.now());
         });
 
         // Проверка за времето от последното посещение при зареждане на страницата
         const lastVisit = localStorage.getItem('lastVisit');
         if (lastVisit && Date.now() - lastVisit > 10000) { // 10 минути в милисекунди
             console.log('Last visit was more than 10 minutes ago, clearing localStorage and sending delete session request');
+            logToServer('Last visit was more than 10 minutes ago, clearing localStorage and sending delete session request');
             clearLocalStorage();
             sendDeleteSessionRequest();
         } else {
             console.log('Last visit was less than 10 minutes ago, not clearing localStorage');
+            logToServer('Last visit was less than 10 minutes ago, not clearing localStorage');
         }
 
         // Изтриване на количката от localStorage след 10 минути при затваряне на страницата
         window.addEventListener('unload', function(event) {
             setTimeout(() => {
                 console.log('Timeout reached, clearing localStorage');
+                logToServer('Timeout reached, clearing localStorage');
                 clearLocalStorage();
             }, 10000); // 10 минути
         });

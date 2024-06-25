@@ -59,10 +59,10 @@
     .then(response => response.json())
     .then(data => {
         if (data.error) {
-            console.log('Validation errors:', data.errors);
+            //console.log('Validation errors:', data.errors);
             alert('There was an error submitting the form.');
         } else {
-            console.log('Category created:', data);
+           // console.log('Category created:', data);
             alert('Category created successfully.');
             // Close the modal or perform other actions as needed
         }

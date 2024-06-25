@@ -178,8 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function clearLocalStorage() {
-            console.log('Clearing cart from localStorage');
-            logToServer('Clearing cart from localStorage');
+            const currentTime = new Date().toISOString();
+            console.log('Clearing cart from localStorage at', currentTime);
+            logToServer('Clearing cart from localStorage at ' + currentTime);
             localStorage.removeItem('cart');
         }
 
@@ -188,8 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('sessionId', '{{ session()->getId() }}');
             formData.append('_token', '{{ csrf_token() }}');
 
-            console.log('Sending session delete request for session:', '{{ session()->getId() }}');
-            logToServer('Sending session delete request for session: {{ session()->getId() }}');
+            const currentTime = new Date().toISOString();
+            console.log('Sending session delete request for session at', currentTime, 'session:', '{{ session()->getId() }}');
+            logToServer('Sending session delete request for session at ' + currentTime + ' session: {{ session()->getId() }}');
             const success = navigator.sendBeacon('/delete-session', formData);
             console.log('sendBeacon success:', success);
             logToServer('sendBeacon success: ' + success);
@@ -198,29 +200,33 @@ document.addEventListener('DOMContentLoaded', () => {
         // Записване на времето на последното посещение при затваряне на страницата
         window.addEventListener('beforeunload', function(event) {
             localStorage.setItem('lastVisit', Date.now());
-            console.log('Recorded last visit time:', Date.now());
-            logToServer('Recorded last visit time: ' + Date.now());
+            const currentTime = new Date().toISOString();
+            console.log('Recorded last visit time:', currentTime);
+            logToServer('Recorded last visit time: ' + currentTime);
         });
 
         // Проверка за времето от последното посещение при зареждане на страницата
         const lastVisit = localStorage.getItem('lastVisit');
-        if (lastVisit && Date.now() - lastVisit > 10000) { // 10 минути в милисекунди
-            console.log('Last visit was more than 10 minutes ago, clearing localStorage and sending delete session request');
-            logToServer('Last visit was more than 10 minutes ago, clearing localStorage and sending delete session request');
+        if (lastVisit && Date.now() - lastVisit > 10000) { // 10 секунди в милисекунди
+            const currentTime = new Date().toISOString();
+            console.log('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at', currentTime);
+            logToServer('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at ' + currentTime);
             clearLocalStorage();
             sendDeleteSessionRequest();
         } else {
-            console.log('Last visit was less than 10 minutes ago, not clearing localStorage');
-            logToServer('Last visit was less than 10 minutes ago, not clearing localStorage');
+            const currentTime = new Date().toISOString();
+            console.log('Last visit was less than 10 seconds ago, not clearing localStorage at', currentTime);
+            logToServer('Last visit was less than 10 seconds ago, not clearing localStorage at ' + currentTime);
         }
 
-        // Изтриване на количката от localStorage след 10 минути при затваряне на страницата
+        // Изтриване на количката от localStorage след 10 секунди при затваряне на страницата
         window.addEventListener('unload', function(event) {
             setTimeout(() => {
-                console.log('Timeout reached, clearing localStorage');
-                logToServer('Timeout reached, clearing localStorage');
+                const currentTime = new Date().toISOString();
+                console.log('Timeout reached, clearing localStorage at', currentTime);
+                logToServer('Timeout reached, clearing localStorage at ' + currentTime);
                 clearLocalStorage();
-            }, 10000); // 10 минути
+            }, 10000); // 10 секунди
         });
     });
 </script>

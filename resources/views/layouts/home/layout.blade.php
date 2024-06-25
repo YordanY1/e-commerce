@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function clearLocalStorage() {
             const currentTime = new Date().toISOString();
-            console.log('Clearing cart from localStorage at', currentTime);
+            //console.log('Clearing cart from localStorage at', currentTime);
             logToServer('Clearing cart from localStorage at ' + currentTime);
             localStorage.removeItem('cart');
         }
@@ -190,10 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('_token', '{{ csrf_token() }}');
 
             const currentTime = new Date().toISOString();
-            console.log('Sending session delete request for session at', currentTime, 'session:', '{{ session()->getId() }}');
+            //console.log('Sending session delete request for session at', currentTime, 'session:', '{{ session()->getId() }}');
             logToServer('Sending session delete request for session at ' + currentTime + ' session: {{ session()->getId() }}');
             const success = navigator.sendBeacon('/delete-session', formData);
-            console.log('sendBeacon success:', success);
+            //console.log('sendBeacon success:', success);
             logToServer('sendBeacon success: ' + success);
         }
 
@@ -202,12 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentTime = new Date().toISOString();
             const currentTimeStamp = Date.now();
             if (lastVisit && currentTimeStamp - lastVisit > 10000) { // 10 секунди в милисекунди
-                console.log('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at', currentTime);
+               // console.log('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at', currentTime);
                 logToServer('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at ' + currentTime);
                 clearLocalStorage();
                 sendDeleteSessionRequest();
             } else {
-                console.log('Last visit was less than 10 seconds ago, not clearing localStorage at', currentTime);
+                //console.log('Last visit was less than 10 seconds ago, not clearing localStorage at', currentTime);
                 logToServer('Last visit was less than 10 seconds ago, not clearing localStorage at ' + currentTime);
             }
         }
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lastVisitTime = Date.now();
                 localStorage.setItem('lastVisit', lastVisitTime);
                 const currentTime = new Date().toISOString();
-                console.log('Recorded last visit time (visibilitychange):', currentTime, 'Timestamp:', lastVisitTime);
+                //console.log('Recorded last visit time (visibilitychange):', currentTime, 'Timestamp:', lastVisitTime);
                 logToServer('Recorded last visit time (visibilitychange): ' + currentTime + ' Timestamp: ' + lastVisitTime);
             } else {
                 checkAndClear();

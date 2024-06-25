@@ -187,14 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Проверка за времето от последното посещение при зареждане на страницата
         const lastVisit = localStorage.getItem('lastVisit');
-        if (lastVisit && Date.now() - lastVisit > 600000) { // 10 минути в милисекунди
+        if (lastVisit && Date.now() - lastVisit > 10000) { // 10 минути в милисекунди
             clearLocalStorage();
             sendDeleteSessionRequest();
         }
 
         // Изтриване на количката от localStorage след 10 минути при затваряне на страницата
         window.addEventListener('unload', function(event) {
-            setTimeout(clearLocalStorage, 600000); // 10 минути
+            setTimeout(clearLocalStorage, 10000); // 10 минути
         });
     });
 

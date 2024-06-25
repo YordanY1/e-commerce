@@ -176,28 +176,34 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('sessionId', '{{ session()->getId() }}');
             formData.append('_token', '{{ csrf_token() }}');
 
+            console.log('Sending session delete request for session:', '{{ session()->getId() }}');
             navigator.sendBeacon('/delete-session', formData);
-            console.log('Session delete request sent');
         }
 
         // Записване на времето на последното посещение при затваряне на страницата
         window.addEventListener('beforeunload', function(event) {
             localStorage.setItem('lastVisit', Date.now());
+            console.log('Recorded last visit time:', Date.now());
         });
 
         // Проверка за времето от последното посещение при зареждане на страницата
         const lastVisit = localStorage.getItem('lastVisit');
         if (lastVisit && Date.now() - lastVisit > 10000) { // 10 минути в милисекунди
+            console.log('Last visit was more than 10 minutes ago, clearing localStorage and sending delete session request');
             clearLocalStorage();
             sendDeleteSessionRequest();
+        } else {
+            console.log('Last visit was less than 10 minutes ago, not clearing localStorage');
         }
 
         // Изтриване на количката от localStorage след 10 минути при затваряне на страницата
         window.addEventListener('unload', function(event) {
-            setTimeout(clearLocalStorage, 10000); // 10 минути
+            setTimeout(() => {
+                console.log('Timeout reached, clearing localStorage');
+                clearLocalStorage();
+            }, 10000); // 10 минути
         });
     });
-
 </script>
 
 </body>

@@ -207,14 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Проверка за времето от последното посещение при зареждане на страницата
         const lastVisit = localStorage.getItem('lastVisit');
+        const currentTime = new Date().toISOString();
         if (lastVisit && Date.now() - lastVisit > 10000) { // 10 секунди в милисекунди
-            const currentTime = new Date().toISOString();
             console.log('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at', currentTime);
             logToServer('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at ' + currentTime);
             clearLocalStorage();
             sendDeleteSessionRequest();
         } else {
-            const currentTime = new Date().toISOString();
             console.log('Last visit was less than 10 seconds ago, not clearing localStorage at', currentTime);
             logToServer('Last visit was less than 10 seconds ago, not clearing localStorage at ' + currentTime);
         }

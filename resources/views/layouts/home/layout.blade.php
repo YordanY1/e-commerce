@@ -201,18 +201,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const lastVisit = localStorage.getItem('lastVisit');
             const currentTime = new Date().toISOString();
             const currentTimeStamp = Date.now();
-            if (lastVisit && currentTimeStamp - lastVisit > 10000) { // 10 секунди в милисекунди
-               // console.log('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at', currentTime);
-                logToServer('Last visit was more than 10 seconds ago, clearing localStorage and sending delete session request at ' + currentTime);
+            if (lastVisit && currentTimeStamp - lastVisit > 1800000) { // 30 минути в милисекунди
+                //console.log('Last visit was more than 30 minutes ago, clearing localStorage and sending delete session request at', currentTime);
+                logToServer('Last visit was more than 30 minutes ago, clearing localStorage and sending delete session request at ' + currentTime);
                 clearLocalStorage();
                 sendDeleteSessionRequest();
             } else {
-                //console.log('Last visit was less than 10 seconds ago, not clearing localStorage at', currentTime);
-                logToServer('Last visit was less than 10 seconds ago, not clearing localStorage at ' + currentTime);
+               // console.log('Last visit was less than 30 minutes ago, not clearing localStorage at', currentTime);
+                logToServer('Last visit was less than 30 minutes ago, not clearing localStorage at ' + currentTime);
             }
         }
 
         // Записване на времето на последното посещение при затваряне на страницата или промяна на видимостта
+        window.addEventListener('beforeunload', function(event) {
+            const lastVisitTime = Date.now();
+            localStorage.setItem('lastVisit', lastVisitTime);
+            const currentTime = new Date().toISOString();
+            //console.log('Recorded last visit time (beforeunload):', currentTime, 'Timestamp:', lastVisitTime);
+            logToServer('Recorded last visit time (beforeunload): ' + currentTime + ' Timestamp: ' + lastVisitTime);
+        });
+
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
                 const lastVisitTime = Date.now();
@@ -220,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentTime = new Date().toISOString();
                 //console.log('Recorded last visit time (visibilitychange):', currentTime, 'Timestamp:', lastVisitTime);
                 logToServer('Recorded last visit time (visibilitychange): ' + currentTime + ' Timestamp: ' + lastVisitTime);
-            } else {
+           } else {
                 checkAndClear();
             }
         });

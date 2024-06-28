@@ -75,7 +75,6 @@
             </div>
         </div>
 
-
         <!-- Order Summary -->
         <div class="col-md-12">
             <div class="card cart-summary-card">
@@ -93,8 +92,6 @@
             </div>
         </div>
 
-
-
         <!-- Payment Method Selection -->
         <div class="row mb-3">
             <div class="col-md-12">
@@ -105,14 +102,18 @@
                     <option value="cod">Плащане при доставка с наложен платеж</option>
                 </select>
                 <!-- Hidden message about card payments -->
-                <div id="card-payment-message" class="text-danger mt-2" style="display: none;">
-                    ВАЖНО: При заплащане с карта Вие заплащате само самата поръчка без доставка!
+                <div id="card-payment-message" class="text-danger mt-2" style="display: none; color: red;">
+                    ВАЖНО: При заплащане с карта, Вие заплащате само стойността на поръчката без разходите за доставка. Разходите за доставка ще бъдат начислени допълнително и ще трябва да ги заплатите на куриера при получаване на пратката.
+                </div>
+                <!-- Hidden message about COD payments -->
+                <div id="cod-payment-message" class="text-danger mt-2" style="display: none; color: red;">
+                    ВАЖНО: При заплащане при доставка с наложен платеж, Вие заплащате както стойността на поръчката, така и разходите за доставка директно на куриера при получаване на пратката.
                 </div>
             </div>
         </div>
 
-         <!-- Payment Information -->
-         <div id="payment_info" class="row g-3" style="display: none;">
+        <!-- Payment Information -->
+        <div id="payment_info" class="row g-3" style="display: none;">
             <div class="col-12"><h3>Въведете вашата карта</h3></div>
             <div class="col-12">
                 <div id="card-element" class="form-control"></div>
@@ -129,7 +130,6 @@
                 </label>
             </div>
         </div>
-
 
         <button id="submit-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
         <button id="finalize-button" class="btn btn-primary mt-4" type="submit" style="display: none;">Финализирай поръчката</button>
@@ -176,7 +176,6 @@
             }
         }
 
-
         function destroyStripeElements() {
             if (cardElement) {
                 cardElement.unmount();
@@ -185,8 +184,8 @@
             }
         }
 
-         // Toggle Invoice Details
-         $('#invoiceRequest').change(function() {
+        // Toggle Invoice Details
+        $('#invoiceRequest').change(function() {
             if ($(this).is(':checked')) {
                 $('#invoiceDetails').show();
             } else {
@@ -195,88 +194,93 @@
         });
 
         paymentMethodDropdown.change(function() {
-        if (this.value === 'card') {
-            $('#payment_info').show();
-            $('#card-payment-message').show();
-            initializeStripeElements();
-            submitButton.show();
-            finalizeButton.hide();
-            form.attr('action', '{{ route("checkout.process") }}');
-            if ($('#payment_intent_id').length === 0) {
-                form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
+            if (this.value === 'card') {
+                $('#payment_info').show();
+                $('#card-payment-message').show();
+                $('#cod-payment-message').hide();
+                initializeStripeElements();
+                submitButton.show();
+                finalizeButton.hide();
+                form.attr('action', '{{ route("checkout.process") }}');
+                if ($('#payment_intent_id').length === 0) {
+                    form.append('<input type="hidden" id="payment_intent_id" name="payment_intent_id" value="{{ $paymentIntentId }}">');
+                }
+            } else if (this.value === 'cod') {
+                $('#payment_info').hide();
+                $('#card-payment-message').hide();
+                $('#cod-payment-message').show();
+                destroyStripeElements();
+                submitButton.hide();
+                finalizeButton.show();
+                form.attr('action', '{{ route("checkout.cod") }}');
+                $('#payment_intent_id').remove();
+            } else {
+                $('#card-payment-message').hide();
+                $('#cod-payment-message').hide();
+                $('#payment_info').hide();
+                submitButton.hide();
+                finalizeButton.hide();
             }
-        } else {
-            $('#payment_info').hide();
-            $('#card-payment-message').hide();
-            destroyStripeElements();
-            submitButton.hide();
-            finalizeButton.show();
-            form.attr('action', '{{ route("checkout.cod") }}');
-            $('#payment_intent_id').remove();
-        }
         }).trigger('change');
 
-
         form.on('submit', function(event) {
-        event.preventDefault();
-        const paymentMethod = paymentMethodDropdown.val();
+            event.preventDefault();
+            const paymentMethod = paymentMethodDropdown.val();
 
-        if (paymentMethod === 'card') {
-            submitButton.prop('disabled', true);
-            cardErrors.text('');
-            stripe.confirmCardPayment('{{ $clientSecret }}', {
-                payment_method: {
-                    card: cardElement,
-                    billing_details: {
-                        email: $('#email').val(),
-                        name: $('#first_name').val() + ' ' + $('#last_name').val(),
-                        phone: $('#phone').val(),
-                    },
-                }
-            }).then(function(result) {
-                if (result.error) {
-                    cardErrors.text(result.error.message);
-                    submitButton.prop('disabled', false);
-                } else if (result.paymentIntent.status === 'succeeded') {
-                    form.append('<input type="hidden" name="payment_method" value="card">'); // Ensure hidden input
-                    form.off('submit').submit(); // Submit form after adding hidden input
-                }
-            });
-        } else {
-            form.append('<input type="hidden" name="payment_method" value="cod">'); // Add hidden input for cod
-            form.off('submit').submit();
-        }
-    });
-
-    function loadCart() {
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        if (!cart) return;
-        let itemsHtml = '';
-        let subtotal = 0;
-        $.each(cart.products, function(index, product) {
-            let price = parseFloat(product.price); // Преобразуване на цената до число
-            if (isNaN(price)) {
-                console.error(`Invalid price for product: ${product.name}`);
-                return; // Прескачане на продукта, ако цената не е валидна
+            if (paymentMethod === 'card') {
+                submitButton.prop('disabled', true);
+                cardErrors.text('');
+                stripe.confirmCardPayment('{{ $clientSecret }}', {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            email: $('#email').val(),
+                            name: $('#first_name').val() + ' ' + $('#last_name').val(),
+                            phone: $('#phone').val(),
+                        },
+                    }
+                }).then(function(result) {
+                    if (result.error) {
+                        cardErrors.text(result.error.message);
+                        submitButton.prop('disabled', false);
+                    } else if (result.paymentIntent.status === 'succeeded') {
+                        form.append('<input type="hidden" name="payment_method" value="card">'); // Ensure hidden input
+                        form.off('submit').submit(); // Submit form after adding hidden input
+                    }
+                });
+            } else {
+                form.append('<input type="hidden" name="payment_method" value="cod">'); // Add hidden input for cod
+                form.off('submit').submit();
             }
-            let totalProductPrice = price * product.quantity; // Обща цена за количеството
-            subtotal += totalProductPrice; // Натрупване на междинна сума за всички продукти
-            itemsHtml += `<li class="list-group-item cart-item">
-                <img src="${product.image}" alt="${product.name}" class="img-fluid product-image" style="width: 150px; height: auto;">
-                <div class="product-details">
-                    <h5 class="product-name mb-1">${product.name}</h5>
-                    <span class="product-price badge bg-primary rounded-pill fs-6">${product.quantity} x ${price.toFixed(2)}лв.</span>
-                </div>
-            </li>`;
         });
 
-        $('#cart-items').html(itemsHtml);
-        $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Обновяване на общата сума
-    }
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) return;
+            let itemsHtml = '';
+            let subtotal = 0;
+            $.each(cart.products, function(index, product) {
+                let price = parseFloat(product.price); // Преобразуване на цената до число
+                if (isNaN(price)) {
+                    console.error(`Invalid price for product: ${product.name}`);
+                    return; // Прескачане на продукта, ако цената не е валидна
+                }
+                let totalProductPrice = price * product.quantity; // Обща цена за количеството
+                subtotal += totalProductPrice; // Натрупване на междинна сума за всички продукти
+                itemsHtml += `<li class="list-group-item cart-item">
+                    <img src="${product.image}" alt="${product.name}" class="img-fluid product-image" style="width: 150px; height: auto;">
+                    <div class="product-details">
+                        <h5 class="product-name mb-1">${product.name}</h5>
+                        <span class="product-price badge bg-primary rounded-pill fs-6">${product.quantity} x ${price.toFixed(2)}лв.</span>
+                    </div>
+                </li>`;
+            });
+
+            $('#cart-items').html(itemsHtml);
+            $('#grand-total').text(`${subtotal.toFixed(2)} лв.`); // Обновяване на общата сума
+        }
 
         loadCart();
-
     });
 </script>
 @endpush
-

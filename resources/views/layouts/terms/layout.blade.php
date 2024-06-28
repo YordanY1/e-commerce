@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Открийте висококачествени газови уреди за отопление, готвене и индустриални нужди. Сигурност и ефективност с нашите сертифицирани продукти.">
-    <meta name="keywords" content="газови уреди, газови системи, домакински газови уреди, промишлени газови системи, безопасни газови уреди">
+    <meta name="description" content="Прочетете нашите общи условия за ползване на сайта и услугите на Джеронимо. Гарантираме прозрачност и защита на вашите права.">
+    <meta name="keywords" content="общи условия, ползване на сайта, защита на права, Джеронимо, условия за ползване">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Джеронимо">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Висококачествени Газови Уреди | Джеронимо">
-    <meta property="og:description" content="Открийте висококачествени газови уреди за отопление, готвене и индустриални нужди. Надеждност и иновация с нашите сертифицирани продукти.">
+    <meta property="og:title" content="Общи Условия за Ползване | Джеронимо">
+    <meta property="og:description" content="Прочетете нашите общи условия за ползване на сайта и услугите на Джеронимо. Гарантираме прозрачност и защита на вашите права.">
     <meta property="og:image" content="{{ asset('images/jeronimo-logo-color.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/jeronimo-logo-color.png') }}">
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
 
-    <title>Джеронимо | Общи Условия</title>
+    <title>Общи Условия за Ползване | Джеронимо</title>
 
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])

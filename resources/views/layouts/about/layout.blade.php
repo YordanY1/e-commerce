@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="За Джеронимо - Вашият надежден доставчик на газови уреди">
+    <meta property="og:title" content="За Джеронимо - Надежден доставчик на газови уреди | История и Мисия">
     <meta property="og:description" content="Научете за ангажимента на Джеронимо към сигурността и качеството при предоставянето на водещи газови уреди.">
     <meta property="og:image" content="{{ asset('images/jeronimo-logo-color.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">

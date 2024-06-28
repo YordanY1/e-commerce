@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Висококачествени Газови Уреди | Джеронимо">
+    <meta property="og:title" content="Висококачествени Газови Уреди за Бита и Промишлеността | Джеронимо">
     <meta property="og:description" content="Открийте висококачествени газови уреди за отопление, готвене и индустриални нужди. Надеждност и иновация с нашите сертифицирани продукти.">
     <meta property="og:image" content="{{ asset('images/jeronimo-logo-color.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/jeronimo-logo-color.png') }}">
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
 
-    <title>Джеронимо - Газови Уреди</title>
+    <title>Висококачествени Газови Уреди за Бита и Промишлеността | Джеронимо</title>
 
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])

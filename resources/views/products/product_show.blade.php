@@ -5,13 +5,12 @@
         <div class="row">
             <div class="col-md-10 offset-md-1 animate-box">
                 <!-- Bootstrap Carousel -->
-                <div id="productImage" style="width: 100%; overflow: hidden; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;">
+                <div id="productImage" style="width: 100%; max-width: 300px; height: auto; max-height: 300px; overflow: hidden; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px; margin: 0 auto;">
                     <!-- Display the first image of the product -->
                     @if($product->images->count() > 0)
-                        <img src="{{ asset('storage/' . $product->images->first()->path) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" alt="{{ $product->name }}">
+                        <img src="{{ asset('storage/' . $product->images->first()->path) }}" style="width: 100%; height: auto; object-fit: contain; border-radius: 10px;" alt="{{ $product->name }}">
                     @else
-
-                        <img src="{{ asset('storage/default-placeholder.png') }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" alt="Default Image">
+                        <img src="{{ asset('storage/default-placeholder.png') }}" style="width: 100%; height: auto; object-fit: contain; border-radius: 10px;" alt="Default Image">
                     @endif
                 </div>
 

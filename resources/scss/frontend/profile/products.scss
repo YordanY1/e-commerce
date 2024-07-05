@@ -32,11 +32,11 @@
 /* Product grid styling */
 .product-grid {
     position: relative;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     height: 300px;
     margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
 }
 
 

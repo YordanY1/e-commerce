@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const lastVisit = localStorage.getItem('lastVisit');
             const currentTime = new Date().toISOString();
             const currentTimeStamp = Date.now();
-            if (lastVisit && currentTimeStamp - lastVisit > 1800000) { // 30 минути в милисекунди
+            if (lastVisit && currentTimeStamp - lastVisit > 10000) { // 30 минути в милисекунди
                 //console.log('Last visit was more than 30 minutes ago, clearing localStorage and sending delete session request at', currentTime);
                 logToServer('Last visit was more than 30 minutes ago, clearing localStorage and sending delete session request at ' + currentTime);
                 clearLocalStorage();

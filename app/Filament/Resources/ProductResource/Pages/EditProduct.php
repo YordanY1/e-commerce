@@ -22,7 +22,7 @@ class EditProduct extends EditRecord
 
         $this->record->attributes()->updateOrCreate(
             ['product_id' => $this->record->id],
-            ['description' => $data['description']]
+            ['description' => $data['description'], 'categories' => $data['categories']]
         );
 
         if (!empty($data['image'])) {

@@ -11,13 +11,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
-
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
-
 
     public static function form(Form $form): Form
     {
@@ -62,7 +60,16 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('quantity'),
                 Tables\Columns\TextColumn::make('manufacturer.name')->sortable(),
                 Tables\Columns\TextColumn::make('price.price'),
+                Tables\Columns\TextColumn::make('categories')
+                    ->label('Categories')
+                    ->getStateUsing(function ($record) {
+                        return implode(', ', $record->attributes->categories ?? []);
+                    }),
                 Tables\Columns\ImageColumn::make('image')->label('Image'),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->filters([
             ]);

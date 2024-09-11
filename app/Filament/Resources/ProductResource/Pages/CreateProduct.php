@@ -27,6 +27,7 @@ class CreateProduct extends CreateRecord
         ProductAttribute::create([
             'product_id' => $this->record->id,
             'description' => $data['description'],
+            'categories' => $data['categories'],
         ]);
 
         if (!empty($data['image'])) {

@@ -49,6 +49,10 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('parent.name')->label('Parent Category'),
                 Tables\Columns\ImageColumn::make('image')->label('Image'),
             ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
             ->filters([
             ]);
     }

@@ -11,7 +11,19 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $appends = ['slug'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            $product->slug = Str::slug($product->name);
+        });
+
+        static::updating(function ($product) {
+            $product->slug = Str::slug($product->name);
+        });
+    }
 
     public function manufacturer()
     {
@@ -38,11 +50,6 @@ class Product extends Model
         return $this->hasMany(File::class);
     }
 
-    public function getSlugAttribute($value)
-    {
-        return Str::slug($this->name);
-    }
-
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -52,5 +59,4 @@ class Product extends Model
     {
         return $this->reviews()->average('rating');
     }
-
 }

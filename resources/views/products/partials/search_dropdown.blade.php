@@ -7,7 +7,6 @@
         <div>
             <div class="font-weight-bold">{{ $product->name }}</div>
             <div class="text-muted">{{ $product->price->price }} лв.</div>
-
         </div>
     </a>
 @endforeach

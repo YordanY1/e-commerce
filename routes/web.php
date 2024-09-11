@@ -10,14 +10,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 
-use App\Http\Controllers\Admin\PanelController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Admin\ProductsController as AdminProductsController;
-use App\Http\Controllers\Admin\ManufacturersController;
-use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Admin\UsersController;
+
 use App\Http\Controllers\Api\StripePaymentApiController;
 use App\Http\Controllers\Payment\PaymentBankController;
 use App\Http\Controllers\Payment\PaymentDataController;
@@ -87,37 +83,6 @@ Route::get('/checkout/failure', function () {
     return view('checkout.failure');
 })->name('checkout.failure');
 
-
-// Route::get('payment/checkout', [PaymentDataController::class, 'index']);
-// Route::post('payment/stripe', [PaymentStripeController::class,'sendPayment']);
-// Route::post('payment/bank', [PaymentBankController::class,'sendPayment']);
-// Route::get('payment/success', [PaymentSuccessController::class, 'index']);
-// Route::get('payment/failed', [PaymentFailedController::class, 'index']);
-
-//Stripe
-// Route::get('stripe/charge', [CheckoutController::class, 'stripeCharge']);
-// Route::post('stripe/charge', [StripePaymentGeneralController::class, 'charge']);
-
-
-
-// Apply whitelist middleware to login and registration routes
-Route::middleware(['whitelist'])->group(function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'login']);
-    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('register', [RegisterController::class, 'register']);
-    Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
-});
-
-//Admin panel with IP Whitelist and Authentication
-Route::prefix('admin')->middleware(['auth', 'whitelist'])->group(function () {
-    Route::get('/panel', [PanelController::class, 'index'])->name('admin.panel');
-
-    Route::resource('products', AdminProductsController::class)->names('admin.products');
-    Route::resource('manufacturers', ManufacturersController::class)->names('admin.manufacturers');
-    Route::resource('categories', CategoriesController::class)->names('admin.categories');
-    Route::resource('users', UsersController::class)->names('admin.users');
-});
 
 Route::post('/catbot/respond', [CatBotController::class, 'respond']);
 Route::get('/catbot/questions', [CatBotController::class, 'getQuestions']);

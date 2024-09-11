@@ -29,25 +29,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Manufacturer API Routes
-Route::get('/manufacturers', [ManufacturerApiController::class, 'index']);
-Route::get('/manufacturers/{id}', [ManufacturerApiController::class, 'show']);
-Route::post('/manufacturers', [ManufacturerApiController::class, 'store']);
-Route::put('/manufacturers/{id}', [ManufacturerApiController::class, 'update']);
-Route::delete('/manufacturers/{id}', [ManufacturerApiController::class, 'destroy']);
+// Route::get('/manufacturers', [ManufacturerApiController::class, 'index']);
+// Route::get('/manufacturers/{id}', [ManufacturerApiController::class, 'show']);
+// Route::post('/manufacturers', [ManufacturerApiController::class, 'store']);
+// Route::put('/manufacturers/{id}', [ManufacturerApiController::class, 'update']);
+// Route::delete('/manufacturers/{id}', [ManufacturerApiController::class, 'destroy']);
 
 // Product API Routes
-Route::get('/products', [ProductsApiController::class, 'index']);
-Route::get('/products/{id}', [ProductsApiController::class, 'show']);
-Route::post('/products', [ProductsApiController::class, 'store']);
-Route::put('/products/{id}', [ProductsApiController::class, 'update']);
-Route::delete('/products/{id}', [ProductsApiController::class, 'destroy']);
+// Route::get('/products', [ProductsApiController::class, 'index']);
+// Route::get('/products/{id}', [ProductsApiController::class, 'show']);
+// Route::post('/products', [ProductsApiController::class, 'store']);
+// Route::put('/products/{id}', [ProductsApiController::class, 'update']);
+// Route::delete('/products/{id}', [ProductsApiController::class, 'destroy']);
 
 // Category API Routes
-Route::get('/categories', [CategoriesApiController::class, 'index']);
-Route::get('/categories/{id}', [CategoriesApiController::class, 'show']);
-// Route::post('/categories', [CategoriesApiController::class, 'store'])->name('categories.store');
-Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
-Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
+// Route::get('/categories', [CategoriesApiController::class, 'index']);
+// Route::get('/categories/{id}', [CategoriesApiController::class, 'show']);
+// // Route::post('/categories', [CategoriesApiController::class, 'store'])->name('categories.store');
+// Route::put('/categories/{id}', [CategoriesApiController::class, 'update']);
+// Route::delete('/categories/{id}', [CategoriesApiController::class, 'destroy']);
 
 
 //Shopping Cart API Routes
@@ -58,9 +58,9 @@ Route::post('/shopping-cart/empty-cart', [ShoppingCartApiController::class, 'emp
 Route::post('/shopping-cart/update', [ShoppingCartApiController::class, 'updateQuantity'])->name('cart.update')->middleware('web');
 
 
-//Shipment API Routes
-Route::get('/econt/offices', [EcontController::class, 'getOffices']);
-Route::post('/econt/labels/create', [EcontController::class, 'createLabel'])->name('econt.labels.create');
+// //Shipment API Routes
+// Route::get('/econt/offices', [EcontController::class, 'getOffices']);
+// Route::post('/econt/labels/create', [EcontController::class, 'createLabel'])->name('econt.labels.create');
 
 
 //Review

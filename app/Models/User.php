@@ -42,19 +42,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Set the user's hashed password.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setPasswordAttribute($value)
-    {
-        if ($value !== null) {
-            $this->attributes['password'] = bcrypt($value);
-        }
-    }
-
-    /**
      * User can have many reviews.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

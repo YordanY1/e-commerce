@@ -63,7 +63,9 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('categories')
                     ->label('Categories')
                     ->getStateUsing(function ($record) {
-                        return implode(', ', $record->attributes->categories ?? []);
+                        return $record->attributes->categories
+                            ? \App\Models\Category::whereIn('id', $record->attributes->categories)->pluck('name')->implode(', ')
+                            : 'No categories';
                     }),
                 Tables\Columns\ImageColumn::make('image')->label('Image'),
             ])

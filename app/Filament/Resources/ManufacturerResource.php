@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 
 class ManufacturerResource extends Resource
 {
@@ -22,9 +21,7 @@ class ManufacturerResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255)
-                    ->reactive()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('code')
                     ->required()
                     ->maxLength(255),

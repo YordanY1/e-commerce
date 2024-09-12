@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Manufacturer extends Model
 {
@@ -11,7 +12,13 @@ class Manufacturer extends Model
 
     protected $guarded = ['id'];
 
-    // Релация към Product (many-to-many)
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
+    // Релация към Product (one-to-many)
     public function products()
     {
         return $this->hasMany(Product::class);

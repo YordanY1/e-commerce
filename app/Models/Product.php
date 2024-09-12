@@ -12,17 +12,11 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
-    protected static function boot()
+
+    public function setNameAttribute($value)
     {
-        parent::boot();
-
-        static::creating(function ($product) {
-            $product->slug = Str::slug($product->name);
-        });
-
-        static::updating(function ($product) {
-            $product->slug = Str::slug($product->name);
-        });
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 
     public function manufacturer()

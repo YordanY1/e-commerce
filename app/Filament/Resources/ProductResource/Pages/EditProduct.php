@@ -15,15 +15,19 @@ class EditProduct extends EditRecord
     {
         $data = $this->form->getState();
 
-        $this->record->price()->updateOrCreate(
-            ['product_id' => $this->record->id],
-            ['price' => $data['price'], 'cost' => $data['cost'] ?? null, 'margin' => $data['margin'] ?? null]
-        );
+        if (!empty($data['price'])) {
+            $this->record->price()->updateOrCreate(
+                ['product_id' => $this->record->id],
+                ['price' => $data['price'], 'cost' => $data['cost'] ?? null, 'margin' => $data['margin'] ?? null]
+            );
+        }
 
-        $this->record->attributes()->updateOrCreate(
-            ['product_id' => $this->record->id],
-            ['description' => $data['description'], 'categories' => $data['categories']]
-        );
+        if (!empty($data['description'])) {
+            $this->record->attributes()->updateOrCreate(
+                ['product_id' => $this->record->id],
+                ['description' => $data['description'], 'categories' => $data['categories'] ?? []]
+            );
+        }
 
         if (!empty($data['image'])) {
             $this->record->images()->updateOrCreate(

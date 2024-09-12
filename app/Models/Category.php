@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -17,10 +17,8 @@ class Category extends Model
 
     public function products()
     {
-        // Replace 'category' with the correct table name if it's different
         return $this->belongsToMany(Product::class, 'category');
     }
-
 
     public function parent()
     {
@@ -32,4 +30,9 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
 }

@@ -1,5 +1,3 @@
 <x-filament::page>
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        @livewire('filament.widgets.sales-overview')
-    </div>
+    {{-- <h1 class="text-2xl font-bold">Добре дошъл на Dashboard-а!</h1> --}}
 </x-filament::page>

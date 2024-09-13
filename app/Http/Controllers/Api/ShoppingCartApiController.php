@@ -98,12 +98,12 @@ class ShoppingCartApiController extends Controller
 
         // Assuming 'cart' structure is correct and 'products' key exists
         $cart = session('cart', []);
-        Log::info('Cart before update:', ['cart' => $cart]);
+        // Log::info('Cart before update:', ['cart' => $cart]);
 
         if (isset($cart['products'][$productId])) { // Adjusted access pattern
             $cart['products'][$productId]['quantity'] = max(1, $quantity);
             session(['cart' => $cart]);
-            Log::info('Cart after update:', ['cart' => $cart]);
+            // Log::info('Cart after update:', ['cart' => $cart]);
 
             return response()->json([
                 'success' => true,

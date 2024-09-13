@@ -12,7 +12,7 @@ trait ShoppingCartTrait
 {
     public function addToCart($product_data, Request $request) {
 
-        Log::info('addToCart: Start', ['Session ID' => session()->getId(), 'Product Data' => $product_data]);
+        // Log::info('addToCart: Start', ['Session ID' => session()->getId(), 'Product Data' => $product_data]);
 
         // Initial validation to ensure all necessary product data is present
         $requiredKeys = ['id', 'quantity', 'price'];
@@ -45,7 +45,7 @@ trait ShoppingCartTrait
         // Save updated cart back to session
         $request->session()->put('cart', $cart);
 
-        Log::info('addToCart: End', ['Updated Cart' => $cart]);
+        // Log::info('addToCart: End', ['Updated Cart' => $cart]);
 
         return true;
     }

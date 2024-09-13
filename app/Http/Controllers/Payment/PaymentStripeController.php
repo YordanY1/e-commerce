@@ -40,7 +40,7 @@ class PaymentStripeController extends Controller
               //Record Payment
               //Clear Cart
         } catch (Exception $e) {
-            Log::erro('Stripe Error: '. $e->getMessage());
+            Log::error('Stripe Error: '. $e->getMessage());
             return redirect()->route('payment.stripe.failure');
         }
 

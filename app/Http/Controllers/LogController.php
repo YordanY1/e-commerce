@@ -9,7 +9,7 @@ class LogController extends Controller
 {
     public function store(Request $request)
     {
-        Log::info("Client log: " . $request->input('message'));
+        // Log::info("Client log: " . $request->input('message'));
         return response()->json(['status' => 'success']);
     }
 }

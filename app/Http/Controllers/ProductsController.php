@@ -55,7 +55,7 @@ class ProductsController extends Controller
 
         // Manufacturer filter logic
         $manufacturerId = $request->query('manufacturer');
-        \Log::info('Manufacturer ID: ' . $manufacturerId);
+        // \Log::info('Manufacturer ID: ' . $manufacturerId);
 
         if ($manufacturerId && $manufacturerId !== 'all') {
             $query->where('manufacturer_id', $manufacturerId);

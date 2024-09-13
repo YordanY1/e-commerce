@@ -17,7 +17,7 @@ class WhitelistMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        Log::info('Access attempt from IP: ' . $request->ip());
+        // Log::info('Access attempt from IP: ' . $request->ip());
         $allowedIps = [
             '192.168.0.100', // Local network IP
             '46.55.194.42',  // Your real public IP

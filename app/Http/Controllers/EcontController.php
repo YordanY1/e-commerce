@@ -27,7 +27,7 @@ class EcontController extends Controller
 
         public function createLabel(Request $request)
     {
-        Log::debug('Received label creation request:', $request->all());
+        // Log::debug('Received label creation request:', $request->all());
 
         // Basic validation for all incoming data
         $validatedData = $request->validate([
@@ -106,7 +106,7 @@ class EcontController extends Controller
         ];
 
         $response = $this->econtService->createLabel($data);
-        Log::info('Create Label Response:', ['response' => $response]);
+        // Log::info('Create Label Response:', ['response' => $response]);
 
         if (isset($response['error'])) {
             return back()->with('error', 'Failed to create label: ' . $response['error']);

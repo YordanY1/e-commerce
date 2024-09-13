@@ -44,7 +44,7 @@ class EcontService
 
     public function createLabel(array $data)
     {
-        \Log::info('Sending data to Econt API:', $data);
+        // \Log::info('Sending data to Econt API:', $data);
 
         try {
             $response = $this->client->post('Shipments/LabelService.createLabel.json', [

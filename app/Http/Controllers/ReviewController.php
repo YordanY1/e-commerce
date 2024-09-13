@@ -13,7 +13,7 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('Session Data Before:', session()->all());
+        // \Log::info('Session Data Before:', session()->all());
 
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -29,7 +29,7 @@ class ReviewController extends Controller
         $review->comment = $request->review;
         $review->save();
 
-        \Log::info('Session Data After:', session()->all());
+        // \Log::info('Session Data After:', session()->all());
 
         return redirect()->back()->with('success', 'Отзивът беше добавен успешно!');
 

@@ -98,7 +98,7 @@ class CheckoutController extends Controller
             'street' => 'required|string|max:255',
         ]);
 
-        Log::info('processPayment: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
+        // Log::info('processPayment: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
 
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -122,7 +122,7 @@ class CheckoutController extends Controller
 
         try {
             $intent = PaymentIntent::retrieve($paymentIntentId);
-            Log::info('processPayment: PaymentIntent retrieved', ['Intent Status' => $intent->status]);
+            // Log::info('processPayment: PaymentIntent retrieved', ['Intent Status' => $intent->status]);
 
             if ($intent->status === 'succeeded') {
                 $cart = $request->session()->get('cart', []);

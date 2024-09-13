@@ -53,4 +53,10 @@ class Product extends Model
     {
         return $this->reviews()->average('rating');
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 }

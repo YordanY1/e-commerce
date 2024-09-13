@@ -15,6 +15,11 @@ class ManufacturerResource extends Resource
     protected static ?string $model = Manufacturer::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
+
+    protected static ?string $navigationGroup = 'Магазин мениджър';
+    protected static ?int $navigationSort = 2;
+
+
     public static function form(Form $form): Form
     {
         return $form

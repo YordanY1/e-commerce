@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Разгледайте нашия асортимент от висококачествени газови уреди за готвене, отопление и индустриални нужди. Включва битови газови бутилки, туристически уреди, газови котлони, лампи, резервни части и още.">
-    <meta name="keywords" content="газови уреди, битови газови бутилки, туристически газови бутилки, газови котлони, пълнители с газ, газови печки, резервни части за газови уреди, пистолети за зареждане на газ, газстанции, газови фурни, мини ел. фурни, лампи и фенери">
+    <meta name="description" content="Открийте водещите производители на газови уреди и оборудване, с които работим: Колос ЕООД, MСМ ГАЗ ООД, Orgaz, Nurgaz, Meva Bulgaria Ltd., Vitkovice Milmet, Cavagna Group, Rotarex, Hybrid Supply, Truma, Eurogas.">
+    <meta name="keywords" content="газови производители, газови уреди, Колос ЕООД, MСМ ГАЗ ООД, Orgaz, Nurgaz, Meva Bulgaria, Vitkovice Milmet, Cavagna Group, Rotarex, Hybrid Supply, Truma, Eurogas">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Джеронимо">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Газови уреди за готвене, отопление и индустрия | Джеронимо">
-    <meta property="og:description" content="Открийте нашите сертифицирани и ефективни газови уреди за домашна и индустриална употреба.">
+    <meta property="og:title" content="Водещи производители на газови уреди, с които работим | Джеронимо">
+    <meta property="og:description" content="Запознайте се с производителите, с които работим: Колос ЕООД, MСМ ГАЗ ООД, Orgaz, Nurgaz, Meva Bulgaria Ltd., Vitkovice Milmet, Cavagna Group, Rotarex, Hybrid Supply, Truma, Eurogas.">
     <meta property="og:image" content="{{ asset('images/jeronimo-logo-color.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
@@ -34,21 +34,18 @@
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/jeronimo-logo-color.png') }}">
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
 
-    <title>Газови уреди за готвене, отопление и индустрия | Джеронимо</title>
+    <title>Водещи производители на газови уреди, с които работим | Джеронимо</title>
 
     <!-- Vite CSS за Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])
 </head>
 <body>
-    <!-- Компонент за навигационната лента -->
     <x-navbar />
 
-    <!-- Основна област за съдържание -->
     <div class="page-content">
         @yield('content')
     </div>
 
-    <!-- Компонент за футъра -->
     <x-footer />
 
     <!-- Vite JS за Laravel Mix -->

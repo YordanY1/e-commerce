@@ -39,6 +39,11 @@
                         @endforeach
                     </ul>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('manufacturers.index') }}">Производители</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/services') }}">Услуги</a>
                 </li>

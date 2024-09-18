@@ -102,7 +102,7 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">
                                                     <p class="text-muted">
-                                                        {{ $product->attributes->description ?? 'No description available' }}
+                                                        {!! $product->attributes->description ?? 'No description available' !!}
                                                     </p>
                                             </li>
                                             </ul>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Services;
+use App\Http\Controllers\ManufacturersController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductController;
@@ -45,6 +46,11 @@ Route::get('/', [HomeController::class, 'index']);
 
 //About
 Route::get('/about', [AboutController::class, 'index']);
+
+//Manufactures
+Route::get('/manufacturers', [ManufacturersController::class, 'index'])->name('manufacturers.index');
+Route::get('/manufacturers/{slug}', [ManufacturersController::class, 'show'])->name('manufacturers.show');
+
 
 //Services
 Route::get('/services', [Services::class, 'index'])->name('services.index');

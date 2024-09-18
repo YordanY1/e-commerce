@@ -1,178 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-        <loc>http://127.0.0.1:8000/</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/about</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/about</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/services</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/services</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/contact</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/contact</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/products</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/products</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/terms</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/terms</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/cart</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/cart</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/checkout</loc>
-        <lastmod>2024-06-27T00:00:00+00:00</lastmod>
+        <loc>https://e-commerce.test/checkout</loc>
+        <lastmod>2024-09-17T00:00:00+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/ea7</loc>
-        <lastmod>2023-12-23T15:22:14+00:00</lastmod>
+        <loc>https://e-commerce.test/product/gazova-butilka</loc>
+        <lastmod>2024-09-17T09:03:36+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/gazov-kotlonokean101</loc>
-        <lastmod>2024-01-18T20:51:18+00:00</lastmod>
+        <loc>https://e-commerce.test/product/gazov-kotlon</loc>
+        <lastmod>2024-09-18T19:44:31+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/sonashi-sgb200</loc>
-        <lastmod>2024-01-18T20:51:52+00:00</lastmod>
+        <loc>https://e-commerce.test/product/nobg</loc>
+        <lastmod>2024-09-18T13:56:14+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/nurgaz-ng-3007</loc>
-        <lastmod>2024-01-18T20:52:22+00:00</lastmod>
+        <loc>https://e-commerce.test/product/photoshop</loc>
+        <lastmod>2024-09-18T19:20:44+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/kotlon</loc>
-        <lastmod>2024-01-18T20:53:14+00:00</lastmod>
+        <loc>https://e-commerce.test/category/gazovi-butilki</loc>
+        <lastmod>2024-09-16T08:23:55+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/ocean-101</loc>
-        <lastmod>2024-01-18T20:54:01+00:00</lastmod>
+        <loc>https://e-commerce.test/category/dvoini-gazovi-kontloni</loc>
+        <lastmod>2024-09-16T08:22:33+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/presit-po-e05</loc>
-        <lastmod>2024-01-18T20:55:00+00:00</lastmod>
+        <loc>https://e-commerce.test/category/test</loc>
+        <lastmod>2024-09-17T09:22:03+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/mevazsg101</loc>
-        <lastmod>2024-01-18T20:55:40+00:00</lastmod>
+        <loc>https://e-commerce.test/category/test2</loc>
+        <lastmod>2024-09-17T09:22:30+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/test</loc>
-        <lastmod>2024-04-09T08:00:18+00:00</lastmod>
+        <loc>https://e-commerce.test/manufacturers/koloseood-vtiernovo</loc>
+        <lastmod>2024-09-13T11:44:39+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/yordan</loc>
-        <lastmod>2024-04-16T20:37:54+00:00</lastmod>
+        <loc>https://e-commerce.test/manufacturers/koloseood</loc>
+        <lastmod>2024-09-16T08:24:46+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/yordan-yordanov</loc>
-        <lastmod>2024-04-16T20:39:40+00:00</lastmod>
+        <loc>https://e-commerce.test/manufacturers/ea7</loc>
+        <lastmod>2024-09-17T08:25:09+00:00</lastmod>
 
             </url>
     <url>
-        <loc>http://127.0.0.1:8000/product/stripetest</loc>
-        <lastmod>2024-04-18T20:29:44+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/quantity</loc>
-        <lastmod>2024-04-25T06:52:38+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/newprice</loc>
-        <lastmod>2024-05-15T13:01:21+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/newproduct</loc>
-        <lastmod>2024-06-24T07:25:00+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/product2</loc>
-        <lastmod>2024-06-21T07:22:27+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/pooooorduct</loc>
-        <lastmod>2024-06-21T07:50:36+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/yordanyordanov</loc>
-        <lastmod>2024-06-24T09:42:45+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/two-categories</loc>
-        <lastmod>2024-06-21T16:15:51+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/product/producti</loc>
-        <lastmod>2024-06-28T06:34:39+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/clothes</loc>
-        <lastmod>2023-12-23T15:15:03+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/clothes2</loc>
-        <lastmod>2023-12-23T15:21:36+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/clothes3</loc>
-        <lastmod>2024-01-18T20:49:42+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/gazovi-uredbi-za-avtomobili</loc>
-        <lastmod>2024-06-21T09:55:07+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/test</loc>
-        <lastmod>2024-06-22T05:52:40+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/malki-gotvarski-pecki-i-furni</loc>
-        <lastmod>2024-06-22T06:37:06+00:00</lastmod>
-
-            </url>
-    <url>
-        <loc>http://127.0.0.1:8000/category/malki-gotvarski-pecki</loc>
-        <lastmod>2024-06-22T06:37:22+00:00</lastmod>
+        <loc>https://e-commerce.test/manufacturers/kolos-eood</loc>
+        <lastmod>2024-09-18T20:01:41+00:00</lastmod>
 
             </url>
 </urlset>

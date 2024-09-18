@@ -67,40 +67,44 @@
                 </div>
 
                 <div class="row">
-                    @php $counter = 0; @endphp
-                    @foreach ($products as $product)
-                        @if ($counter < 6)
-                            <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
-                                <div class="product">
-                                    @foreach ($product->images as $image)
-                                        <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
-                                        @endforeach
-                                        <div class="inner">
-                                            <p>
-                                                <a href="#" class="icon add-to-cart btn btn-primary square-icon"
-                                                    onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                </a>
-                                                <a href="{{ url('/product', $product->slug) }}" class="icon btn btn-primary square-icon">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </p>
+                            @php
+                                $products = $products->shuffle();
+                                $counter = 0;
+                            @endphp
+                            @foreach ($products as $product)
+                                @if ($counter < 6)
+                                    <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
+                                        <div class="product">
+                                            @foreach ($product->images as $image)
+                                                <div class="product-grid" style="background-image:url('{{ asset('storage/' . $image->path) }}');">
+                                                @endforeach
+                                            </div>
+                                            <div class="desc">
+                                                <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
+                                                <div class="inner mt-3">
+                                                    <p>
+                                                        <a href="#" class="icon add-to-cart btn btn-primary square-icon"
+                                                            onclick="scm_addToCart(this, event);" data-product-id="{{ $product->id }}">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                        </a>
+                                                        <a href="{{ url('/product', $product->slug) }}" class="icon btn btn-primary square-icon">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <div class="rating">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <span class="fa fa-star{{ $i <= $product->average_rating ? ' checked' : '' }}"></span>
+                                                    @endfor
+                                                </div>
+                                                <span class="price">{{ $product->price->price ?? 'N/A' }} лв.</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="desc">
-                                        <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
-                                        <div class="rating">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <span class="fa fa-star{{ $i <= $product->average_rating ? ' checked' : '' }}"></span>
-                                            @endfor
-                                        </div>
-                                        <span class="price">{{ $product->price->price ?? 'N/A' }} лв.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @php $counter++; @endphp
-                        @endif
-                    @endforeach
+                                    @php $counter++; @endphp
+                                @endif
+                            @endforeach
+                        </div>
                     <x-products.cart-modal/>
                 </div>
             </div>

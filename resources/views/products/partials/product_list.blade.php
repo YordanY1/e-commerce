@@ -32,6 +32,8 @@
             <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="product">
                     <div class="product-grid" style="background-image:url('{{ $product->images->first() ? asset('storage/' . $product->images->first()->path) : asset('/images/default-product.jpg') }}');">
+                    </div>
+                    <div class="desc">
                         <div class="inner">
                             <p>
                                 <a href="#" class="icon add-to-cart btn btn-primary square-icon"
@@ -43,8 +45,6 @@
                                 </a>
                             </p>
                         </div>
-                    </div>
-                    <div class="desc">
                         <h3><a href="{{ url('/product', $product->slug) }}">{{ $product->name }}</a></h3>
                         <div class="rating">
                             @for ($i = 1; $i <= 5; $i++)

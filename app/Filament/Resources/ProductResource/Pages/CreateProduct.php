@@ -16,7 +16,6 @@ class CreateProduct extends CreateRecord
     {
         $data = $this->form->getState();
 
-        // Създаване на цена
         Price::create([
             'product_id' => $this->record->id,
             'price' => $data['price'],

@@ -13,6 +13,7 @@ class ProductsController extends Controller
     {
         $categories = Category::all();
         $manufacturers = Manufacturer::all();
+        $manufacturerName = null; // Variable for the manufacturer's name
 
         // Subquery for the lowest price for each product
         $priceSubQuery = \DB::table('prices')
@@ -25,40 +26,37 @@ class ProductsController extends Controller
             ->joinSub($priceSubQuery, 'price_subquery', function ($join) {
                 $join->on('products.id', '=', 'price_subquery.product_id');
             })
-            ->with(['images', 'reviews']); // Eager load images
+            ->with(['images', 'reviews']); // Eager load images and reviews
 
-        // Handle search query
+        // Search query logic
         if ($searchQuery = $request->query('query')) {
             $query->where(function ($q) use ($searchQuery) {
                 $q->where('name', 'LIKE', "%{$searchQuery}%")
-                  ->orWhereHas('attributes', function ($subQuery) use ($searchQuery) {
-                      $subQuery->where('description', 'LIKE', "%{$searchQuery}%");
-                  });
+                ->orWhereHas('attributes', function ($subQuery) use ($searchQuery) {
+                    $subQuery->where('description', 'LIKE', "%{$searchQuery}%");
+                });
             });
         }
 
         // Category filter logic
         $categorySlug = $request->query('category');
-        // \Log::info('Category Slug: ' . $categorySlug);
-
         $category = Category::where('slug', $categorySlug)->first();
         if ($category) {
             $categoryId = $category->id;
-            // \Log::info('Category ID: ' . $categoryId);
-
             $query->whereHas('attributes', function ($query) use ($categoryId) {
                 $query->whereJsonContains('categories', (string)$categoryId);
             });
-        } else {
-            // \Log::warning('Category not found for slug: ' . $categorySlug);
         }
 
-        // Manufacturer filter logic
-        $manufacturerId = $request->query('manufacturer');
-        // \Log::info('Manufacturer ID: ' . $manufacturerId);
+        // Manufacturer filter logic using slug
+        $manufacturerSlug = $request->query('manufacturer');
+        if ($manufacturerSlug) {
+            $manufacturer = Manufacturer::where('slug', $manufacturerSlug)->first();
 
-        if ($manufacturerId && $manufacturerId !== 'all') {
-            $query->where('manufacturer_id', $manufacturerId);
+            if ($manufacturer) {
+                $query->where('manufacturer_id', $manufacturer->id);
+                $manufacturerName = $manufacturer->name;
+            }
         }
 
         // Price range filter logic
@@ -71,7 +69,7 @@ class ProductsController extends Controller
         if ($request->query('pagination') === 'all') {
             $products = $query->get(); // Retrieve all products without pagination
         } else {
-            $pagination = $request->query('pagination', 100); // Default or requested pagination
+            $pagination = $request->query('pagination', 100); // Default or specified pagination
             $products = $query->paginate($pagination);
         }
 
@@ -84,8 +82,9 @@ class ProductsController extends Controller
         }
 
         // Return the full view for non-AJAX requests
-        return view('products.products', compact('products', 'categories', 'manufacturers'));
+        return view('products.products', compact('products', 'categories', 'manufacturers', 'manufacturerName'));
     }
+
 
     private function applyPriceFilter($query, $priceRange)
     {

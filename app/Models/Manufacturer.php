@@ -18,7 +18,6 @@ class Manufacturer extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
-    // Релация към Product (one-to-many)
     public function products()
     {
         return $this->hasMany(Product::class);

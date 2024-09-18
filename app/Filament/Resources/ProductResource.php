@@ -45,7 +45,21 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric(),
-                Forms\Components\Textarea::make('description'),
+                    Forms\Components\RichEditor::make('description')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'underline',
+                        'strike',
+                        'link',
+                        'bulletList',
+                        'orderedList',
+                        'blockquote',
+                        'h2',
+                        'h3',
+                        'h4',
+                        'codeBlock',
+                    ]),
             ])
             ->columns(2);
     }

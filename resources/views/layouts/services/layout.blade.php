@@ -26,6 +26,8 @@
 
     <title>Газови Услуги и Ремонти | Джеронимо</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])
 

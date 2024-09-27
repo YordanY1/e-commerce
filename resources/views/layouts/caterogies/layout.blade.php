@@ -36,6 +36,8 @@
 
     <title>Газови уреди за готвене, отопление и индустрия | Джеронимо</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <!-- Vite CSS за Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])
 </head>

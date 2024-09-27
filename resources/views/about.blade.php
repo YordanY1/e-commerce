@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="col-md-6" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
-                        <img class="img-responsive" src="images/gas_carousel_home.jpg" alt="about">
+                        <img class="img-responsive" src="images/gas_carousel_home.webp" alt="about">
                     </div>
                 </div>
             </div>

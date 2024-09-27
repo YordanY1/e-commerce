@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Джеронимо">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Open Graph Meta Tags -->
@@ -35,6 +36,8 @@
     <link rel="shortcut icon" href="{{ asset('images/jeronimo-logo-color.png') }}" type="image/png">
 
     <title>Висококачествени Газови Уреди за Бита и Промишлеността | Джеронимо</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- Vite CSS for Laravel Mix -->
     @vite(['resources/scss/frontend/app.scss'])

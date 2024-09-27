@@ -3,13 +3,13 @@
 
 @section('content')
 
-        <div class="full-bg-image" style="background-image: url('/images/gas_carousel_home.jpg');">
-            <div class="container">
+        <div class="full-bg-image" style="background-image: url('/images/gas_carousel_home.webp');">
+
                 <div class="welcome-text" data-aos="fade-in" data-aos-duration="1000">
                     <h2 style="color: #106EE8">Добре дошли в нашия магазин!</h2>
                     <h6 style="color: #106EE8">Разгледайте нашите разнообразни продукти</h6>
                 </div>
-            </div>
+
         </div>
 
 

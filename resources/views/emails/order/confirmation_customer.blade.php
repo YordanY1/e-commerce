@@ -1,4 +1,22 @@
 @component('mail::message')
+
+<style>
+    .container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+</style>
+
+<div class="container">
+    <img src="https://i.imgur.com/Z3IT6TQ.jpg" alt="Logo" class="logo">
+</div>
+
 # Потвърждение на поръчка
 
 Благодарим Ви за поръчката! Ще се свържем с вас, за да уточним детайлите по нея! Ето детайли за вашата поръчка:
@@ -11,8 +29,13 @@
 @endforeach
 @endcomponent
 
-**Общо: {{ number_format((float)$payment['totalAmount'], 2) }} лв**
+**Общо сума:** {{ $payment['totalAmount'] }} лв
 
-Благодарим,<br>
-{{ config('app.name') }}
+
+
+Благодарим Ви още веднъж, че избрахте {{ config('app.name') }}. Очакваме да Ви доставим поръчката възможно най-скоро!
+
+С уважение,<br>
+Екипът на {{ config('app.name') }}
+
 @endcomponent

@@ -98,8 +98,6 @@ class CheckoutController extends Controller
             'street' => 'required|string|max:255',
         ]);
 
-        // Log::info('processPayment: Start', ['Session ID' => session()->getId(), 'Request Data' => $request->all()]);
-
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $paymentIntentId = $request->input('payment_intent_id');
@@ -122,7 +120,6 @@ class CheckoutController extends Controller
 
         try {
             $intent = PaymentIntent::retrieve($paymentIntentId);
-            // Log::info('processPayment: PaymentIntent retrieved', ['Intent Status' => $intent->status]);
 
             if ($intent->status === 'succeeded') {
                 $cart = $request->session()->get('cart', []);
@@ -150,17 +147,16 @@ class CheckoutController extends Controller
                     }
                 }
 
-                // **Изчисляване на сумите**
-                $totalAmount = $intent->amount_received / 100; // Total amount in Lev, including VAT
-                $amountBeforeVAT = $totalAmount / 1.2; // Calculate amount before VAT
-                $vatAmount = $totalAmount - $amountBeforeVAT; // 20% VAT of the amount before VAT
-
                 // **Създаване на запис за плащане**
+                $totalAmount = $intent->amount_received / 100; // Total amount in Lev, including VAT
+
+                // Log::info('Total amount received from Stripe', ['totalAmount' => $totalAmount]);
+
                 $payment = new Payment();
                 $payment->stripe_payment_intent_id = $intent->id;
-                $payment->amount = $amountBeforeVAT; // Amount before VAT
-                $payment->vat_amount = $vatAmount; // VAT amount
-                $payment->total_amount = $totalAmount; // Total amount
+                $payment->amount = $totalAmount; // Total amount with VAT
+                $payment->vat_amount = 0; // VAT is already included, no need to calculate
+                $payment->total_amount = $totalAmount; // Total amount with VAT
                 $payment->currency = $intent->currency;
                 $payment->status = 1;
                 $payment->session_id = $request->session()->getId();
@@ -187,20 +183,22 @@ class CheckoutController extends Controller
 
                 // **Подготовка на данни за имейл**
                 $emailData = [
-                    'customer' => $customer, // Можете да използвате $customer вместо $customerDetails
+                    'customer' => $customer,
                     'cart' => $cart,
-                    'payment' => [
-                        'amount' => number_format($amountBeforeVAT, 2),
-                        'vatAmount' => number_format($vatAmount, 2),
-                        'totalAmount' => number_format($totalAmount, 2),
+                 'payment' => [
+                        'amount' => number_format(floatval(str_replace(',', '', $totalAmount)), 2),
+                        'vatAmount' => 0,
+                        'totalAmount' => number_format(floatval(str_replace(',', '', $totalAmount)), 2),
                         'currency' => $intent->currency,
                         'method' => $paymentMethod
                     ]
                 ];
 
-                // **Изпращане на имейли (ако желаете)**
-                // Mail::to($customer->email)->send(new OrderConfirmationMail($cart, $emailData['payment'], $customer));
-                // Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customer, $paymentMethod, $invoiceDetails));
+                // Log::info('Total amount being sent to email', ['totalAmount' => $emailData['payment']['totalAmount']]);
+
+
+                Mail::to($customer->email)->send(new OrderConfirmationMail($cart, $emailData['payment'], $customer));
+                Mail::to('jeronimostore1@gmail.com')->send(new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customer, $paymentMethod, $invoiceDetails));
 
                 // **Изчистване на количката от сесията**
                 $request->session()->forget('cart');
@@ -215,4 +213,5 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.failure')->withErrors('Payment processing failed. Please try again.');
         }
     }
+
 }

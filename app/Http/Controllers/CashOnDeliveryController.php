@@ -16,7 +16,6 @@ class CashOnDeliveryController extends Controller
      */
     public function processOrder(Request $request)
     {
-
         $paymentMethod = $request->input('payment_method', 'Плащане с наложен платеж');
 
         // Initialize invoice details with default values
@@ -50,17 +49,15 @@ class CashOnDeliveryController extends Controller
                 return back()->withErrors('Cart is empty.');
             }
 
-            $amountBeforeVAT = $this->calculateCartTotal($cart);
-            $vatAmount = $amountBeforeVAT * 0.20;
-            $totalAmount = $amountBeforeVAT + $vatAmount;
+            $totalAmount = $this->calculateCartTotal($cart);
 
             // Save payment/order details
             $payment = new Payment();
-            $payment->amount = $amountBeforeVAT;
-            $payment->vat_amount = $vatAmount;
+            $payment->amount = $totalAmount;
+            $payment->vat_amount = 0;
             $payment->total_amount = $totalAmount;
-            $payment->currency = 'BGN';  // Assuming BGN is the currency
-            $payment->status = 0; // Indicates pending delivery
+            $payment->currency = 'BGN';
+            $payment->status = 0;
             $payment->session_id = $request->session()->getId();
             $payment->save();
 
@@ -69,9 +66,9 @@ class CashOnDeliveryController extends Controller
                 'customer' => $customerDetails,
                 'cart' => $cart,
                 'payment' => [
-                    'amount' => floatval(number_format($amountBeforeVAT, 2)),
-                    'vatAmount' => floatval(number_format($vatAmount, 2)),
-                    'totalAmount' => floatval(number_format($totalAmount, 2)),
+                    'amount' => number_format($totalAmount, 2),
+                    'vatAmount' => 0,
+                    'totalAmount' => number_format((float)$totalAmount, 2),
                     'method' => $paymentMethod
                 ]
             ];
@@ -80,11 +77,11 @@ class CashOnDeliveryController extends Controller
             $customerMail = new OrderConfirmationMail($cart, $emailData['payment'], $customerDetails);
             $ownerMail = new OrderConfirmationOwnerMail($cart, $emailData['payment'], $customerDetails, $paymentMethod, $invoiceDetails ?? []);
 
-
             // Sending emails
             Mail::to($customerDetails['email'])->send($customerMail);
             Mail::to('jeronimostore1@gmail.com')->send($ownerMail);
 
+            // Изчистване на количката от сесията
             $request->session()->forget('cart');
 
             return redirect()->route('checkout.success');

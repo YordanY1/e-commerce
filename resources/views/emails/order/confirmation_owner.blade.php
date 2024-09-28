@@ -1,5 +1,24 @@
 @component('mail::message')
-# Нова поръчка получена
+
+
+<style>
+    .container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+</style>
+
+<div class="container">
+    <img src="https://i.imgur.com/Z3IT6TQ.jpg" alt="Logo" class="logo">
+</div>
+
+# Нова получена поръчка
 
 ## Информация за клиента
 **Имейл:** {{ $customer['email'] }}
@@ -33,7 +52,8 @@
 @endcomponent
 
 
-**Общо сума:** {{ number_format($payment['totalAmount'], 2) }} лв
+**Общо сума:** {{ $payment['totalAmount'] }} лв
+
 <br/>
 
 **Метод на плащане:**

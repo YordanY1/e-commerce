@@ -1,6 +1,5 @@
 @component('mail::message')
 
-
 <style>
     .container {
         text-align: center;
@@ -10,6 +9,28 @@
     .logo {
         max-width: 100%;
         height: auto;
+    }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e6e6e6;
+        padding-bottom: 10px;
+    }
+
+    .product-image {
+        margin-right: 20px;
+    }
+
+    .product-image img {
+        max-width: 100px;
+        height: auto;
+    }
+
+    .total {
+        font-weight: bold;
+        font-size: 20px;
     }
 
 </style>
@@ -43,26 +64,31 @@
 @endif
 
 ## Обобщение на поръчката
-@component('mail::table')
-| Артикул | Код | Количество | Единична цена | Общо   |
-|---------|-----|------------|---------------|--------|
+
 @foreach($cart['products'] as $item)
-| {{ $item['name'] }} | {{ $item['code'] }} | {{ $item['quantity'] }} | {{ number_format((float) $item['price'], 2) }} лв | {{ number_format((float) $item['price'] * (int) $item['quantity'], 2) }} лв |
+<div class="product-info">
+    <div class="product-image">
+        <img src="{{ Str::startsWith($item['image'], ['http', 'https']) ? $item['image'] : asset('storage/images/'.$item['image']) }}" alt="{{ $item['name'] }}">
+    </div>
+    <div>
+        <p><strong>{{ $item['name'] }}</strong></p>
+        <p>Код: {{ $item['code'] }}</p>
+        <p>Количество: {{ $item['quantity'] }}</p>
+        <p>Цена: {{ $item['price'] }} лв</p>
+        <p>Общо: {{ $item['price'] * $item['quantity'] }} лв</p>
+    </div>
+</div>
 @endforeach
-@endcomponent
 
+<p class="total">**Общо сума:** {{ $payment['totalAmount'] }} лв</p>
 
-**Общо сума:** {{ $payment['totalAmount'] }} лв
-
-<br/>
-
-**Метод на плащане:**
+## Метод на плащане:
 @if ($payment['method'] === 'card')
-    `Карта, през платформата на Stripe. Доставката се заплаща на куриера`
+    Карта, през платформата на Stripe. Доставката се заплаща на куриера.
 @elseif ($payment['method'] === 'cod')
-    `Плащане с наложен платеж`
+    Плащане с наложен платеж.
 @endif
 
-
 Благодарим Ви, че избрахте {{ config('app.name') }}!
+
 @endcomponent

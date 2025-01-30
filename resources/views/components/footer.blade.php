@@ -31,7 +31,7 @@
         <!-- Copyright Notice -->
         <div class="row">
             <div class="col-12 text-center mt-3">
-                <p class="text-muted">Всички права са спазени ©2024 Джеронимо</p>
+               <p class="text-muted">Всички права са спазени ©{{ now()->year }} Джеронимо</p>
             </div>
         </div>
     </div>
